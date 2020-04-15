@@ -20,38 +20,45 @@
 \usepackage[caption = false]{subfig}
 
 \usepackage[greek,english]{babel}
-\usepackage{thumbpdf,enumerate}
+% \usepackage{thumbpdf,enumerate}
 \usepackage{booktabs}
-\usepackage{sidecap}
-\usepackage[scaled=.8]{couriers}    
-\usepackage{pstricks}
+% \usepackage{sidecap}
+% \usepackage[scaled=.8]{couriers}    
+% \usepackage{pstricks}
 \usepackage{multirow}
 \usepackage{placeins}
- \usepackage{relsize}  
-\usepackage{pst-grad,bm}
-\usepackage{epigraph}
-\usepackage{gensymb}
-\usepackage{longtable}
-\usepackage{booktabs}
-\usepackage{gensymb}
+\usepackage{relsize}  
+% \usepackage{pst-grad,bm}
+% \usepackage{epigraph}
+% \usepackage{gensymb}
+% \usepackage{longtable}
+% \usepackage{booktabs}
+% \usepackage{gensymb}
 
-\usepackage{soul}
-\usepackage{ulem} 
-\normalem 
+% \usepackage{soul}
+% \usepackage{ulem}
+% \normalem 
 
 \usepackage{acronym}
-\usepackage{todonotes}
-
-\usepackage{physics}
+% \usepackage{todonotes}
+\usepackage{easyReview}
 
 \usepackage{tikz}
+\usetikzlibrary{quantikz}
+\usepackage{physics}
 
 \newcommand{\bs}[1]{\boldsymbol{#1}}
 \newcommand{\on}[1]{\operatorname{#1}}
 \newcommand{\U}{\mathcal{U}}
 \newcommand{\CC}{\mathbb{C}}
+\newcommand{\PP}{\mathbb{P}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\ZZ}{\mathbb{Z}}
+
+\newcommand{\calE}{{\mathcal{E}}}
+\newcommand{\calH}{{\mathcal{H}}}
+\newcommand{\calU}{{\mathcal{U}}}
+\newcommand{\calV}{{\mathcal{V}}}
 
 
 \begin{document}
@@ -235,7 +242,7 @@ The first part of the states correspond to resource needed for the protocol accu
 %After a first research in literature, the maximum amount of entanglement generated with %OAM seems to be 3 ebit. In Ref. \cite{Malik2016}, the authors produce 3 entangled %qutrits in a 3-photon experiment.
 
 \section{Entanglement transfer via polarisation projection}
-Consider the following scenario: two polarisation-entangled photons evolve independently according the same unitary evolution $\mathcal U$, which entangles their polarisation and OAM degrees of freedom. After the evolution, the polarisations are projected. Is it possible with such a scheme to transfer the entanglement, that was initially shared between the photons' polarisations, into their OAM degrees of freedom?
+Consider the following scenario: two polarisation-entangled photons evolve independently with the same unitary $\mathcal U$, which entangles their polarisation and OAM degrees of freedom. After the evolution, the polarisations are projected. Is it possible with such a scheme to transfer the polarisation entanglement into the OAMs?
 
 Suppose the two photons are initially the state
 \begin{equation}
@@ -246,10 +253,10 @@ Suppose the two photons are initially the state
     a_{p_1,\ell_0,H}^\dagger) \ket{\mathrm{vac}},
     \label{eq:proj_initial_state}
 \end{equation}
-for some initial OAM state $\ell_0$, and denoting with $p_i$ the $i$-th position (in our analysis, $i\in\{0,1\}$).
+for some initial OAM $\ell_0$, and with $p_i, i=0,1$ the $i$-th position.
 Note that~\cref{eq:proj_initial_state} is nothing but a state of the form $\ket{HV}+\ket{VH}$ in second quantisation notation.
-Because in the following no other operation interfering the two photons will be introduced, we can safely switch to bra-ket notation.
-Thus, evolving the photons locally with the same unitary $\U$ gives
+As long as no operation interfering the two photons is used, we can safely operate in this bra-ket notation.
+Evolving the photons locally with the same unitary $\U$ gives
 $(\U\otimes\U)(\ket{HV}+\ket{VH})$.
 Let us then define
 $\ket{\Psi^s}\equiv\U\ket s$, with $s\in\{H,V\}$.
@@ -260,12 +267,12 @@ The states $\ket{\Psi^s}$ are one-photon states which in general display entangl
     \sin\theta_s \ket V\otimes\ket{\Psi^s_{V}},
 \end{equation}
 for some angle $\theta_s$ and states $\ket{\Psi^s_p}$.
-Moreover, the unitarity of $\U$ implies that $\braket{\Psi^H}{\Psi^V}=0$, which translates into the following constraint for $\theta_s$ and $\ket{\Psi^s_p}$:
+Moreover, the unitarity of $\U$ implies that $\braket*{\Psi^H}{\Psi^V}=0$, which translates into the following constraint for $\theta_s$ and $\ket{\Psi^s_p}$:
 \begin{equation}
     \cos^2\theta_s\braket*{\Psi^H_H}{\Psi^V_H} +
     \sin^2\theta_s\braket*{\Psi^H_V}{\Psi^V_V} = 0.
 \end{equation}
-The final state then reads
+The output state thus reads
 \begin{equation}
     \ket{\on{out}}
     % \equiv (\U\otimes \U)(\ket{HV}+\ket{VH})
@@ -320,77 +327,289 @@ To see whether this condition can be satisfied by an appropriate choice of proje
 \end{aligned}
 \end{equation}
 
-The unitarity of $\U$ is then translated into the orthogonality condition $\langle\bs v_1,\bs v_3\rangle+\langle\bs v_2,\bs v_4\rangle=0$, while~\cref{eq:proj_suffcondition_for_transfer} becomes
+\subsection{New method}
+Consider a bipartite state of the form $\ket{HV}+\ket{VH}$.
+Applying a local unitary $\calU$ on both sides, we get
+$\ket*{\Psi^H,\Psi^V} + \ket*{\Psi^V,\Psi^H}$
+for $\ket*{\Psi^H}\equiv \calU \ket H$
+and $\ket*{\Psi^V}\equiv \calU \ket V$.
+    Suppose that $\ket*{\Psi^s}$ are each embedded into a larger Hilbert space with two internal degrees of freedom (\emph{e.g.} polarisation and OAM), and let us write their amplitudes as $\Psi^s_{\alpha,i}$. We want to figure out whether we can project the first degree of freedom on both sides over some state $\ket\gamma$, and still have a maximally entangled state on the remaining degree of freedom.
+
+Focusing on the first particle, to have a maximally entangled state after the projection, we must have
+\begin{equation}
+    \langle \langle \gamma, \Psi^H\rangle, \langle \gamma, \Psi^V\rangle\rangle=0,
+    \label{eq:orthogonality_condition_to_get_maxent}
+\end{equation}
+where $\langle \gamma,\Psi^s\rangle$ denotes the state remaining after the projection, that is, the state with amplitudes $\sum_\alpha \bar\gamma_\alpha\Psi^s_{\alpha,i}$.
+Explicitly,~\cref{eq:orthogonality_condition_to_get_maxent} reads
+$%\begin{equation}
+    \sum_{\alpha,\beta,i}
+    \gamma_\alpha \bar\gamma_\beta \bar\Psi^H_{\alpha,i} \Psi^V_{\beta,i} = 0.
+$ %\end{equation}
+Interpreting $(\Psi^s_{\alpha,i})_{\alpha,i}$ as matrices, the problem becomes to find the conditions under which there is a state $\ket\gamma$ such that
+\begin{equation}
+    \tr[
+        (\Psi^H)^\dagger (\gamma\gamma^\dagger) \Psi^V
+    ] =
+    \mel{\gamma}{\Psi^V(\Psi^H)^\dagger}{\gamma} = 0.
+    \label{eq:expval0_condition}
+\end{equation}
+
+% Suppose now that $\Psi^H$ and $\Psi^V$ are also each maximally entangled.
+% This is a necessary requirement for any such scheme to work.
+% In our notation, this is equivalent to them being $2\times N$ rectangular matrices with orthonormal rows.
+Let $\bs u_1,\bs u_2$ and $\bs v_1,\bs v_2$ denote the rows of $\Psi^H$ and $\Psi^V$, respectively, and define $C\equiv \Psi^V(\Psi^H)^\dagger$. Then,
+\begin{equation}
+    C =
+    \begin{pmatrix}
+        \langle \bs u_1, \bs v_1\rangle & \langle \bs u_2, \bs v_1\rangle \\
+        \langle \bs u_1, \bs v_2\rangle & \langle \bs u_2, \bs v_2\rangle
+    \end{pmatrix}.
+\end{equation}
+The orthogonality between $\ket*{\Psi^H}$ and $\ket*{\Psi^V}$ is equivalent to $\tr(C)=0$,
+which also implies that $C$ has eigenvalues
+$\lambda_\pm = \pm\sqrt{-\det C}$.
+Suppose $\det C\neq0$, so that $C$ is ensured to be diagonalisable. In general $C$ is not normal, and thus not \emph{orthogonally} diagonalisable.
+If $\ket{\lambda_\pm}$ are the eigenvectors of $C$,~\cref{eq:expval0_condition} is satisfied by
+\begin{equation}
+    \ket\gamma =
+    % \frac{1}{\sqrt{2(1+\Re\langle\bs v_+,\bs v_-\rangle)}}
+    % \left(
+    % \bs v_+} +
+    % e^{i\arg\langle\bs v_+,\bs v_-\rangle} \bs v_-
+    % \right).
+    \frac{
+        % \left(
+        \ket{\lambda_+} +
+        e^{i\arg\braket*{\lambda_+}{\lambda_-}} \ket{\lambda_-}
+        % \right)
+    }{
+        \sqrt{2(1+\Re\braket*{\lambda_+}{\lambda_-})}
+    }.
+\end{equation}
+We also note that the $\det C\neq0$ condition implies that $\{\bs u_1, \bs u_2\}$ and $\{\bs v_1, \bs v_2\}$ are linearly independent and nonzero: if for example $\{\bs u_1,\bs u_2\}$ is not linearly independent, then $\bs u_2=\alpha \bs u_1$ for some $\alpha\neq0$, which immediately implies $\det C=0$ (and the same argument applies to $\{\bs v_1,\bs v_2\}$).
+If $\det C=0$, then there are two possible scenarios. If $C=0$, then it is still diagonalisable, and any $\ket\gamma$ satisfies~\cref{eq:expval0_condition} (albeit different $\ket\gamma$ will correspond to different success probabilities).
+For the $C\neq0$ case,
+suppose one of the vectors, for example $\bs v_1$, is zero (the other cases proceed similarly). Then we can find a projection $\ket\gamma$ as long as $\on{span}(\{\bs u_1,\bs u_2\})$ contains a vector orthogonal to $\bs v_2$. This is ensured to happen if $\{\bs u_1,\bs u_2\}$ is linearly independent, or if $\langle\bs u_2,\bs v_2\rangle=0$. As an additional condition, we also need $\langle\bs u_1, \bs v_2\rangle\neq0$ if $\langle \bs u_2,\bs v_2\rangle\neq0$.
+
+An example of such scenario is
+$\ket*{\Psi^V}=\ket V\ket1$ and
+$\ket*{\Psi^H}=\frac{1}{\sqrt2}\left(\ket H\ket2 + \frac{1}{\sqrt2}\ket V(\ket{1} + \ket2)\right)$.
+Here, $\bs u_1 = \ket2/\sqrt2$, $\bs u_2=\frac12(\ket1+\ket2)$,
+$\bs v_1=0$ and $\bs v_2=\ket1$.
+While $\on{span}(\{\bs u_1,\bs u_2\})$ contains $\ket2$, which is orthogonal to $\bs v_2$, we have $\langle \bs u_2,\bs v_2\rangle\neq0$ but $\langle \bs u_1,\bs v_2\rangle=0$, which means that the projection should be $\ket\gamma=\ket H$, which happens with zero probability.
+
+On the other hand, if
+$\ket*{\Psi^V}=\ket V\ket1$ and
+$\ket*{\Psi^H}=\frac{1}{\sqrt2}\left(\ket H\ket1 + \frac{1}{\sqrt2}\ket V(\ket{1} + \ket2)\right)$,
+then the projection $\ket\gamma=\frac{1}{\sqrt3}(-\ket H+ \sqrt2\ket V)$ has nonzero probability and does what we want. 
+
+As an example, suppose
 \begin{equation}
 \begin{aligned}
-    (\abs{\gamma_H}^2-\abs{\gamma_V}^2) \langle\bs v_1,\bs v_3\rangle &+
-    \gamma_H\gamma_V^* \langle\bs v_1, \bs v_4\rangle \\
-    &+ \gamma_H^*\gamma_V \langle\bs v_2, \bs v_3\rangle = 0.
+    \sqrt2\ket*{\Psi^H} &= \ket H\otimes \ket 1 + \ket V\otimes \ket +, \\
+    \sqrt2\ket*{\Psi^V} &= \ket H\otimes \ket - + \ket V\otimes \ket 0.
 \end{aligned}
-\label{eq:proj_conditions_on_vs}
 \end{equation}
-Introducing the angles $\theta,\varphi$ to parametrise the projection $\gamma$, with $\gamma_H=\cos\theta$ and $\gamma_V=\sin\theta e^{i\varphi}$, we get
+Then,
+$\bs u_1 = \ket 1$, $\bs u_2 = \ket +$,
+$\bs v_1 = \ket -$, $\bs v_2 = \ket 0$,
+and
+\begin{equation}
+    C = \begin{pmatrix}
+        -\frac1{\sqrt2} & 0 \\
+        0 & \frac1{\sqrt2}
+    \end{pmatrix}.
+\end{equation}
+The projection $\ket\gamma=\ket+$ is therefore suitable, as can be directly verified:
 % \begin{equation}
-%     \cos(2\theta) \langle\bs v_1,\bs v_3\rangle +
-%     \sin(2\theta)e^{-i\varphi} (
-%         \langle\bs v_1,\bs v_4\rangle +
-%         e^{2i\varphi}\langle\bs v_2,\bs v_3\rangle
-%     ) = 0.
+% \begin{aligned}
+%     \braket*{\gamma}{\Psi^H} &=
+%     % \ket1 + \ket+ =
+%     \frac{1}{2\sqrt2} \ket0 +
+%     \frac12\left(1 + \frac{1}{\sqrt2}\right) \ket1, \\
+%     %
+%     \braket*{\gamma}{\Psi^V} &=
+%     % \ket1 + \ket+ =
+%     \frac12\left(1 + \frac{1}{\sqrt2}\right) \ket0
+%     - \frac1{2\sqrt2} \ket1.
+% \end{aligned}
 % \end{equation}
 \begin{equation}
-    \cos(2\theta) +
-    \sin(2\theta) \left[
-        e^{-i\varphi}c_1 +
-        e^{i\varphi}c_2
-    \right] = 0,
-    \label{eq:proj_anglecondition_1}
+\begin{aligned}
+    2\sqrt2 \braket*{\gamma}{\Psi^H} &=
+    % \ket1 + \ket+ =
+    \ket0 +
+    \left(\sqrt2 + 1\right) \ket1, \\
+    %
+    2\sqrt2 \braket*{\gamma}{\Psi^V} &=
+    % \ket1 + \ket+ =
+    \left(\sqrt2 + 1\right) \ket0
+    - \ket1.
+\end{aligned}
 \end{equation}
-where we assumed $\langle\bs v_1,\bs v_3\rangle\neq0$, and defined
-$c_1\equiv \frac{\langle\bs v_1,\bs v_4\rangle}{\langle\bs v_1,\bs v_3\rangle}$ and
-$c_2\equiv \frac{\langle\bs v_2,\bs v_3\rangle}{ \langle\bs v_1,\bs v_3\rangle }$.
-On the other hand, if $\langle\bs v_1,\bs v_3\rangle=0$ then~\cref{eq:proj_conditions_on_vs} gives
-\begin{equation}
-    \sin(2\theta)(
-    e^{-i\varphi} \langle\bs v_1,\bs v_4\rangle +
-    e^{i\varphi}\langle\bs v_2,\bs v_3\rangle
-    ) = 0.
-    \label{eq:proj_anglecondition_2}
-\end{equation}
-% which is satisfied if $\theta\in\{0,\pi/2\}$, or $\theta\neq0,\pi/2$ and
+% Note how it is not necessary for the internal degrees of freedom on the individual parties to be maximally entangled for this to work.
+
+% The unitarity of $\U$ is then translated into the orthogonality condition $\langle\bs v_1,\bs v_3\rangle+\langle\bs v_2,\bs v_4\rangle=0$, while~\cref{eq:proj_suffcondition_for_transfer} becomes
 % \begin{equation}
+% \begin{aligned}
+%     (\abs{\gamma_H}^2-\abs{\gamma_V}^2) \langle\bs v_1,\bs v_3\rangle &+
+%     \gamma_H\gamma_V^* \langle\bs v_1, \bs v_4\rangle \\
+%     &+ \gamma_H^*\gamma_V \langle\bs v_2, \bs v_3\rangle = 0.
+% \end{aligned}
+% \label{eq:proj_conditions_on_vs}
+% \end{equation}
+% Introducing the angles $\theta,\varphi$ to parametrise the projection $\gamma$, with $\gamma_H=\cos\theta$ and $\gamma_V=\sin\theta e^{i\varphi}$, we get
+% % \begin{equation}
+% %     \cos(2\theta) \langle\bs v_1,\bs v_3\rangle +
+% %     \sin(2\theta)e^{-i\varphi} (
+% %         \langle\bs v_1,\bs v_4\rangle +
+% %         e^{2i\varphi}\langle\bs v_2,\bs v_3\rangle
+% %     ) = 0.
+% % \end{equation}
+% \begin{equation}
+%     \cos(2\theta) +
+%     \sin(2\theta) \left[
+%         e^{-i\varphi}c_1 +
+%         e^{i\varphi}c_2
+%     \right] = 0,
+%     \label{eq:proj_anglecondition_1}
+% \end{equation}
+% where we assumed $\langle\bs v_1,\bs v_3\rangle\neq0$, and defined
+% $c_1\equiv \frac{\langle\bs v_1,\bs v_4\rangle}{\langle\bs v_1,\bs v_3\rangle}$ and
+% $c_2\equiv \frac{\langle\bs v_2,\bs v_3\rangle}{ \langle\bs v_1,\bs v_3\rangle }$.
+% On the other hand, if $\langle\bs v_1,\bs v_3\rangle=0$ then~\cref{eq:proj_conditions_on_vs} gives
+% \begin{equation}
+%     \sin(2\theta)(
 %     e^{-i\varphi} \langle\bs v_1,\bs v_4\rangle +
-%     e^{i\varphi} \langle\bs v_2,\bs v_3\rangle = 0.
-%     \label{eq:proj_anglecondition_3}
+%     e^{i\varphi}\langle\bs v_2,\bs v_3\rangle
+%     ) = 0.
+%     \label{eq:proj_anglecondition_2}
 % \end{equation}
-% In all of these cases, there are angles $\theta,\varphi$ such that the condition is satisfied, implying that one can always find a projection which results in the entanglement being fully transferred into the OAM degree of freedom.
-To see in which cases we can find angles $\theta,\varphi$ satisfying these relations, the crucial observation is that, for any pair of complex numbers $c_1,c_2\in\CC$, the set
+% % which is satisfied if $\theta\in\{0,\pi/2\}$, or $\theta\neq0,\pi/2$ and
+% % \begin{equation}
+% %     e^{-i\varphi} \langle\bs v_1,\bs v_4\rangle +
+% %     e^{i\varphi} \langle\bs v_2,\bs v_3\rangle = 0.
+% %     \label{eq:proj_anglecondition_3}
+% % \end{equation}
+% % In all of these cases, there are angles $\theta,\varphi$ such that the condition is satisfied, implying that one can always find a projection which results in the entanglement being fully transferred into the OAM degree of freedom.
+% To see in which cases we can find angles $\theta,\varphi$ satisfying these relations, the crucial observation is that, for any pair of complex numbers $c_1,c_2\in\CC$, the set
+% \begin{equation}
+%     \{e^{-i\varphi}c_1 +
+%         e^{i\varphi}c_2: \varphi\in\RR\}
+% \end{equation}
+% is an ellipse in $\CC\simeq\RR^2$ centered at the origin.
+% It follows that, for all $c_1,c_2\in\CC$, there is some $\varphi\in\mathbb R$ such that $e^{-i\varphi}c_1 + e^{i\varphi}c_2\in\RR$ (indeed, we know that there are exactly two values of $\varphi$ such that this holds).
+% Moreover, one of the two axes of the ellipse equals zero (and thus the ellipse collapses to a segment) if and only $\abs{c_1}=\abs{c_2}$ and $\arg c_1+\arg c_2\in\{0,\pi\}$.
+
+% In the case $\langle\bs v_1,\bs v_3\rangle=0$ considered in~\cref{eq:proj_anglecondition_2}, we obtain orthogonal states on the OAM by choosing a projection of the form $\gamma_H \gamma_V=0$, or alternatively if $|\langle\bs v_1,\bs v_4\rangle|=|\langle\bs v_2,\bs v_3\rangle|$ and $\arg \langle\bs v_1,\bs v_4\rangle+\arg \langle\bs v_2,\bs v_3\rangle\in\{0,\pi\}$, via a projection such that $\varphi+\arg \langle\bs v_1,\bs v_4\rangle\in  \pi \ZZ/2$.
+% In the more general case with $\langle\bs v_1,\bs v_3\rangle\neq0$,~\cref{eq:proj_anglecondition_1} oughts to be satisfied. Because we can always find $\varphi$ such that $e^{-i\varphi}c_1+e^{i\varphi}c_2\in\RR$, it follows that the condition is equivalent to $\cos(2\theta)+\sin(2\theta)N=0$ for some $N\in\RR$, which is solved by $\theta$ such that $\tan(2\theta)=-1/N$ (unless $N=0$, which happens in the degenerate case in which the ellipse collapses to a vertical segment).
+
+% We conclude that there is always a projection $\ket\gamma$ such that $\braket*{\gamma}{\Psi^H}$ is orthogonal to $\braket*{\gamma}{\Psi^V}$. We can then choose $\ket\delta$ similarly to have $\ket{\on{out}}$, as defined in~\cref{eq:proj_output_state}, become a Bell state embedded in the enlarged OAM state, thus achieving (although probabilistically) perfect entanglement transfer from the polarisation to the OAM.
+
+% The probability of this projection reads
+% \begin{equation}
+% \begin{aligned}
+%     |\braket{\gamma\delta}{\on{out}}|^2 =
+%     \frac{1}{2}\big(
+%         &\lvert\braket*{\gamma}{\Psi^H}\!
+%         \braket*{\delta}{\Psi^V}\rvert^2 \\
+%         +
+%         &\lvert\braket*{\gamma}{\Psi^V}\!
+%         \braket*{\delta}{\Psi^H}\rvert^2
+%     \big).
+% \end{aligned}
+% \end{equation}
+
+\subsection{General setting}
+
+More generally, we can summarise the problem at hand with the following circuit:
+
+\begin{minipage}[c]{\linewidth}
+    \centering
+    \begin{quantikz}
+        \lstick[wires=4]{$\ket{\Psi_{\on{in}}}$}\qw &\qw & \gate[wires=2]{U_{12}}\slice{$\ket{\Psi_f}$} &\qw \\
+        % \qw & \gate[wires=2]{U_{23}} & \qw & & \qw & \qw\rstick[wires=2]{$\ket{\Psi_f}$}\\
+        \qw & \gate[wires=2]{U_{23}} & & \qw\rstick{$\!\!\!\ket{\gamma}$}\\
+        \qw & & \gate[wires=2]{U_{34}} & \qw\rstick{$\!\!\!\ket{\gamma}$}\\
+        \qw & \qw & \qw & \qw
+    \end{quantikz}
+\end{minipage}
+The correspondence with the notation used in the previous section is that the first two spaces encode the degrees of freedom of the first photon, third and fourth of the second photon. Second and third spaces correspond to the polarisations of the two photons, and first and fourth spaces to their OAM. It is worth stressing however that the problem studied here goes beyond this particular photonic implementation, and the spaces can have arbitrary dimensions.
+
+The problem we investigate is under what conditions we can find projections $\ket\gamma$ such that the entanglement in $\calH_2\otimes\calH_3$ generated by $U_{23}$ is transferred to $\calH_1\otimes\calH_4$.
+Assuming the initial state $\ket{\Psi_{\on{in}}}$ is a product state, the general form of $\ket{\Psi_f}$ reads
 \begin{equation}
-    \{e^{-i\varphi}c_1 +
-        e^{i\varphi}c_2: \varphi\in\RR\}
+    \ket{\Psi_f} = \sum_k \sqrt{p_k} \ket{u^k}_{12}\ket{v^k}_{34},
+    \label{eq:general_psif}
 \end{equation}
-is an ellipse in $\CC\simeq\RR^2$ centered at the origin.
-It follows that, for all $c_1,c_2\in\CC$, there is some $\varphi\in\mathbb R$ such that $e^{-i\varphi}c_1 + e^{i\varphi}c_2\in\RR$ (indeed, we know that there are exactly two values of $\varphi$ such that this holds).
-Moreover, one of the two axes of the ellipse equals zero (and thus the ellipse collapses to a segment) if and only $\abs{c_1}=\abs{c_2}$ and $\arg c_1+\arg c_2\in\{0,\pi\}$.
+where
+% $\ket*{u^k}_{12}\in\calH_{12},
+% \ket*{v^k}_{34}\in\calH_{34}$, and
+$\braket*{u^j}{u^k}=\braket*{v^j}{v^k}=\delta_{jk}$.
+This covers all states that can be generated by a circuit of this form for arbitrarily chosen unitaries $U_{12},U_{23},U_{34}$. The entanglement between the subsystems $\calH_{12}$ and $\calH_{34}$ is determined by $U_{23}$, and encoded into the Schmidt coefficients $p_k$ in~\cref{eq:general_psif}.
+A point worth stressing is that, if the unitaries $U_{12}$ and $U_{34}$ can be freely chosen, then the problem is trivial. Indeed, one can then trivially fully transfer the entanglement, using for example swap gates (or some similarly defined gates when $\calH_1$ and $\calH_2$ have different dimensions). The setting considered here is thus one in which the gates are assumed to be given.
 
-In the case $\langle\bs v_1,\bs v_3\rangle=0$ considered in~\cref{eq:proj_anglecondition_2}, we obtain orthogonal states on the OAM by choosing a projection of the form $\gamma_H \gamma_V=0$, or alternatively if $|\langle\bs v_1,\bs v_4\rangle|=|\langle\bs v_2,\bs v_3\rangle|$ and $\arg \langle\bs v_1,\bs v_4\rangle+\arg \langle\bs v_2,\bs v_3\rangle\in\{0,\pi\}$, via a projection such that $\varphi+\arg \langle\bs v_1,\bs v_4\rangle\in  \pi \ZZ/2$.
-In the more general case with $\langle\bs v_1,\bs v_3\rangle\neq0$,~\cref{eq:proj_anglecondition_1} oughts to be satisfied. Because we can always find $\varphi$ such that $e^{-i\varphi}c_1+e^{i\varphi}c_2\in\RR$, it follows that the condition is equivalent to $\cos(2\theta)+\sin(2\theta)N=0$ for some $N\in\RR$, which is solved by $\theta$ such that $\tan(2\theta)=-1/N$ (unless $N=0$, which happens in the degenerate case in which the ellipse collapses to a vertical segment).
-
-We conclude that there is always a projection $\ket\gamma$ such that $\braket*{\gamma}{\Psi^H}$ is orthogonal to $\braket*{\gamma}{\Psi^V}$. We can then choose $\ket\delta$ similarly to have $\ket{\on{out}}$, as defined in~\cref{eq:proj_output_state}, become a Bell state embedded in the enlarged OAM state, thus achieving (although probabilistically) perfect entanglement transfer from the polarisation to the OAM.
-
-The probability of this projection reads
+If we want to optimally transfer the entanglement from $\calH_{23}$ to $\calH_{14}$, we need an output state on $\calH_{14}$ of the form
+$\ket*{\Psi_t} = \sum_k \sqrt{p_k}\ket*{\tilde u^k}_1\!\!\ket*{\tilde v_k}_4$.
+For this to be the case, we need to find a state $\ket\gamma$ such that the orthogonality is preserved after the projection, that is, such that $\{\!\braket*{\gamma}{u^k}\}_k$ and 
+$\{\!\braket*{\gamma}{v^k}\}_k$ are both orthogonal sets.
+One way to write this condition is to define the states
+$\ket U\equiv\sum_k \ket*{u^k}$
+and
+$\ket V\equiv\sum_k \ket*{v^k}$,
+and ask for a $\ket\gamma$ such that both
+$\mel{\gamma}{\PP_U}{\gamma}$
+and
+$\mel{\gamma}{\PP_V}{\gamma}$
+are diagonal with eigenvalues $p_k$,
+and $\PP_\psi\equiv\ketbra{\psi}$.
+When this is the case, the projection probability is then given by
 \begin{equation}
-\begin{aligned}
-    |\braket{\gamma\delta}{\on{out}}|^2 =
-    \frac{1}{2}\big(
-        &\lvert\braket*{\gamma}{\Psi^H}\!
-        \braket*{\delta}{\Psi^V}\rvert^2 \\
-        +
-        &\lvert\braket*{\gamma}{\Psi^V}\!
-        \braket*{\delta}{\Psi^H}\rvert^2
-    \big).
-\end{aligned}
+    \det[
+        \mel{\gamma}{\PP_U}{\gamma}\mel{\gamma}{\PP_V}{\gamma}
+    ].
 \end{equation}
 
+
+\section{Entanglement retrieval (Luca magari \'e gi\'a contenuto nel tuo metodo pi\'u generale?)}
+
+Let us investigate the inverse process for the entanglement transfer, namely from the the state of two entangled walkers to the space of the two coins. Here the question if it is always possible to saturate the maximal amount of entanglement transferable to the space of two qubits. In other word if we can obtain a Bell-like state with one ebit of entanglement via two local identical quantum walks routines and a suitable single-qudit projection in the walker subspace. 
+
+Let's start from the simplest case, an initial state as
+\begin{equation}
+    \ket{\Psi_0}=\frac{1}{\sqrt{2}}\ket{\uparrow\uparrow}\otimes
+    ( \ket{\psi_a\psi_a}+\ket{\psi_b\psi_b})
+\end{equation}
+in which we require $\braket{\psi_a}{\psi_b}=0$, in order to have one ebit of entanglement at the beginning of the process. Furthermore the dimension $d_0$ of each walkers subsystem is at least two, $d_0\geq 2$. Under the hypothesis of the evolution according to two identical local QWs routine, the final state becomes
+\begin{equation}
+    \ket{\Psi_f}=\frac{1}{\sqrt{2}}(\ket{\Psi^{\uparrow a}\Psi^{\uparrow a}}+\ket{\Psi^{\uparrow b}\Psi^{\uparrow b}})
+    \label{eq:retr1}
+\end{equation}
+According to the notation of the previous sections, the states $\ket{\Psi^{\uparrow i}}$ are the output of a single-particle QW given as input the coin state $\ket{\uparrow}$ and the walker in $\ket{\psi_i}$. Given the structure of QW's evolution that correlates the two degree of freedoms, the coin and the positions, we can express the $\ket{\Psi^{\uparrow i}}$ as
+\begin{align}
+    \ket{\Psi^{\uparrow a}}&= a_0\,\ket{0\,\phi_{a_0}} +a_1\,\ket{1\,\phi_{a_1}} \notag\\
+    \ket{\Psi^{\uparrow b}}&= b_0\,\ket{0\,\phi_{b_0}} +b_1\,\ket{1\,\phi_{b_1}}
+    \label{eq:retr2}
+\end{align}
+where $\{\ket{0},\ket{1}\}$ is a generic orthonormal basis for the coin subspace and the $\ket{\phi_{i_j}}$ the projections of the state $\ket{\Psi^{\uparrow i}}$ in this basis. 
+Now we look for the local qudit projector $\hat{P}_{\phi}=\ketbra{\phi}$ acting on the single subsystem for obtaining a Bell-like state in the two coins. Let us label the overlaps between $\phi$ and single qudit states $\ket{\phi_{i_j}}$ in \eqref{eq:retr2} as
+\begin{equation}
+    \braket{\phi}{\phi_{i_j}}=\beta_{ij}
+\end{equation}
+where we remind that index $i=\{a,b\}$ and $j=\{0,1\}$. Then the state after the projection $\hat{P}_{\phi}$ in the two subsystem
+\begin{equation}
+\begin{split}
+    \braket{\phi}{\Psi_f}&=\frac{1}{\sqrt{2}}[(a_0a_1\beta_{a0}\beta_{a1}
+    + b_0b_1 \beta_{b0}\beta_{b1})(\ket{01}+\ket{10})+\\
+    &+(a_0^2\beta_{a0}^2+b_0^2\beta_{b0}^2)\ket{00}+ (a_1^2\beta_{a1}^2+b_1^2\beta_{b1}^2)\ket{11}]
+\end{split}
+\end{equation}
+Let us observe that a Bell-like state in the form $\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ by requiring for example that 
+\begin{align}
+\beta_{a0}&=\beta_{b1}=0 \\
+\frac{b_0}{a_1}&= e^{i \alpha} \frac{\beta_{a1}}{\beta_{b_0}}
+\end{align}
 \section{Open questions}
 \begin{itemize}
     %\item Beyond the ebit: entanglement %accumulation. Iterating the protocol after %a nonlocal operation between the two %parties. Concerning the issue of generating %qudit states in the OAM with more than one %ebit of entanglement, in literature we %found for the moment only this work Ref. %\cite{Malik2016} (3 entangled qutrit). \\
