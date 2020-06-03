@@ -1,6 +1,12 @@
 \documentclass[
-aps, pra, authorblock, superscriptaddress, twocolumn,
-	10pt]{revtex4-1}
+	aps, pra,
+	superscriptaddress, twocolumn,
+	floatfix,
+	10pt
+]{revtex4-1}
+
+\usepackage{silence}
+\WarningFilter{revtex4-1}{Repair the float}  % to remove annoying revtex message
 \usepackage[final]{graphicx}
 \graphicspath{{./figures/}}
 \usepackage{times,bbm,amsmath,amssymb}
@@ -18,7 +24,7 @@ aps, pra, authorblock, superscriptaddress, twocolumn,
 \usepackage{float,siunitx}
 \usepackage[caption = false]{subfig}
 
-\usepackage[greek,english]{babel}
+% \usepackage[english]{babel}
 % \usepackage{thumbpdf,enumerate}
 \usepackage{booktabs}
 % \usepackage{sidecap}
@@ -59,6 +65,7 @@ aps, pra, authorblock, superscriptaddress, twocolumn,
 \newcommand{\calH}{{\mathcal{H}}}
 \newcommand{\calS}{{\mathcal{S}}}
 \newcommand{\calP}{{\mathcal{P}}}
+\newcommand{\calO}{{\mathcal{O}}}
 \newcommand{\calU}{{\mathcal{U}}}
 \newcommand{\calV}{{\mathcal{V}}}
 \newcommand{\calW}{{\mathcal{W}}}
@@ -224,98 +231,56 @@ It is worth stressing that, for arbitrary choices of $\ket\Psi$, such entangleme
 \end{figure}
 
 \parTitle{We are actually dealing with two problems at once}
-Note that the task at hand can be broken down into two distinct entanglement transfer problems: restricting to \emph{local} projections on both sides, the transferability of entanglement between $\calH^{(1)}_{\calC}$ and $\calH^{(1)}_{\calW}$ is independent from that between $\calH^{(2)}_{\calC}$ and $\calH^{(2)}_{\calW}$.
-Consequently, most of our discussion will focus, without loss of generality, on the transferability on a single side.
+The task at hand can be broken down into two distinct entanglement transfer problems: restricting to \emph{local} projections on both sides, the transferability of entanglement between $\calH^{(1)}_{\calC}$ and $\calH^{(1)}_{\calW}$ is independent from that between $\calH^{(2)}_{\calC}$ and $\calH^{(2)}_{\calW}$.
+Most of our discussion will thus focus, without loss of generality, on the transferability on a single side.
 
-\parTitle{Condition for entanglement transfer}
-Consider a state $\ket\Psi\in\calH$, and focus on the state of the first photon: $\calH^{(1)}$. As we only allow local operations in this setting, we have to deal with the reduced $\rho\equiv\Tr_2\ketbra\Psi$. Projecting onto a polarization state $\ket\gamma$ then gives $\rho_{\calW}\equiv \mel\gamma\rho\gamma\in\calH^{(1)}_{\calW}$.
+\parTitle{Conditions for entanglement transfer}
+Consider a state $\ket\Psi\in\calH$.
+% , and focus on the state of the first photon: $\calH^{(1)}$.
+As we only allow local operations, we have to deal with the reduced state $\rho\equiv\Tr_2\ketbra\Psi$. Projecting onto a polarization state $\ket\gamma$ then gives $\rho_{\calW}\equiv \mel\gamma\rho\gamma\in\calH^{(1)}_{\calW}$.
 We want the projection $\ket\gamma$ to be such that, \textit{in the full state}, the degree of entanglement is not degraded.
-For this to be the case, it is necessary and sufficient that $\rho_{\calW}$ is \textit{diagonal in the same eigenbasis of $\rho$}.
+For this to be the case, it is necessary and sufficient that $\rho_{\calW}$ is \textit{diagonal in the same eigenbasis of $\rho$}, and has the same eigenvalues.
+More precisely, each eigenspace of $\rho$ must be invariant under the projection.
 This ensures that the projection does not reveal any information about the correlations with $\calH^{(2)}$, which would damage the entanglement.
 \highlight{(proper proof. Also mention that bad entanglement can be improved via local projection?)}
-
-% These have the form
-% \begin{equation}
-%     \ket*{\Psi_f} = \sum_k \sqrt{p_k} \ket{u_k}\ket{v_k},
-%     \label{eq:general_psif}
-% \end{equation}
-% for some $p_k\ge0$ with $\sum_k p_k=1$ and orthonormal sets of vectors $\{\ket{u_k}\}_k\subset\calH_{AB}$ and $\{\ket{v_k}\}_k\in\calH_{CD}$.
-
-\parTitle{Merge with above}
-Optimal entanglement transfer is achieved when the postselected state has the same Schmidt decomposition as $\ket{\Psi_f}$:
+More explicitly, this ensures that the state
 \begin{equation}
-    \braket*{\gamma_B\gamma_C}{\Psi_f} = \sqrt{p_{\on{proj}}}
-    \sum_k \sqrt{p_k} \ket*{\tilde u_k} \!\ket*{\tilde v_k},
-    \label{eq:projected_general_psif}
+	\ket\Psi= \sum_k \sqrt{p_k} \ket{u_k}\ket{v_k}
 \end{equation}
-where $p_{\on{proj}}$ denotes the projection probability corresponding to the projection, and
-% $\ket*{\tilde u_k}\equiv \braket*{\gamma_B}{u_k}$ and
-% $\ket*{\tilde v_k}\equiv \braket*{\gamma_C}{v_k}$
-% $\ket*{\tilde u_k},\ket*{\tilde v_k}$
-% satisfy
-$\braket{\tilde u_j}{\tilde u_k}=\braket{\tilde v_j}{\tilde v_k} = \delta_{jk}$.
-To get to~\cref{eq:projected_general_psif}, we need
-\begin{enumerate}
-    \item $\bs u_k\equiv \braket{\gamma_B}{u_k}=\sqrt{p^u_k}\ket{\tilde u_k}$ to be orthogonal,
-    \item $\bs v_k\equiv \braket{\gamma_C}{v_k}=\sqrt{p^v_k}\ket{\tilde v_k}$ to be orthogonal,
-    \item the projection probabilities $p^u_k$ and $p^v_k$ to be such that $p^u_k p^v_k$ does not depend on $k$.
-\end{enumerate}
-The problem can be trivial or impossible in some cases, for example when $\ket{u_k},\ket{v_k}$ are product states. The cases of interest are thus when the entanglement is in some way distributed between $AB$ and $CD$, so that a projection is needed to transfer the entanglement.
-The constraint on the probabilities is necessary because projecting we get the state
+becomes
 \begin{equation}
-    \braket*{\gamma_B\gamma_C}{\Psi_f} =
-    \sum_k \sqrt{p_k} \sqrt{p_k^u p_k^v} \ket*{\tilde u_k}\ket*{\tilde v_k},
+	\braket{\gamma}{\Psi} =
+	\sqrt{p_{\on{proj}}}\sum_k \sqrt{p_k} \ket*{\tilde u_k}\ket{v_k}
 \end{equation}
-and thus if $p_j^u p_j^v\neq p_k^u p_k^v$ the entanglement would be degraded.
+where $\ket*{\tilde u_k}\equiv \braket{\gamma}{u_k}/\sqrt{p_{\on{proj}}}$ are the post-projected states, and
+$p_{\on{proj}}\equiv |\braket{\gamma}{u_k}|^2$ the projection probability.
+It is worth stressing that, \emph{a priori}, the projection probabilities $|\braket{\gamma}{u_k}|^2$ depend on $k$, but we need them to be the same for optimal entanglement transfer.
 
-\parTitle{Formal solution in general case}
-The conditions $\braket*{\tilde u_j}{\tilde u_k}=0$ are equivalent to
-\begin{equation}
-    \mel{\gamma}{\tr_A(\ketbra*{u^j}{u^k})}{\gamma} = p^u_j \delta_{jk},
-    \label{eq:orthogonality_condition_for_ent_transfer}
-\end{equation}
-and similarly for $\ket{v_k}$.
-The task is therefore reduced to finding $\ket\gamma$ such that $\mel{\gamma}{C_{jk}}{\gamma}=0$, given $C_{jk}\equiv\tr_A(\ketbra*{u^j}{u^k})$ such that $\tr C_{jk}=\delta_{jk}$.
-More generally, define the auxiliary state
-$\ket*{\tilde\Psi_f}=\sum_k \sqrt{p_k}\ket*{u^k}\otimes\ket k$.
-This state can be understood as a representation of $\ket{\Psi_f}$ in a suitable basis for $\calH_{CD}$.
-The conditions for optimal entanglement transfer then amount to
-$\mel{\gamma}{\tr_A(\tilde\Psi_f)}{\gamma}$ being diagonal.
-Its diagonal elements are then the projection probabilities $p^u_j$.
-% Optimal projection probability is achieved when $p^u_j=p^u$, and thus 
-% $\mel{\gamma}{\tr_A(\tilde\Psi_f)}{\gamma}=p^u I$.
-% The overall projection probability is then $p_{\on{proj}}=p^u p^v$.
-Note that it is possible for more than one projection $\ket\gamma$ to achieve entanglement transfer. In such situations, one might accept multiple measurement results on $B,C$, thus further increasing the projection probability.
-Some examples of this will be seen in the following sections.
-% This probability can be upper-bounded in the general case as $p^u\le 1/N$ with $N$ the Schmidt rank of $\ket{\Psi_f}$. This follows from $\{\ket*{u^k}\}_k$ being an orthonormal set of $N$ vectors, and thus $1\ge \sum_k |\braket*{\gamma}{u^k}|^2=N p^u$.
-% This upper-bounds the overall projection probability with $p_{\on{proj}}\le 1/N^2$.
-% Nevertheless, different projections $\ket\gamma$ can result in optimal entanglement transfer, and possibly the same output state. In these cases, one can accept multiple outcomes, and there being $N$ possible orthogonal states in an $N$-dimensional system, achieve an improved projection probability of $p_{\on{proj}}\le 1/N$.
-% Some examples of this type of situations will be given in the following section.
-The projection probabilities equal $p^u_j=p^u=1$ when no entanglement transfer is taking place due to $A$ and $B$ being separated.
-% Similarly, when $p^u$ is close to one, a partial trace over $B,C$ might be enough to obtain a sufficient amount of entanglement on the remaining degrees of freedom.
+\parTitle{Entanglement distillation via local projection}
+The constraint on the projection probabilities can be lifted when the projection allowed in the second party is taken into consideration.
+This is because any form of ``imperfect entanglement'' can be improved by means of local projections in some cases.
 
 \parTitle{Relations with entanglement swapping}
 This problem can be understood as a more restrictive version of entanglement swapping~\cite{zukowski1993eventreadydetectors}.
 Entanglement swapping deals with a four-partite system $\calH_{ABCD}$, with entanglement in $\calH_{AB}$ and $\calH_{CD}$, and we wish to obtain entanglement in $\calH_{AD}$ by performing projective measurements on $\calH_{BC}$.
 This is analogous to our problem, except that we only allow \emph{local} operations on $B$ and $C$. Notably, the typical solution used in the context of entanglement swapping, projecting $BC$ on a Bell state, is not available in our setting: we only allow for projections of the form $P_B\otimes P_C$.
 
-\subsection{\texorpdfstring{$2\to N$}{} entanglement transfer}
+\subsection{\texorpdfstring{$2\to N$}{2->N} entanglement transfer}
 
 \parTitle{Problem setting}
-While solving the problem in full generality is challenging, in the case of $\calH_B,\calH_C$ being two-dimensional we can derive a general solution for the projection $\ket\gamma$.
+While solving the problem in full generality is challenging, in the case of two-dimensional $\calH^{(i)}_{\calC}$ an explicit solution can be derived.
 % We consider here the special case of $B,C$ being two-dimensional degrees of freedom.
-For simplicity of notation, we will denote in this section the two possible states of the two-dimensional degree of freedom with ``$H$'' and ``$V$'', rather than ``$1$'' and ``$2$''.
-The task is then to find $\ket\gamma$ such that
+Write the eigendecomposition of the reduced state $\rho\in\calH_{\calW}\otimes\calH_{\calC}$ as
 \begin{equation}
-    \mel{\gamma}{\tr_A(\ketbra*{u^H}{u^V})}{\gamma} =
-    \mel{\gamma}{\tr_A(\ketbra*{v^H}{v^V})}{\gamma} = 0.
+	\rho= p_1 \ketbra{u} + p_2 \ketbra{v}, \,\,p_1+p_2=1.
 \end{equation}
-Let us assume for simplicity that $\ket*{v^V}=\ket*{u^H}$ and $\ket*{v^H}=\ket*{u^V}$.
-This allows us to only have to deal with the condition over the $\ket*{u^s}$, and have the condition over the projection probabilities be automatically satisfied.
-
-\parTitle{General solution for projection $\ket\gamma$}
-Define the matrix $M\equiv \tr_A(\ketbra*{u^H}{u^V})$. The orthogonality relation $\braket*{u^H}{u^V}=0$ then implies $\tr M=0$.
-Then, provided that $M$ is diagonalisable with $M\ket{\lambda_s}=\pm\lambda\ket{\lambda_s}$, define
+For a projection $\ket\gamma$ to preserve the invariants of $\rho$ it needs to satisfy
+$\mel{u}{\PP_\gamma}{v}=0$, which is equivalent to
+\begin{equation}
+	\mel{\gamma}{\tr_{\calW}(\ketbra{u}{v})}{\gamma} = 0.
+\end{equation}
+Defining $M\equiv \tr_{\calW}(\ketbra{u}{v})$, we notice that $\tr M=0$.
+Assuming $M$ is diagonalisable and $M\ket{\lambda_s}=\pm\lambda\ket{\lambda_s}$, we define
 \begin{equation}
     \ket\gamma\equiv N\left(
         \ket{\lambda_+} +
@@ -328,16 +293,147 @@ A sufficient condition for $M$ to be diagonalisable is that $\det M\neq0$, which
 $\{\braket*{H}{u^H},\braket*{V}{u^H}\}$ and
 $\{\braket*{H}{u^V},\braket*{V}{u^V}\}$
 are both linearly independent and nonzero.
+\highlight{(possibly remove this paragraph, proof with SVD is better)}
 
-\parTitle{Special case of normal $M$}
-Interestingly, when $M$ is normal, there are always multiple viable projections.
-Indeed, in this case we have $M=\sum_k \lambda_k \ketbra{\lambda_k}$ with $\sum_k\lambda_k=0$,
-and thus given $\ket\gamma=\sum_k c_k\ket{\lambda_k}$ we have
-$\mel{\gamma}{M}{\gamma}=\sum_k \lambda_k |c_k|^2$,
-which vanishes whenever $|c_k|=1$.
-We can then choose $\sqrt2\ket{\gamma_\pm}=\ket{\lambda_1}\pm\ket{\lambda_2}$, increasing the probability of entanglement transfer.
+\parTitle{Proof with SVD}
+If $M$ is normal, then
+\begin{equation}
+	M = \lambda( \ketbra{v_1} - \ketbra{v_2}),
+\end{equation}
+for some $\lambda\in\CC$ and $\braket{v_i}{v_j}=\delta_{ij}$.
+Then,
+\begin{equation}
+	\sqrt2\ket{\gamma_\phi} = \ket{v_1} + e^{i\phi}\ket{v_2}, \quad \phi\in\RR
+\end{equation}
+are suitable projections such that $\mel{\gamma_\phi}{M}{\gamma_\phi}=0$.
+% The singular value decomposition of $M$ reads
+% \begin{equation}
+% 	M = s_1 \ketbra{v_1}{w_1} + s_2 \ketbra{v_2}{w_2},
+% \end{equation}
+% where $\braket{v_1}{v_2}=\braket{w_1}{w_2}=0$, $s_i\ge0$, and $\tr M=0$ translates into
+% % \begin{equation}
+% 	$s_1\braket{w_1}{v_1} + s_2 \braket{w_2}{v_2}=0$.
+% % \end{equation}
+% Consider the projections
+% \begin{equation}
+% \begin{aligned}
+% 	\sqrt2\ket*{\gamma_\pm} &= \ket{w_1} \pm \ket{w_2}, \\
+% 	\sqrt2\ket*{\gamma_\pm'} &= \ket{v_1} \pm \ket{v_2}.
+% \end{aligned}
+% \end{equation}
+% Then clearly $\braket{\gamma_+}{\gamma_-}=\braket{\gamma_+'}{\gamma_-'}=0$, and at the same time
+% \begin{equation}
+% 	\mel*{\gamma_\pm}{M}{\gamma_\pm} = \mel*{\gamma_\pm'}{M}{\gamma_\pm'}.
+% \end{equation}
+For $M$ not normal, its SVD has the form
+\begin{equation}
+	M = s_1 \ketbra{u_1}{u_2} + s_2 \ketbra{u_2}{u_1}
+\end{equation}
+\highlight{(why??)}
+with $\braket{u_1}{u_2}=0$ and $s_i>0$. Suitable projections are in this case
+$\ket{\gamma_i}=\ket{u_i}$.
 
-\parTitle{Quantum walks!}
+\section{Entanglement transfer in QWs}
+
+\parTitle{Single step}
+A single step of QW with coin $C\equiv (c_{ij})_{ij}$ amounts to the evolution
+\begin{equation}
+\begin{aligned}
+	\ket\uparrow&\rightarrow \ket*{\Psi_\uparrow} \equiv c_{11}\ket{\uparrow,1} + c_{21}\ket{\downarrow,2}, \\
+	\ket\downarrow&\rightarrow \ket*{\Psi_\downarrow} \equiv c_{12}\ket{\uparrow,1} + c_{22}\ket{\downarrow,2}.
+\end{aligned}
+\end{equation}
+Projecting on the coin state $\ket\gamma$ we get
+\begin{equation}
+\begin{aligned}
+	\ket*{\psi_\uparrow} \simeq \braket*{\gamma}{\Psi_\uparrow} &= \gamma_\uparrow^*c_{11}\ket1 + \gamma_\downarrow^* c_{21}\ket2, \\
+	\ket*{\psi_\downarrow} \simeq \braket*{\gamma}{\Psi_\downarrow} &= \gamma_\uparrow^* c_{12} \ket1 + \gamma_\downarrow^* c_{22} \ket2.
+\end{aligned}
+\end{equation}
+The orthogonality of these states reads
+\begin{equation}
+\begin{gathered}
+	\braket*{\psi_\uparrow}{\psi_\downarrow}
+	% \mel{\gamma}{\tr_{\calW}(\ketbra*{\Psi_\uparrow}{\Psi_\downarrow})}{\gamma}
+	= |\gamma_\uparrow|^2 c_{11}^* c_{12} + |\gamma_\downarrow|^2 c_{21}^* c_{22} = 0,
+\end{gathered}
+\end{equation}
+which is satisfied by $\sqrt2\ket\gamma = \ket\uparrow + e^{i\phi}\ket\downarrow$ for any $\phi\in\RR$.
+The corresponding projection probabilities are both equal to $1/2$, as follows from
+\begin{equation}
+\begin{aligned}
+	2\abs{\braket{\gamma}{\Psi_\uparrow}}^2 &= |c_{11}|^2 + |c_{21}|^2 = 1, \\
+	2\abs{\braket{\gamma}{\Psi_\downarrow}}^2 &= |c_{12}|^2 + |c_{22}|^2 = 1.
+\end{aligned}
+\end{equation}
+We conclude that entanglement transfer is always possible with probability $1/2$.
+More precisely, if the initial state of the QW $\ket*{\Psi_{\on{in}}}$ is entangled via its coin with an external degree of freedom, as in
+\begin{equation}
+	\sqrt2\ket*{\Psi_{\on{in}}} = \ket{1,\uparrow} \otimes \ket{u_1} + \ket{1,\downarrow}\otimes \ket{u_2},
+\end{equation}
+with $\ket{u_i}$ arbitrary orthogonal states of the additional degree of freedom,
+then the entanglement can always be transferred from $\calH_{\calC}$ to $\calH_{\calW}$ with probability $1/2$.
+Remarkably, the freedom in the choice of the phase $\phi$ means that both $\sqrt2\ket\pm\equiv \ket\uparrow+\ket\downarrow$ are \emph{both} suitable projections achieving entanglement transfer.
+This result in an overall transfer success probability of $1$: both outcomes of measuring in the $\ket\pm$ basis achieve entanglement transfer, albeit with different post-measurement states.
+
+\parTitle{Multiple steps}
+After multiple QW steps, the output state has the form
+\begin{equation}
+\begin{aligned}
+	\ket{\Psi_s} =
+	\cos(\theta_s) \ket{\uparrow,\Psi_{s,\uparrow}} +
+	\sin(\theta_s) \ket{\downarrow,\Psi_{s,\downarrow}},
+	% s\in\{\uparrow,\downarrow\}.
+\end{aligned}
+\end{equation}
+where $\theta_s$ and $\ket{\Psi_{s,p}}$ depend on the number of steps and choice of coin operators.
+To achieve entanglement transfer, we consider the matrix
+$M\equiv \tr_{\calW}(\ketbra{\Psi_\uparrow}{\Psi_\downarrow})$,
+which equals
+\begin{equation}\scalebox{0.97}{$\displaystyle
+	M = \begin{pmatrix}
+		\cos(\theta_\uparrow)\cos(\theta_\downarrow) \calO_{\uparrow\uparrow} &
+		\cos(\theta_\uparrow)\sin(\theta_{\downarrow}) \calO_{\downarrow\uparrow} \\
+		\cos(\theta_\downarrow)\sin(\theta_{\uparrow}) \calO_{\uparrow\downarrow} &
+		\sin(\theta_\uparrow)\sin(\theta_\downarrow) \calO_{\downarrow\downarrow}
+	\end{pmatrix}.
+$}\end{equation}
+where
+$\calO_{sp}\equiv\braket{\Psi_{\downarrow s}}{\Psi_{\uparrow p}}$.
+This $M$ is not in general Hermitian, nor normal. Consequently, while it is possible to find a projection $\ket\gamma$ via~\cref{eq:definition_projgamma_2dcase}, the projection probabilities are not in general equal.
+This can be fixed by either choosing coin operations which make these probabilities equal \highlight{(probably not possible)}, or by compensating the unequal projection probabilities with similar projection probabilities on the other party.
+
+
+\parTitle{Pair of QWs}
+Up to now we focused on the transferability between coin and walker degrees of freedom of a single QW.
+However, the same reasoning apply symmetrically if the additional party the first QW is entangled to is another QW.
+In particular, we can consider a scheme in which the initial state is a pair of entangled coins (\emph{e.g.} the polarisations of a pair of photons) in a single state
+\begin{equation}
+	\sqrt2\ket{\Psi_{\calC}}\equiv \ket{\uparrow,\downarrow} + \ket{\downarrow,\uparrow}.
+\end{equation}
+Then, applying the same QW evolution on both sides, we have a state of the form
+\begin{equation}
+	\sqrt2(\calU_{\on{QW}}\otimes \calU_{\on{QW}}) \ket{\Psi_{\calC}} =
+	\ket{\Psi_\uparrow,\Psi_\downarrow} +
+	\ket{\Psi_\downarrow,\Psi_\uparrow}.
+\end{equation}
+The reduced states on $\calH^{(1)}$ and $\calH^{(2)}$ are thus both equal to
+% \begin{equation}
+	$2\rho = \PP_{\Psi_\uparrow} + \PP_{\Psi_\downarrow}$,
+% \end{equation}
+and the transferability conditions become
+\begin{equation}
+	\mel{\gamma}{\tr_{\calW}(\ketbra{\Psi_\uparrow}{\Psi_\downarrow})}{\gamma} = 0.
+\end{equation}
+We can always find two orthogonal projections $\ket{\gamma_i}$, $i=1,2$ that satisfy this condition, as shown previously.
+The post-selected state is therefore
+\begin{equation}
+	\braket*{\gamma^{(1)}}{\Psi_\uparrow}\otimes \braket*{\gamma^{(2)}}{\Psi_\downarrow}
+	+
+	\braket*{\gamma^{(1)}}{\Psi_\downarrow}\otimes \braket*{\gamma^{(2)}}{\Psi_\uparrow}
+\end{equation}
+with $\ket*{\gamma^{(i)}}$ the projection used on the $i$-th QW.
+
 
 \subsection{Remove?}
 Consider the following scenario: two polarisation-entangled photons evolve independently with the same unitary $\mathcal U$, which entangles their polarisation and OAM degrees of freedom. After the evolution, the polarisations are projected. Is it possible with such a scheme to transfer the polarisation entanglement into the OAMs?
