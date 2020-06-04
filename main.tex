@@ -113,11 +113,11 @@ We study the possibility of entangling two high-dimensional systems using a pair
 Here we go beyond the context set by such earlier investigations and, by taking issue from the possibilities offered by the effective dynamics on the walker, we engineer a double-QW interface that is able to transfer entanglement from a two-coin state to a bipartite OAM-encoded state. We show that...\MP{riassunto dei risultati}. Remarkably, we show that the very same dynamical process used to transfer the entanglement from the qubit resource to the two-walker state can be used to {\it retrieve} entanglement to a fresh pair of qubits prepared in a separable state. \MP{commento sull'efficienza di retrieval} Therefore, our scheme embodies a righteous \highlight{(?)} two-way interface with a good efficiency of transfer and retrieval and a valuable tool for the dynamical combination of hybrid hetero-dimensional information carriers.
 
 \parTitle{Tentative outline}
-\begin{itemize}
-    \item \Cref{sec:overview}: Overview of necessary background on QWs and OAM
-    \item Considerations on purity (goal: evidence of residual entanglement between walkers).
-    \item Analytical framework
-\end{itemize}
+In~\cref{sec:overview} we give an overview of necessary background on QWs and OAM.
+In~\cref{sec:entanglement_transfer_local_projections} we formalise the entanglement transferability problem and study its solutions in the general case.
+In~\cref{sec:entanglement_transfer_in_QWs} we study the entanglement transfer between coin and walker degrees of freedom of a pair of QWs.
+
+Considerations on purity (goal: evidence of residual entanglement between walkers).
 
 
 %\cite{chuang2010}
@@ -201,6 +201,7 @@ A common criterion for discerning if a multipartite state is separable or not, i
 \end{figure}
 
 \section{Entanglement transfer via local projections}
+\label{sec:entanglement_transfer_local_projections}
 
 \subsection{Entanglement transfer via projective measurements}
 
@@ -334,6 +335,7 @@ with $\braket{u_1}{u_2}=0$ and $s_i>0$. Suitable projections are in this case
 $\ket{\gamma_i}=\ket{u_i}$.
 
 \section{Entanglement transfer in QWs}
+\label{sec:entanglement_transfer_in_QWs}
 
 \parTitle{Single step}
 A single step of QW with coin $C\equiv (c_{ij})_{ij}$ amounts to the evolution
@@ -430,9 +432,20 @@ The post-selected state is therefore
 \begin{equation}
 	\braket*{\gamma^{(1)}}{\Psi_\uparrow}\otimes \braket*{\gamma^{(2)}}{\Psi_\downarrow}
 	+
-	\braket*{\gamma^{(1)}}{\Psi_\downarrow}\otimes \braket*{\gamma^{(2)}}{\Psi_\uparrow}
+	\braket*{\gamma^{(1)}}{\Psi_\downarrow}\otimes \braket*{\gamma^{(2)}}{\Psi_\uparrow},
 \end{equation}
 with $\ket*{\gamma^{(i)}}$ the projection used on the $i$-th QW.
+For the resulting state to be maximally entangled we need
+\begin{equation}\scalebox{0.96}{$\displaystyle
+	\|\braket*{\gamma^{(1)}}{\Psi_\uparrow}\|
+	\|\braket*{\gamma^{(2)}}{\Psi_\downarrow}\|
+	=
+	\|\braket*{\gamma^{(1)}}{\Psi_\downarrow}\|
+	\|\braket*{\gamma^{(2)}}{\Psi_\uparrow}\|.
+$}\end{equation}
+This can be satisfied by choosing $\ket*{\gamma^{(1)}}=\ket*{\gamma^{(2)}}$, or alternatively if the projection probabilities corresponding to $\gamma^{(1)}$ and $\gamma^{(2)}$ are the same.
+We have for example the latter case when using a single QW step.
+The entanglement transfer scheme then becomes deterministic, as any outcome of the coin measurement leads to the entanglement being transferred from coin to walker degree of freedom.
 
 
 \subsection{Remove?}
@@ -461,6 +474,98 @@ The states $\ket{\Psi^s}$ are one-photon states which in general display entangl
     \sin\theta_s \ket V\otimes\ket{\Psi^s_{V}},
 \end{equation}
 for some angle $\theta_s$ and states $\ket{\Psi^s_p}$.
+
+\section{Entanglement accumulation}
+\label{sec:entanglement_accumulation}
+
+\parTitle{Output of single round of entanglement transfer}
+Suppose one round of entanglement transfer was executed successfully, so that the spaces $\calH^{(i)}_{\calW}$ are entangled, while the coins are separated due to the projections.
+More precisely, this is a state of the form
+\begin{equation}
+	\sqrt2 \ket{\Psi} =
+	\ket{\uparrow\uparrow}_{\calC}
+	\otimes
+	(\ket{\psi_1\psi_2} + \ket{\psi_2\psi_1})_{\calW},
+\end{equation}
+for some walker states $\ket{\psi_i}$ with $\braket{\psi_i}{\psi_j}=\delta_{ij}$.
+Note that we are assuming here for simplicity that the coins have been projected onto $\ket\uparrow$, and that the post-selected walker states form a singlet.
+While this is not generally the case, we can always formally describe the states this way, up to some relabelling \highlight{(explain better)}.
+
+\parTitle{Entanglement accumulation, problem statement}
+Suppose we can now re-entangle the coin states $\calH^{(i)}_{\calC}$. Can we perform another round of QW evolutions to transfer even more entanglement into the walkers?
+More precisely, we thus consider a state
+\begin{equation}
+	2 \ket{\Psi'} =
+	(\ket{\uparrow\uparrow}+ \ket{\downarrow\downarrow})_{\calC}
+	\otimes
+	(\ket{\psi_1\psi_2} + \ket{\psi_2\psi_1})_{\calW},
+\end{equation}
+Focusing on the transferability on $\calH^{(1)}$, observe that the reduced state is
+\begin{equation}
+	4\rho^{(1)} =
+	(\PP_\uparrow + \PP_\downarrow)_{\calC}
+	\otimes
+	(\PP_{\psi_1} + \PP_{\psi_2})_{\calW}.
+\end{equation}
+Application of a QW evolution $\calU$ then results in the state
+\begin{equation}
+\begin{gathered}
+	\PP[\calU\ket{\uparrow,\psi_1}] + 
+	\PP[\calU\ket{\uparrow,\psi_2}] + 
+	\PP[\calU\ket{\downarrow,\psi_1}] + 
+	\PP[\calU\ket{\downarrow,\psi_2}] \\
+	= \PP_{\Psi_1} + \PP_{\Psi_2} + \PP_{\Psi_3} + \PP_{\Psi_4},
+\end{gathered}
+\end{equation}
+where $\braket{\Psi_i}{\Psi_j}=\delta_{ij}$, and the state thus has rank $4$.
+Achieving entanglement transfer now entails finding a single projection $\ket\gamma$ such that
+% \begin{equation}
+	$\mel{\Psi_i}{\PP_\gamma}{\Psi_j} = 0$ for $i\neq j$.
+% \end{equation}
+
+\parTitle{Specific case of single-step QW}
+
+
+\section{Entanglement retrieval}
+\label{sec:entanglement_retrieval}
+
+Let us investigate the inverse process for the entanglement transfer, namely from the the state of two entangled walkers to the space of the two coins. Here the question is if it is always possible to saturate the maximal amount of entanglement transferable to the space of two qubits. In other word if we can obtain a Bell-like state with one ebit of entanglement via two local identical quantum walks routines and a suitable single-qudit projection in the walker subspace. 
+
+Let's start from the simplest case, an initial state as
+\begin{equation}
+    \ket{\Psi_0}=\frac{1}{\sqrt{2}}\ket{\uparrow\uparrow}\otimes
+    ( \ket{\psi_a\psi_a}+\ket{\psi_b\psi_b})
+\end{equation}
+in which we require $\braket{\psi_a}{\psi_b}=0$, in order to have one ebit of entanglement at the beginning of the process. Furthermore the dimension $d_0$ of each walkers subsystem is at least two, $d_0\geq 2$. Under the hypothesis of the evolution according to two identical local QWs routine, the final state becomes
+\begin{equation}
+    \ket{\Psi_f}=\frac{1}{\sqrt{2}}(\ket{\Psi^{\uparrow a}\Psi^{\uparrow a}}+\ket{\Psi^{\uparrow b}\Psi^{\uparrow b}})
+    \label{eq:retr1}
+\end{equation}
+According to the notation of the previous sections, the states $\ket{\Psi^{\uparrow i}}$ are the output of a single-particle QW given as input the coin state $\ket{\uparrow}$ and the walker in $\ket{\psi_i}$. Given the structure of QW's evolution that correlates the two degree of freedoms, the coin and the positions, we can express the $\ket{\Psi^{\uparrow i}}$ as
+\begin{align}
+    \ket{\Psi^{\uparrow a}}&= a_0\,\ket{0\,\phi_{a_0}} +a_1\,\ket{1\,\phi_{a_1}} \notag\\
+    \ket{\Psi^{\uparrow b}}&= b_0\,\ket{0\,\phi_{b_0}} +b_1\,\ket{1\,\phi_{b_1}}
+    \label{eq:retr2}
+\end{align}
+where $\{\ket{0},\ket{1}\}$ is a generic orthonormal basis for the coin subspace and the $\ket{\phi_{i_j}}$ the projections of the state $\ket{\Psi^{\uparrow i}}$ in this basis. 
+Now we look for the local qudit projector $\hat{P}_{\phi}=\ketbra{\phi}$ acting on the single subsystem for obtaining a Bell-like state in the two coins. Let us label the overlaps between $\phi$ and single qudit states $\ket{\phi_{i_j}}$ in \eqref{eq:retr2} as
+\begin{equation}
+    \braket{\phi}{\phi_{i_j}}=\beta_{ij}
+\end{equation}
+where we remind that index $i=\{a,b\}$ and $j=\{0,1\}$. Then the state after the projection $\hat{P}_{\phi}$ in the two subsystems
+\begin{equation}
+\begin{split}
+    \braket{\phi}{\Psi_f}&=\frac{1}{\sqrt{2}}[(a_0a_1\beta_{a0}\beta_{a1}
+    + b_0b_1 \beta_{b0}\beta_{b1})(\ket{01}+\ket{10})+\\
+    &+(a_0^2\beta_{a0}^2+b_0^2\beta_{b0}^2)\ket{00}+ (a_1^2\beta_{a1}^2+b_1^2\beta_{b1}^2)\ket{11}]
+\end{split}
+\end{equation}
+Let us observe that a Bell-like state in the form $\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ can be retrieved by requiring for example that 
+\begin{align}
+\beta_{a0}&=\beta_{b1}=0 \label{eq:retr_cond1}\\
+\frac{\beta_{a1}}{\beta_{b_0}}&= e^{i \alpha} \frac{b_0}{a_1} \label{eq:retr_cond2}
+\end{align}
+[da scrivere il caso generale con n-ebit in ingresso]
 
 \section{Purity of reduced states}
 \label{sec:purity_reduced_states}
@@ -722,46 +827,6 @@ and similarly projecting in $\calH_C$ we get the final state
 
 %After a first research in literature, the maximum amount of entanglement generated with %OAM seems to be 3 ebit. In Ref. \cite{Malik2016}, the authors produce 3 entangled %qutrits in a 3-photon experiment.
 \appendix
-
-\section{Entanglement retrieval (Luca magari \'e gi\'a contenuto nel tuo metodo pi\'u generale?)}
-
-Let us investigate the inverse process for the entanglement transfer, namely from the the state of two entangled walkers to the space of the two coins. Here the question is if it is always possible to saturate the maximal amount of entanglement transferable to the space of two qubits. In other word if we can obtain a Bell-like state with one ebit of entanglement via two local identical quantum walks routines and a suitable single-qudit projection in the walker subspace. 
-
-Let's start from the simplest case, an initial state as
-\begin{equation}
-    \ket{\Psi_0}=\frac{1}{\sqrt{2}}\ket{\uparrow\uparrow}\otimes
-    ( \ket{\psi_a\psi_a}+\ket{\psi_b\psi_b})
-\end{equation}
-in which we require $\braket{\psi_a}{\psi_b}=0$, in order to have one ebit of entanglement at the beginning of the process. Furthermore the dimension $d_0$ of each walkers subsystem is at least two, $d_0\geq 2$. Under the hypothesis of the evolution according to two identical local QWs routine, the final state becomes
-\begin{equation}
-    \ket{\Psi_f}=\frac{1}{\sqrt{2}}(\ket{\Psi^{\uparrow a}\Psi^{\uparrow a}}+\ket{\Psi^{\uparrow b}\Psi^{\uparrow b}})
-    \label{eq:retr1}
-\end{equation}
-According to the notation of the previous sections, the states $\ket{\Psi^{\uparrow i}}$ are the output of a single-particle QW given as input the coin state $\ket{\uparrow}$ and the walker in $\ket{\psi_i}$. Given the structure of QW's evolution that correlates the two degree of freedoms, the coin and the positions, we can express the $\ket{\Psi^{\uparrow i}}$ as
-\begin{align}
-    \ket{\Psi^{\uparrow a}}&= a_0\,\ket{0\,\phi_{a_0}} +a_1\,\ket{1\,\phi_{a_1}} \notag\\
-    \ket{\Psi^{\uparrow b}}&= b_0\,\ket{0\,\phi_{b_0}} +b_1\,\ket{1\,\phi_{b_1}}
-    \label{eq:retr2}
-\end{align}
-where $\{\ket{0},\ket{1}\}$ is a generic orthonormal basis for the coin subspace and the $\ket{\phi_{i_j}}$ the projections of the state $\ket{\Psi^{\uparrow i}}$ in this basis. 
-Now we look for the local qudit projector $\hat{P}_{\phi}=\ketbra{\phi}$ acting on the single subsystem for obtaining a Bell-like state in the two coins. Let us label the overlaps between $\phi$ and single qudit states $\ket{\phi_{i_j}}$ in \eqref{eq:retr2} as
-\begin{equation}
-    \braket{\phi}{\phi_{i_j}}=\beta_{ij}
-\end{equation}
-where we remind that index $i=\{a,b\}$ and $j=\{0,1\}$. Then the state after the projection $\hat{P}_{\phi}$ in the two subsystems
-\begin{equation}
-\begin{split}
-    \braket{\phi}{\Psi_f}&=\frac{1}{\sqrt{2}}[(a_0a_1\beta_{a0}\beta_{a1}
-    + b_0b_1 \beta_{b0}\beta_{b1})(\ket{01}+\ket{10})+\\
-    &+(a_0^2\beta_{a0}^2+b_0^2\beta_{b0}^2)\ket{00}+ (a_1^2\beta_{a1}^2+b_1^2\beta_{b1}^2)\ket{11}]
-\end{split}
-\end{equation}
-Let us observe that a Bell-like state in the form $\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ can be retrieved by requiring for example that 
-\begin{align}
-\beta_{a0}&=\beta_{b1}=0 \label{eq:retr_cond1}\\
-\frac{\beta_{a1}}{\beta_{b_0}}&= e^{i \alpha} \frac{b_0}{a_1} \label{eq:retr_cond2}
-\end{align}
-[da scrivere il caso generale con n-ebit in ingresso]
 
 \section{Entanglement transfer toy examples}
 
