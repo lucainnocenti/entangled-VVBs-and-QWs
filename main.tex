@@ -296,7 +296,7 @@ $\{\braket*{H}{u^V},\braket*{V}{u^V}\}$
 are both linearly independent and nonzero.
 \highlight{(possibly remove this paragraph, proof with SVD is better)}
 
-\parTitle{Proof with SVD}
+\parTitle{Proof for $M$ normal}
 If $M$ is normal, then
 \begin{equation}
 	M = \lambda( \ketbra{v_1} - \ketbra{v_2}),
@@ -326,13 +326,19 @@ are suitable projections such that $\mel{\gamma_\phi}{M}{\gamma_\phi}=0$.
 % \begin{equation}
 % 	\mel*{\gamma_\pm}{M}{\gamma_\pm} = \mel*{\gamma_\pm'}{M}{\gamma_\pm'}.
 % \end{equation}
+
+\parTitle{Proof for general $M$}
 For $M$ not normal, its SVD has the form
 \begin{equation}
 	M = s_1 \ketbra{u_1}{u_2} + s_2 \ketbra{u_2}{u_1}
 \end{equation}
-\highlight{(why??)}
 with $\braket{u_1}{u_2}=0$ and $s_i>0$. Suitable projections are in this case
 $\ket{\gamma_i}=\ket{u_i}$.
+\highlight{(add actual proof)}
+
+Given a two-dimensional $M$ with $\tr(M)=0$, provided $M\neq0$, we must always have $M^2=-\det M$. Writing its singular value decomposition as
+$M=UDV^\dagger$, this implies
+
 
 \section{Entanglement transfer in QWs}
 \label{sec:entanglement_transfer_in_QWs}
