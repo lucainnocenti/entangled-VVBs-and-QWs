@@ -325,17 +325,28 @@ are suitable projections such that $\mel{\gamma_\phi}{M}{\gamma_\phi}=0$.
 % \end{equation}
 
 \parTitle{Proof for general $M$}
-For $M$ not normal, its SVD has the form
-\begin{equation}
-	M = s_1 \ketbra{u_1}{u_2} + s_2 \ketbra{u_2}{u_1}
-\end{equation}
-with $\braket{u_1}{u_2}=0$ and $s_i>0$. Suitable projections are in this case
-$\ket{\gamma_i}=\ket{u_i}$.
-\highlight{(add actual proof)}
-
 Given a two-dimensional $M$ with $\tr(M)=0$, provided $M\neq0$, we must always have $M^2=-\det M$. Writing its singular value decomposition as
-$M=UDV^\dagger$, this implies
-
+$M=UDV^\dagger$, this implies that
+$% \begin{equation}
+	UDV^\dagger UDV^\dagger = -\det(M) I,
+$ % \end{equation}
+and therefore
+\begin{equation}
+	DV^\dagger U = -\det(M) U^\dagger V D^{-1}.
+\end{equation}
+In the eigenbasis of $D$, this amounts to
+\begin{equation}
+	s_1 \ketbra{1}{w_1} + s_2 \ketbra{2}{w_2} =
+	-e^{i\phi}(s_2\ketbra{w_1}{1} + s_1\ketbra{w_2}{2}),
+\end{equation}
+where $\det(M)=\abs{\det(M)}e^{i\phi}$ and we observed that $\abs{\det(M)}=s_1 s_2$.
+There are then two possibilities: either $s_1=s_2$, which implies $M$ is normal, and this case was covered above, or $s_1\neq s_2$, which implies by the uniqueness of the singular value decomposition of a matrix that $\ket{w_1}=\ket2$ and $\ket{w_2}=\ket1$ up to phases.
+Consequently, has the form
+\begin{equation}
+	M = s_1 \ketbra{u_1}{v_1} + s_2 \ketbra{u_2}{v_2},
+\end{equation}
+where $\braket{u_i}{u_j}=\braket{v_i}{v_j}=\delta_{ij}$ and $\braket{u_1}{v_2}=\braket{u_2}{v_1}=0$.
+We can then use $\ket\gamma=\ket{v_i}$ as suitable projections, as $\mel{v_i}{M}{v_i}=0$.
 
 \section{Entanglement transfer in QWs}
 \label{sec:entanglement_transfer_in_QWs}
@@ -411,12 +422,12 @@ This can be fixed by either choosing coin operations which make these probabilit
 
 \parTitle{Pair of QWs}
 Up to now we focused on the transferability between coin and walker degrees of freedom of a single QW.
-However, the same reasoning apply symmetrically if the additional party the first QW is entangled to is another QW.
-In particular, we can consider a scheme in which the initial state is a pair of entangled coins (\emph{e.g.} the polarisations of a pair of photons) in a single state
+% However, the same reasoning apply symmetrically if the additional party the first QW is entangled to is another QW.
+Consider now a pair of entangled coins (\emph{e.g.} the polarisations of a pair of photons) in an entangled state
 \begin{equation}
 	\sqrt2\ket{\Psi_{\calC}}\equiv \ket{\uparrow,\downarrow} + \ket{\downarrow,\uparrow}.
 \end{equation}
-Then, applying the same QW evolution on both sides, we have a state of the form
+We apply the same QW evolution on both sides, obtaining
 \begin{equation}
 	\sqrt2(\calU_{\on{QW}}\otimes \calU_{\on{QW}}) \ket{\Psi_{\calC}} =
 	\ket{\Psi_\uparrow,\Psi_\downarrow} +
@@ -426,12 +437,12 @@ The reduced states on $\calH^{(1)}$ and $\calH^{(2)}$ are thus both equal to
 % \begin{equation}
 	$2\rho = \PP_{\Psi_\uparrow} + \PP_{\Psi_\downarrow}$,
 % \end{equation}
-and the transferability conditions become
+and the transferability conditions both amount to
 \begin{equation}
 	\mel{\gamma}{\tr_{\calW}(\ketbra{\Psi_\uparrow}{\Psi_\downarrow})}{\gamma} = 0.
 \end{equation}
 We can always find two orthogonal projections $\ket{\gamma_i}$, $i=1,2$ that satisfy this condition, as shown previously.
-The post-selected state is therefore
+Fixing one of these, the post-selected state is
 \begin{equation}
 	\braket*{\gamma^{(1)}}{\Psi_\uparrow}\otimes \braket*{\gamma^{(2)}}{\Psi_\downarrow}
 	+
@@ -481,9 +492,22 @@ for some angle $\theta_s$ and states $\ket{\Psi^s_p}$.
 \section{Entanglement accumulation}
 \label{sec:entanglement_accumulation}
 
+\parTitle{Section overview}
+Here we investigate whether the entanglement transfer procedure can be applied iteratively, in order to concentrating more and more entanglement into the walker degree of freedom.
+For the purpose, after each successful entanglement transfer stage, which produces a state of the form
+\begin{equation}
+	\ket{\Psi}_{\calW}\otimes(\ket{\gamma_1}\otimes\ket{\gamma_2})_{\calC},
+\end{equation}
+we apply an operation entangling the coin degrees of freedom, thus getting a state of the form
+\begin{equation}
+	\ket{\Psi}_{\calW}\otimes\ket{\Phi}_{\calC}.
+\end{equation}
+The QW evolution is then used to correlate again walker and coin DOFs \highlight{(check acronym)}.
+
 \parTitle{Output of single round of entanglement transfer}
-Suppose one round of entanglement transfer was executed successfully, so that the spaces $\calH^{(i)}_{\calW}$ are entangled, while the coins are separated due to the projections.
-More precisely, this is a state of the form
+Suppose one round of entanglement transfer was executed successfully.
+The spaces $\calH^{(i)}_{\calW}$ are therefore entangled, while the coins are separated.
+We thus have a state of the form
 \begin{equation}
 	\sqrt2 \ket{\Psi} =
 	\ket{\uparrow\uparrow}_{\calC}
@@ -496,7 +520,7 @@ While this is not generally the case, we can always formally describe the states
 
 \parTitle{Entanglement accumulation, problem statement}
 Suppose we can now re-entangle the coin states $\calH^{(i)}_{\calC}$. Can we perform another round of QW evolutions to transfer even more entanglement into the walkers?
-More precisely, we thus consider a state
+More precisely, we consider a state
 \begin{equation}
 	2 \ket{\Psi'} =
 	(\ket{\uparrow\uparrow}+ \ket{\downarrow\downarrow})_{\calC}
@@ -525,12 +549,49 @@ Achieving entanglement transfer now entails finding a single projection $\ket\ga
 % \begin{equation}
 	$\mel{\Psi_i}{\PP_\gamma}{\Psi_j} = 0$ for $i\neq j$.
 % \end{equation}
+Each successive entanglement transfer iteration would involve a doubling of the number of orthogonal states to preserve.
+
+More generally, suppose the \emph{initial} reduced state $\rho^{(1)}$ is a mixture of orthogonal projectors, $\rho^{(1)}\simeq\sum_i\PP_{\psi_i}$.
+To achieve entanglement transfer after evolution through a local unitary $\calU$, we need
+$\mel{\gamma}{\calU}{\psi_i}$ to be orthogonal with each other, that is,
+\begin{equation}
+	\mel{\psi_i}{\calU^\dagger(\PP_\gamma\otimes I_{\calW})\calU}{\psi_j} = p \delta_{ij}.
+\end{equation}
 
 
 \parTitle{Specific case of single-step QW}
-Suppose the output state after the first entanglement transfer stage had states
-$\ket$
 
+Let us consider the case in which for simplicity the first projection is 00 type and the unitaries are identical. The input state for the second iteration, after the $U^{Bell}$ on the coin
+\begin{align}
+     \ket{\Psi^{0 (1)}} &= \frac{1}{2}\left(\ket{\uparrow \psi_a}_1 \ket{\uparrow \psi_b}_2 +\ket{\uparrow \psi_b}_1 \ket{\uparrow \psi_a}_2 + \right. \notag\\
+      &\left. + \ket{\downarrow \psi_a}_1 \ket{\downarrow \psi_b}_2 +
+     \ket{\downarrow \psi_b}_1 \ket{\downarrow \psi_a}_2
+     \right),
+\end{align}
+injected to the others QWs, will produce the state
+\begin{align}
+     \ket{\Psi^{f(1)}} &=
+     \alpha \ket{\Psi^{\uparrow \psi_a}_1\Psi^{\uparrow \psi_b}_2} +
+     \beta \ket{\Psi^{\uparrow \psi_b}_1\Psi^{\uparrow \psi_a}_2} +  \notag \\
+        &+ \delta \ket{\Psi^{\downarrow \psi_a}_1\Psi^{\downarrow \psi_b}_2} 
+         + \gamma \ket{\Psi^{\downarrow \psi_b}_1\Psi^{\downarrow \psi_a}_2}.
+\label{eq:final_state1}                 
+\end{align}
+
+\begin{figure}[t]
+\centering
+    \includegraphics[width = \columnwidth]{figures/scaling.pdf}
+    \caption{\textbf{Entanglement accumulation} a) Trend of the entanglement accumulation after several iterations of the protocol with identical Hadamard QW of $N=\{1,3,5,7,10\}$ steps. From such simulation seems that the optimal transfer of one ebit per iteration cannot be reached. However, relaxing the need to have same unitaries at each step, the optimal scaling can be obtained. \highlight{(where do we see this?)} b) Histograms for one iteration of entanglement transfer protocol (the stage zero with two identical Hadamard QWs), for three values of QW steps per iteration $N=\{3,5,7\}$. 
+    Each histograms represent the distribution of $500$ random extracted coin operators for individuating the QW unitary to apply to the two walkers in the state $\ket{\Psi^{0(1)}}$. We observe that it is possible to find unitary operation for the second entanglement transfer which allows to saturate the bound of 2 ebit of entanglement. In particular histograms tend to pick towards 2 with increasing number of steps. All the calculations were performed considering coin projection of type $00$.}
+    \label{fig:ent_acc}
+\end{figure}
+It is clear that after a further coin projection, the whole state will collapse in a superposition of four terms with at least four different qudits states involved.
+Due to the high-dimension of the two walkers position, we can generate states in which the four qudits in the superposition are mutually orthogonal. To be more precise,
+let us consider, as example, a state $\ket{q} = \sum_{s =1}^{n_q} \ket{ss}$, where $s$ are the walkers position. The negativity of such state scales as $\log_2(n_q + 1)$. According to such intuition we expect that the maximum negativity of the state $\ket{\Psi^{f(N_i)}}$ at the iteration $N_i$ after a proper coin projection, could be $\mathcal{N}^{Max} =\log_2( 2^{N_i}+1)$. Indeed the number of states in the superposition grows as $2^{N_i}$, as can be verified looking at \eqref{eq:final_state} and \eqref{eq:final_state1}.
+
+In Fig. \ref{fig:ent_acc}a we report numerical simulation on the scaling of negativity according to increasing number of iteration. We consider cascaded Hadamard QWs, starting from the initial state in \eqref{eq:initial_state}, with $U^{Bell}$ coin operation in between. We focus on iteration in which the optimization on the negativity is performed on projectors of type $00$, after Qws of equal steps $N$, for different value of $N$. According to this simulation, the optimal curve $\mathcal{N}^{Max}$ is not saturated. For improving the performance of the protocol different strategies can be investigated. In 
+Fig. \ref{fig:ent_acc}b we try to change the unitary after the first optimal coin projection on two Hadamard QWs. To this aim 
+we have random sampled the coin operators for the next QWs evolution, considering the accumulation after one iteration of the protocol for different steps. From such simulation turns out that there is a dependence both from the choice of the unitary in the second stage and from the number of steps of each QW (see Fig. \ref{fig:ent_acc}b). The latter is not surprising since with high number of steps we cover higher dimensional Hilbert spaces and, consequently, it could be easier to produce four qudits mutually orthogonal inside the state produced by the projection of the coins in $\ket{\Psi^{f(1)}}$.
 
 \section{Entanglement retrieval}
 \label{sec:entanglement_retrieval}
@@ -701,58 +762,8 @@ Same results can be obtained with randomly sampled quantum walks: it is always p
 
 \parTitle{Different unitaries} \highlight{We say above "\textit{We firstly investigate the case $U_1=U_2$}", but where do we investigate other cases?}
 
-\section{Entanglement accumulation}
 
-Here we ask if it could be possible to accumulate more than one ebit of entanglement in the walkers spaces, iterating the two parallel QWs protocol. After the first round and the optimal projection of the coin, the output is one of the states of \cref{eq:prj_state}. Since the coin and walkers position are now separable again, as in the previous input states, one can generated a new Bell state in the coin degree of freedom. Such operation can be performed with an Hadamard gate on the first qubit, followed by C-NOT operation, $U^{Bell} = U_{CNOT}*(H_1 \otimes I_2)$.
-
-Let us consider the case in which for simplicity the first projection is 00 type and the unitaries are identical. The input state for the second iteration, after the $U^{Bell}$ on the coin
-\begin{align}
-     \ket{\Psi^{0 (1)}} &= \frac{1}{2}\left(\ket{\uparrow \psi_a}_1 \ket{\uparrow \psi_b}_2 +\ket{\uparrow \psi_b}_1 \ket{\uparrow \psi_a}_2 + \right. \notag\\
-      &\left. + \ket{\downarrow \psi_a}_1 \ket{\downarrow \psi_b}_2 +
-     \ket{\downarrow \psi_b}_1 \ket{\downarrow \psi_a}_2
-     \right),
-\end{align}
-injected to the others QWs, will produce the state
-\begin{align}
-     \ket{\Psi^{f(1)}} &=
-     \alpha \ket{\Psi^{\uparrow \psi_a}_1\Psi^{\uparrow \psi_b}_2} +
-     \beta \ket{\Psi^{\uparrow \psi_b}_1\Psi^{\uparrow \psi_a}_2} +  \notag \\
-        &+ \delta \ket{\Psi^{\downarrow \psi_a}_1\Psi^{\downarrow \psi_b}_2} 
-         + \gamma \ket{\Psi^{\downarrow \psi_b}_1\Psi^{\downarrow \psi_a}_2}.
-\label{eq:final_state1}                 
-\end{align}
-
-\begin{figure}[t]
-\centering
-    \includegraphics[width = \columnwidth]{figures/scaling.pdf}
-    \caption{\textbf{Entanglement accumulation} a) Trend of the entanglement accumulation after several iterations of the protocol with identical Hadamard QW of $N=\{1,3,5,7,10\}$ steps. From such simulation seems that the optimal transfer of one ebit per iteration cannot be reached. However, relaxing the need to have same unitaries at each step, the optimal scaling can be obtained. b) Histograms for one iteration of entanglement transfer protocol (the stage zero with two identical Hadamard QWs), for three values of QW steps per iteration $N=\{3,5,7\}$. 
-    Each histograms represent the distribution of $500$ random extracted coin operators for individuating the QW unitary to apply to the two walkers in the state $\ket{\Psi^{0(1)}}$. We observe that it is possible to find unitary operation for the second entanglement transfer which allows to saturate the bound of 2 ebit of entanglement. In particular histograms tend to pick towards 2 with increasing number of steps. All the calculations were performed considering coin projection of type $00$.}
-    \label{fig:ent_acc}
-\end{figure}
-It is clear that after a further coin projection, the whole state will collapse in a superposition of four terms with at least four different qudits states involved.
-Due to the high-dimension of the two walkers position, we can generate states in which the four qudits in the superposition are mutually orthogonal. To be more precise,
-let us consider, as example, a state $\ket{q} = \sum_{s =1}^{n_q} \ket{ss}$, where $s$ are the walkers position. The negativity of such state scales as $\log_2(n_q + 1)$. According to such intuition we expect that the maximum negativity of the state $\ket{\Psi^{f(N_i)}}$ at the iteration $N_i$ after a proper coin projection, could be $\mathcal{N}^{Max} =\log_2( 2^{N_i}+1)$. Indeed the number of states in the superposition grows as $2^{N_i}$, as can be verified looking at \eqref{eq:final_state} and \eqref{eq:final_state1}.
-
-In Fig. \ref{fig:ent_acc}a we report numerical simulation on the scaling of negativity according to increasing number of iteration. We consider cascaded Hadamard QWs, starting from the initial state in \eqref{eq:initial_state}, with $U^{Bell}$ coin operation in between. We focus on iteration in which the optimization on the negativity is performed on projectors of type $00$, after Qws of equal steps $N$, for different value of $N$. According to this simulation, the optimal curve $\mathcal{N}^{Max}$ is not saturated. For improving the performance of the protocol different strategies can be investigated. In 
-Fig. \ref{fig:ent_acc}b we try to change the unitary after the first optimal coin projection on two Hadamard QWs. To this aim 
-we have random sampled the coin operators for the next QWs evolution, considering the accumulation after one iteration of the protocol for different steps. From such simulation turns out that there is a dependence both from the choice of the unitary in the second stage and from the number of steps of each QW (see Fig. \ref{fig:ent_acc}b). The latter is not surprising since with high number of steps we cover higher dimensional Hilbert spaces and, consequently, it could be easier to produce four qudits mutually orthogonal inside the state produced by the projection of the coins in $\ket{\Psi^{f(1)}}$.
-
-
-
-
-
-
-
-
-%It is clear that after a further coin projection, the whole state will collapse in a superposition of four terms with at least four different qudits states involved.
-%Due to the high-dimension of the two walkers position, we can generate states in which the four qudits in the superposition are mutually orthogonal (states which display one ebit of entanglement present four qudits entangled too, see previous expression \cref{eq:prj_state}).
-%Let us consider a state $\ket{q} = \sum_{s =1}^{n_q} \ket{ss}$, where $s$ are the walkers position. The negativity of such state (normalized to the ebit) scales as $n_q - 1$. According to such intuition we expect that the maximum negativity of the state $\ket{\Psi^{f(N_i)}}$ at the iteration $N_i$ after a proper coin projection, is at least $\mathcal{N}^{Max} = 2^{N_i}-1$. Indeed the number of states in the superposition grows as $2^{N_i}$, as can be verified looking at \cref{eq:final_state} and \cref{eq:final_state1}.
-
-%In \Cref{fig:ent_acc} we report numerical simulation on the scaling of negativity according to increasing number of iteration. We consider cascaded Hadamard QWs, starting from the initial state in \cref{eq:initial_state}, with $U^{Bell}$ coin operation in between. We focus on iteration in which the optimization on the negativity is performed on projectors of type $00$ and $01$, after Qws of equal steps $N$, for different value of $N$. According to this simulation, the optimal curve $\mathcal{N}^{Max}$ is not saturated. For improving the performance of the protocol different strategies can be investigated: using different unitaries at each iteration, projecting on two different single coin measurement, i.e. optimizing on 4 parameters, or varying the number of steps at each iteration.
-
-
-
-\subsection{A proof-of-principle experiment}
+\section{A proof-of-principle experiment}
 Here we propose a scheme for the realization of the entanglement accumulation protocol in a photonic platform that encodes coin and walkers position in polarization and OAM degree of freedom. This proposal provides the realization of two iterations, giving access to states with 2 ebit of entanglement. 
 
 The scheme works as follows. It requires that at first iteration the two Qws are identical and to perform type 00 projection on the coins. In this way, the state after the projection that maximize the negativity will be $1/\sqrt{2}\ket{\uparrow \uparrow}\otimes(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a})$. 
