@@ -164,27 +164,27 @@ Given $\ket\Psi\in\calH$, we will apply QW evolutions on the two photons separat
 \end{equation}
 with $\calU$ and $\calV$ some QW unitaries.
 
-\parTitle{Assuming realistic initial state}
-\highlight{(to some somewhere else maybe)}
-A possible optical implementation of our protocol would involve two photons --- generated via a SPDC process --- entangled in their polarizations but with uncorrelated OAMs.
-Such a state would have the form
-\begin{equation}
-\begin{gathered}
-    \ket{\Psi_{\calC_1,\calC_2}} \otimes
-    \ket{\phi_{\calW_1}}\ket{\phi_{\calW_2}}, \\
-    \ket{\Psi_{\calC_1,\calC_2}}\equiv\frac{1}{\sqrt2}(\ket\uparrow\ket\downarrow+\ket\downarrow\ket\uparrow).
-\end{gathered}
-\end{equation}
-The state after the QWs would then have the form
-\begin{equation}
-    \alpha \ket*{\Psi_{\uparrow} \Psi_{\downarrow} } +
-    \beta \ket*{\Psi_{\downarrow}\Psi_{\uparrow}},
-    \label{eq:final_state}
-\end{equation}
-with $\ket*{\Psi_\uparrow},\ket*{\Psi_\downarrow}\in\calH_i$ correlated single-photon states.
+% \parTitle{Assuming realistic initial state}
+% \highlight{(to some somewhere else maybe)}
+% A possible optical implementation of our protocol would involve two photons --- generated via a SPDC process --- entangled in their polarizations but with uncorrelated OAMs.
+% Such a state would have the form
+% \begin{equation}
+% \begin{gathered}
+%     \ket{\Psi_{\calC_1,\calC_2}} \otimes
+%     \ket{\phi_{\calW_1}}\ket{\phi_{\calW_2}}, \\
+%     \ket{\Psi_{\calC_1,\calC_2}}\equiv\frac{1}{\sqrt2}(\ket\uparrow\ket\downarrow+\ket\downarrow\ket\uparrow).
+% \end{gathered}
+% \end{equation}
+% The state after the QWs would then have the form
+% \begin{equation}
+%     \alpha \ket*{\Psi_{\uparrow} \Psi_{\downarrow} } +
+%     \beta \ket*{\Psi_{\downarrow}\Psi_{\uparrow}},
+%     \label{eq:final_state}
+% \end{equation}
+% with $\ket*{\Psi_\uparrow},\ket*{\Psi_\downarrow}\in\calH_i$ correlated single-photon states.
 
 \parTitle{We use negativity to estimate entanglement}
-\highlight{(move somewhere else)}
+\highlight{(maybe move somewhere else)}
 A common criterion for discerning if a multipartite state is separable or not, is the PPT criterion (positivity of the partial tranpose) \cite{HORODECKI19961}. Such method envisage the calculation of eigenvalues of the partial transpose respect with one subsystem of the density matrix representing the entire system. If there exists at least one non-positive eigenvalue the state cannot be separable. This criterion is a sufficient condition of non-seprability of the multipartite state. Furthermore we can provide an estimation of the amount of entanglement through the state \emph{negativity} $\mathcal{N}$, i.e the sum of the negative eigenvalues of the partial transpose density matrix. The initial state in the joint coin subspaces has $\mathcal{N}^{Bell}=\frac{1}{2}$, namely a one ebit of entanglement. In this notes we will consider the negativity of the states normalized to one ebit, i.e $\mathcal{N}/\mathcal{N}^{Bell}.$
 
 \parTitle{Say something about the photons being non-interacting and the hardness of correlating polarizations etc}
@@ -240,7 +240,6 @@ We want the projection $\ket\gamma$ to be such that, \textit{in the full state},
 For this to be the case, it is necessary and sufficient that $\rho_{\calW}$ is \textit{diagonal in the same eigenbasis of $\rho$}, and has the same eigenvalues.
 More precisely, each eigenspace of $\rho$ must be invariant under the projection.
 This ensures that the projection does not reveal any information about the correlations with $\calH^{(2)}$, which would damage the entanglement.
-\highlight{(proper proof. Also mention that bad entanglement can be improved via local projection?)}
 More explicitly, this ensures that the state
 \begin{equation}
 	\ket\Psi= \sum_k \sqrt{p_k} \ket{u_k}\ket{v_k}
@@ -253,10 +252,8 @@ becomes
 where $\ket*{\tilde u_k}\equiv \braket{\gamma}{u_k}/\sqrt{p_{\on{proj}}}$ are the post-projected states, and
 $p_{\on{proj}}\equiv |\braket{\gamma}{u_k}|^2$ the projection probability.
 It is worth stressing that, \emph{a priori}, the projection probabilities $|\braket{\gamma}{u_k}|^2$ depend on $k$, but we need them to be the same for optimal entanglement transfer.
-
-\parTitle{Entanglement distillation via local projection}
 The constraint on the projection probabilities can be lifted when the projection allowed in the second party is taken into consideration.
-This is because any form of ``imperfect entanglement'' can be improved by means of local projections in some cases.
+This is because any form of ``imperfect entanglement'' can be improved by means of local projections in some cases (\emph{i.e.} local projections are sufficient to transform a state of the form $\sum_k \sqrt{p_k}\ket{u_k}\ket{v_k}$ into the corresponding maximally entangled state $\sum_k \ket{u_k}\ket{v_k}$).
 
 \parTitle{Relations with entanglement swapping}
 This problem can be understood as a more restrictive version of entanglement swapping~\cite{zukowski1993eventreadydetectors}.
@@ -291,7 +288,6 @@ A sufficient condition for $M$ to be diagonalisable is that $\det M\neq0$, which
 $\{\braket*{H}{u^H},\braket*{V}{u^H}\}$ and
 $\{\braket*{H}{u^V},\braket*{V}{u^V}\}$
 are both linearly independent and nonzero.
-\highlight{(possibly remove this paragraph, proof with SVD is better)}
 
 \parTitle{Proof for $M$ normal}
 If $M$ is normal, then
@@ -340,8 +336,8 @@ In the eigenbasis of $D$, this amounts to
 	-e^{i\phi}(s_2\ketbra{w_1}{1} + s_1\ketbra{w_2}{2}),
 \end{equation}
 where $\det(M)=\abs{\det(M)}e^{i\phi}$ and we observed that $\abs{\det(M)}=s_1 s_2$.
-There are then two possibilities: either $s_1=s_2$, which implies $M$ is normal, and this case was covered above, or $s_1\neq s_2$, which implies by the uniqueness of the singular value decomposition of a matrix that $\ket{w_1}=\ket2$ and $\ket{w_2}=\ket1$ up to phases.
-Consequently, has the form
+There are then two possibilities: either $s_1=s_2$, which implies $M$ is normal, and this case was covered above, or $s_1\neq s_2$, which implies by the uniqueness of the singular value decomposition that $\ket{w_1}=\ket2$ and $\ket{w_2}=\ket1$ up to phases.
+Consequently, we have
 \begin{equation}
 	M = s_1 \ketbra{u_1}{v_1} + s_2 \ketbra{u_2}{v_2},
 \end{equation}
@@ -351,6 +347,7 @@ We can then use $\ket\gamma=\ket{v_i}$ as suitable projections, as $\mel{v_i}{M}
 \section{Entanglement transfer in QWs}
 \label{sec:entanglement_transfer_in_QWs}
 
+\subsection{Analytical results}
 \parTitle{Single step}
 A single step of QW with coin $C\equiv (c_{ij})_{ij}$ amounts to the evolution
 \begin{equation}
@@ -417,7 +414,7 @@ $}\end{equation}
 where
 $\calO_{sp}\equiv\braket{\Psi_{\downarrow s}}{\Psi_{\uparrow p}}$.
 This $M$ is not in general Hermitian, nor normal. Consequently, while it is possible to find a projection $\ket\gamma$ via~\cref{eq:definition_projgamma_2dcase}, the projection probabilities are not in general equal.
-This can be fixed by either choosing coin operations which make these probabilities equal \highlight{(probably not possible)}, or by compensating the unequal projection probabilities with similar projection probabilities on the other party.
+This can be fixed by either choosing coin operations which make these probabilities equal, when that is possible, or by compensating unequal projection probabilities with similar projection probabilities on the other party.
 
 
 \parTitle{Pair of QWs}
@@ -462,32 +459,105 @@ We have for example the latter case when using a single QW step.
 The entanglement transfer scheme then becomes deterministic, as any outcome of the coin measurement leads to the entanglement being transferred from coin to walker degree of freedom.
 
 
-\subsection{Remove?}
-Consider the following scenario: two polarisation-entangled photons evolve independently with the same unitary $\mathcal U$, which entangles their polarisation and OAM degrees of freedom. After the evolution, the polarisations are projected. Is it possible with such a scheme to transfer the polarisation entanglement into the OAMs?
+% \subsection{Remove?}
+% Consider the following scenario: two polarisation-entangled photons evolve independently with the same unitary $\mathcal U$, which entangles their polarisation and OAM degrees of freedom. After the evolution, the polarisations are projected. Is it possible with such a scheme to transfer the polarisation entanglement into the OAMs?
 
-Suppose the two photons are initially the state
+% Suppose the two photons are initially the state
+% \begin{equation}
+%     \ket{\on{initial}}\equiv
+%     (a_{p_0,\ell_0,H}^\dagger
+%     a_{p_1,\ell_0,V}^\dagger +
+%     a_{p_0,\ell_0,V}^\dagger
+%     a_{p_1,\ell_0,H}^\dagger) \ket{\mathrm{vac}},
+%     \label{eq:proj_initial_state}
+% \end{equation}
+% for some initial OAM $\ell_0$, and with $p_i, i=0,1$ the $i$-th position.
+% Note that~\cref{eq:proj_initial_state} is nothing but a state of the form $\ket{HV}+\ket{VH}$ in second quantisation notation.
+% As long as no operation interfering the two photons is used, we can safely operate in this bra-ket notation.
+% Evolving the photons locally with the same unitary $\calU$ gives
+% $(\calU\otimes\calU)(\ket{HV}+\ket{VH})$.
+% Let us then define
+% $\ket{\Psi^s}\equiv\calU\ket s$, with $s\in\{H,V\}$.
+% The states $\ket{\Psi^s}$ are one-photon states which in general display entanglement between their polarisation and OAM degrees of freedom:
+% \begin{equation}
+%     \ket{\Psi^s}=
+%     \cos\theta_s \ket H\otimes\ket{\Psi^s_{H}} +
+%     \sin\theta_s \ket V\otimes\ket{\Psi^s_{V}},
+% \end{equation}
+% for some angle $\theta_s$ and states $\ket{\Psi^s_p}$.
+
+\subsection{Numerical Results}
+
+\parTitle{What do we do here and why}
+We investigate here the residual entanglement when projecting the coin DOF.
+Fix a basis $\ket{\gamma_1},\ket{\gamma_2}$ for the polarization and consider the associated projectors
+$\PP_{ij}\equiv \ketbra{\gamma_i}\otimes\ketbra{\gamma_j}$.
+Applying these to an initial state of the form
+$\alpha\ket{\Psi_\uparrow\Psi_\downarrow}+\beta\ket{\Psi_\downarrow\Psi_\uparrow}$
+we get
 \begin{equation}
-    \ket{\on{initial}}\equiv
-    (a_{p_0,\ell_0,H}^\dagger
-    a_{p_1,\ell_0,V}^\dagger +
-    a_{p_0,\ell_0,V}^\dagger
-    a_{p_1,\ell_0,H}^\dagger) \ket{\mathrm{vac}},
-    \label{eq:proj_initial_state}
+    \alpha\ket*{\Psi_\uparrow^i\Psi_\downarrow^j} +
+    \beta\ket*{\Psi_\downarrow^i\Psi_\uparrow^j}.
 \end{equation}
-for some initial OAM $\ell_0$, and with $p_i, i=0,1$ the $i$-th position.
-Note that~\cref{eq:proj_initial_state} is nothing but a state of the form $\ket{HV}+\ket{VH}$ in second quantisation notation.
-As long as no operation interfering the two photons is used, we can safely operate in this bra-ket notation.
-Evolving the photons locally with the same unitary $\calU$ gives
-$(\calU\otimes\calU)(\ket{HV}+\ket{VH})$.
-Let us then define
-$\ket{\Psi^s}\equiv\calU\ket s$, with $s\in\{H,V\}$.
-The states $\ket{\Psi^s}$ are one-photon states which in general display entanglement between their polarisation and OAM degrees of freedom:
-\begin{equation}
-    \ket{\Psi^s}=
-    \cos\theta_s \ket H\otimes\ket{\Psi^s_{H}} +
-    \sin\theta_s \ket V\otimes\ket{\Psi^s_{V}},
-\end{equation}
-for some angle $\theta_s$ and states $\ket{\Psi^s_p}$.
+
+
+% \parTitle{Notation?}
+% First, let us define a generic coin projectors, starting from the orthonormal basis
+% \begin{equation}\begin{aligned}
+%     \ket{0} &= \cos{\frac{\theta}{2}} \ket{\uparrow}+ 
+%     e^{i\phi}\sin{\frac{\theta}{2}}\ket{\downarrow} \\
+%     \ket{1} &= \sin{\frac{\theta}{2}} \ket{\uparrow}-
+%     e^{i\phi}\cos{\frac{\theta}{2}}\ket{\downarrow}
+% \end{aligned}\end{equation}
+% \highlight{(are we using this definition somewhere? Also if we need to defined these, I'd use a different notation highlighting the $\theta,\phi$ dependence)}
+
+% where $\theta \in [0, \pi ]$ and $\phi \in [0, 2\pi]$. We then define the four projectors for two separable measurements on the two coin subspace as
+% \begin{equation}
+%     \hat{P}_{lm}(\theta, \phi) =
+%     \hat{P}_{l}(\theta, \phi) \otimes \hat{P}_{m}(\theta, \phi) =
+%     \ketbra{lm},
+% \end{equation}
+% with $l,m \in\{0,1\}$ the two possible coin states \highlight{(explicit phase dependence in $\ell,m$)}.
+% Applying these operators on the state in~ \cref{eq:final_state} we obtain in the $(w_1, w_2)$ subspace the states
+% \begin{subequations}
+% \label{eq:prj_state}
+% \begin{align}
+%     \hat{P}_{00} &\rightarrow \alpha_{00}\ket{\psi^{0 \uparrow}_1 \psi^{0 \downarrow}_2} + \beta_{00}\ket{\psi^{0 \downarrow}_1 \psi^{0 \uparrow}_2} \label{eq:prj_state_a}\\
+%     \hat{P}_{01} &\rightarrow \alpha_{01}\ket{\psi^{0 \uparrow}_1 \psi^{1 \downarrow}_2} + \beta_{01}\ket{\psi^{0 \downarrow}_1 \psi^{1 \uparrow}_2}\label{eq:prj_state_b}\\
+%     \hat{P}_{10} &\rightarrow \alpha_{10}\ket{\psi^{1 \uparrow}_1 \psi^{0 \downarrow}_2} + \beta_{10}\ket{\psi^{1 \downarrow}_1 \psi^{0 \uparrow}_2}\label{eq:prj_state_c}\\
+%      \hat{P}_{11} &\rightarrow \alpha_{11}\ket{\psi^{1 \uparrow}_1 \psi^{1 \downarrow}_2} + \beta_{11}\ket{\psi^{1 \downarrow}_1 \psi^{1 \uparrow}_2}\label{eq:prj_state_d}.
+% \end{align}
+% \end{subequations}
+
+% In the above expression the wavefuctions $\psi^{lk}_i$ are the result of the projection along $l$ of the output state $\ket{\Psi^{k}_i}$, namely the state after the single particle quantum walk $U_i$, with $k$ as initial coin.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{proj.pdf}
+    \caption{\textbf{Projection optimization for Hadamard quantum walks.} a-b) State negativities for different type of projection $00$ and $01$ (the other two cases display the same behaviour)in terms of $(\theta, \phi)$. It is worth to note that $\mathcal{N}_{lm}>0.6$ in both cases. c-d) Corresponding surface for the projection probabilities. It is possible to obtain $P_{lm}> 0.25$ (generation probability of Ref \cite{fickler2012quantum}) but with non-optimal negativity. e-f) $\mathcal{N}_{00}$ and $P_{00}$ respect with different number of steps in the case e) of $\mathcal{N}_{00}$ optimization and f) for the maximization of both $\mathcal{N}_{00}$ and $P_{00}$. We note that both bound ($1, 0.25$) can be saturated by our protocol. g-h) same calculation of panels e-f) for $01$ projection.}
+    \label{fig:10steps_results}
+\end{figure*}
+
+\parTitle{Case with same QW on both sides}
+Let us consider the case in which both parties evolve according to the same QW evolution.
+The states in \cref{eq:prj_state_a} and  \cref{eq:prj_state_d} can be rewritten as $\alpha \ket{\psi_a \psi_b} + \beta \ket{\psi_b \psi_a}$, since only two type of qudits can be obtained.
+
+\parTitle{Excursus on state generation (to move somewhere else probably)}
+In the literature such states have been demonstrated exploiting the entanglement of a Bell state in polarization qubits which is transferred to a state in the orbital angular momentum (OAM) \highlight{(reference)}.
+In such apparatus, the two QWs are replaced by Sagnac interferometers with one spatial light modulator on each side displaying two holograms $\{\psi_a, \psi_b\}$~\cite{fickler2012quantum} \highlight{(might be useful to add a couple sentences on what holograms are etc)}. The resulting state is similar to~\cref{eq:final_state} but with single particle states in which polarization and OAM are separable, i.e $\ket{\Psi^{Zeil}}=A(\ket{\uparrow \psi_a}\ket{\downarrow \psi_b} +\ket{\downarrow \psi_b} \ket{\uparrow \psi_a})$ \highlight{(explain better this definition, which doesn't seem to be used again later)}.
+Despite the similarities of the two techniques \highlight{(which two techniques?)} it is worth noting that this state cannot display the same properties under coin tracing\highlight{(?)}.
+Indeed in the case of $\braket{\psi_a}{\psi_b}=0$, which ensure the maximum negativity when the state is projected with $\hat{P}_{00}(90\degree,0)$, does not display entanglement when the polarization is traced (the state is a statistical mixture of $\{\psi_a, \psi_b\}$).
+Furthermore if we look at the states of~\cref{eq:prj_state_b} and~\cref{eq:prj_state_c}, they need in general four type of qudits to be described even with two identical unitaries. These states could be reproduced by the apparatus of Ref. \cite{fickler2012quantum} but with at least four holograms.
+\highlight{(the message of this paragraph is not clear)}
+
+\parTitle{Look for projections maximizing negativity on reduced state}
+We now test the capability of our setup \highlight{(is this referring to the \textit{experimental} setup, or to the type of dynamics being considered here?)} to generate states
+% in~\cref{eq:prj_state}
+with maximal negativity, in the case of two identical Hadamard QWs. We look for optimal $(\theta, \phi)$ parameters maximizing both the negativity and the projection probability. We find two sets \highlight{(what kind of sets? Are these single values or range of possible values?)} that maximize these quantities for the projections types $\{00, 11\}$ and $\{01, 10\}$ respectively \highlight{(clarify what "projection type" means here)}.
+In~\cref{fig:10steps_results}a,b we report the value of negativities and projection probabilities in terms of the two parameters for $N=10$ steps. It is worth noting the existence of large areas in which $\mathcal{N}_{lm}$ assumes the value 1. In the panels e-h of~\cref{fig:10steps_results} we report the values of $\mathcal{N}_{lm}$ and $\mathcal{P}_{lm}$ for any step for both set of optimal parameter, when the maximization is performed \textit{i)} on the negativity and \textit{ii)} both the negativity and projection probabilities. In particular we compare the latter with the generation probability of Ref. \cite{fickler2012quantum}.
+Same results can be obtained with randomly sampled quantum walks: it is always possible to find optimal projectors to retrieve the ebit \highlight{(ref if we want to use this terminology)} of entanglement in the two walkers state.
+
+\parTitle{Different unitaries} \highlight{We say above "\textit{We firstly investigate the case $U_1=U_2$}". Do we have data for different unitaries?}
 
 \section{Entanglement accumulation}
 \label{sec:entanglement_accumulation}
@@ -526,6 +596,7 @@ More precisely, we consider a state
 	(\ket{\uparrow\uparrow}+ \ket{\downarrow\downarrow})_{\calC}
 	\otimes
 	(\ket{\psi_1\psi_2} + \ket{\psi_2\psi_1})_{\calW},
+	\label{eq:ent_acc_initial_state}
 \end{equation}
 Focusing on the transferability on $\calH^{(1)}$, observe that the reduced state is
 \begin{equation}
@@ -557,41 +628,50 @@ $\mel{\gamma}{\calU}{\psi_i}$ to be orthogonal with each other, that is,
 \begin{equation}
 	\mel{\psi_i}{\calU^\dagger(\PP_\gamma\otimes I_{\calW})\calU}{\psi_j} = p \delta_{ij}.
 \end{equation}
+Clearly, this can only be satisfied for suitable choices of $\calU$ and $\ket{\psi_i}$. In particular, the dimension of $\calU$ must be such that even after the projection there are dimensions to accommodate the required number of orthogonal states.
+This, in particular, means that if the entanglement dimension of a state is $n$, and we want to merge the entanglement of an additional Bell state into it, $\calU$ must have dimension at least $4n$ (because there must be at least $2n$ dimensions \emph{after} the projection).
+The dimension of $\calU$ must therefore increase exponentially with the number of iterations, if one were to hope adding a new ebit of entanglement with each one.
 
 
-\parTitle{Specific case of single-step QW}
+% \parTitle{Explicit calculation QWs}
+% Let us consider the case in which for simplicity the first projection is 00 type and the unitaries are identical. The input state for the second iteration, after the $U^{Bell}$ on the coin
+% \begin{align}
+%      \ket{\Psi^{0 (1)}} &= \frac{1}{2}\left(\ket{\uparrow \psi_a}_1 \ket{\uparrow \psi_b}_2 +\ket{\uparrow \psi_b}_1 \ket{\uparrow \psi_a}_2 + \right. \notag\\
+%       &\left. + \ket{\downarrow \psi_a}_1 \ket{\downarrow \psi_b}_2 +
+%      \ket{\downarrow \psi_b}_1 \ket{\downarrow \psi_a}_2
+%      \right),
+% \end{align}
+% injected to the others QWs, will produce the state
+% \begin{align}
+%      \ket{\Psi^{f(1)}} &=
+%      \alpha \ket{\Psi^{\uparrow \psi_a}_1\Psi^{\uparrow \psi_b}_2} +
+%      \beta \ket{\Psi^{\uparrow \psi_b}_1\Psi^{\uparrow \psi_a}_2} +  \notag \\
+%         &+ \delta \ket{\Psi^{\downarrow \psi_a}_1\Psi^{\downarrow \psi_b}_2} 
+%          + \gamma \ket{\Psi^{\downarrow \psi_b}_1\Psi^{\downarrow \psi_a}_2}.
+% \label{eq:final_state1}                 
+% \end{align}
+% It is clear \highlight{(is it?)} that after a further coin projection, the whole state will collapse in a superposition of four terms with at least four different qudits states involved.
+% Due to the high-dimension of the two walkers position, we can generate states in which the four qudits in the superposition are mutually orthogonal.
 
-Let us consider the case in which for simplicity the first projection is 00 type and the unitaries are identical. The input state for the second iteration, after the $U^{Bell}$ on the coin
-\begin{align}
-     \ket{\Psi^{0 (1)}} &= \frac{1}{2}\left(\ket{\uparrow \psi_a}_1 \ket{\uparrow \psi_b}_2 +\ket{\uparrow \psi_b}_1 \ket{\uparrow \psi_a}_2 + \right. \notag\\
-      &\left. + \ket{\downarrow \psi_a}_1 \ket{\downarrow \psi_b}_2 +
-     \ket{\downarrow \psi_b}_1 \ket{\downarrow \psi_a}_2
-     \right),
-\end{align}
-injected to the others QWs, will produce the state
-\begin{align}
-     \ket{\Psi^{f(1)}} &=
-     \alpha \ket{\Psi^{\uparrow \psi_a}_1\Psi^{\uparrow \psi_b}_2} +
-     \beta \ket{\Psi^{\uparrow \psi_b}_1\Psi^{\uparrow \psi_a}_2} +  \notag \\
-        &+ \delta \ket{\Psi^{\downarrow \psi_a}_1\Psi^{\downarrow \psi_b}_2} 
-         + \gamma \ket{\Psi^{\downarrow \psi_b}_1\Psi^{\downarrow \psi_a}_2}.
-\label{eq:final_state1}                 
-\end{align}
+\parTitle{Scaling of negativty}
+Consider a state $\ket{q} = \sum_{s =1}^{n_q} \ket{ss}$, where $s$ are the walkers position. The negativity of such state scales as $\log_2(n_q + 1)$. According to such intuition we expect that the maximum negativity of the state $\ket{\Psi^{f(N_i)}}$ at the iteration $N_i$ after a proper coin projection, could be $\mathcal{N}^{Max} =\log_2( 2^{N_i}+1)$. Indeed the number of states in the superposition grows as $2^{N_i}$, as can be verified looking at~\eqref{eq:final_state} and~\eqref{eq:final_state1}.
 
-\begin{figure}[t]
-\centering
+\parTitle{Numerical results}
+In~\cref{fig:ent_acc}a we report numerical results on the scaling of the negativity for different numbers of iterations.
+We consider cascaded Hadamard QWs, starting from the initial state in~\cref{eq:ent_acc_initial_state}, with the entanglement between the coins restored at each iteration.
+We focus on iterations in which the optimization on the negativity is performed on projectors of type $00$, after QWs of equal steps $N$, for different value of $N$.
+We find that the optimal curve $\mathcal{N}^{Max}$ is not saturated.
+% Different strategies can be investigated to improve the performance of the protocol.
+In~\cref{fig:ent_acc}b we try to change the unitary after the first optimal coin projection on two Hadamard QWs \highlight{(clarify)}.
+For the purpose, we sample random coin operators for the next QW stage. We find a dependence on both the choice of unitary in the second stage, and the number of steps of each QW (see~\cref{fig:ent_acc}b). The latter is not surprising, since with many steps we cover higher-dimensional Hilbert spaces and, consequently, it is easier to produce four mutually orthogonal qudits.
+
+\begin{figure}[tb]
+	\centering
     \includegraphics[width = \columnwidth]{figures/scaling.pdf}
-    \caption{\textbf{Entanglement accumulation} a) Trend of the entanglement accumulation after several iterations of the protocol with identical Hadamard QW of $N=\{1,3,5,7,10\}$ steps. From such simulation seems that the optimal transfer of one ebit per iteration cannot be reached. However, relaxing the need to have same unitaries at each step, the optimal scaling can be obtained. \highlight{(where do we see this?)} b) Histograms for one iteration of entanglement transfer protocol (the stage zero with two identical Hadamard QWs), for three values of QW steps per iteration $N=\{3,5,7\}$. 
+    \caption{\textbf{Entanglement accumulation} a) Trend of the entanglement accumulation after several iterations of the protocol with identical Hadamard QW of $N=\{1,3,5,7,10\}$ steps. From such simulation seems that the optimal transfer of one ebit per iteration cannot be reached. However, relaxing the need to have same unitaries at each step, the optimal scaling can be obtained. \highlight{(where do we see this? doesn't the text say the opposite?)} b) Histograms for one iteration of entanglement transfer protocol (the stage zero with two identical Hadamard QWs), for three values of QW steps per iteration $N=\{3,5,7\}$. 
     Each histograms represent the distribution of $500$ random extracted coin operators for individuating the QW unitary to apply to the two walkers in the state $\ket{\Psi^{0(1)}}$. We observe that it is possible to find unitary operation for the second entanglement transfer which allows to saturate the bound of 2 ebit of entanglement. In particular histograms tend to pick towards 2 with increasing number of steps. All the calculations were performed considering coin projection of type $00$.}
     \label{fig:ent_acc}
 \end{figure}
-It is clear that after a further coin projection, the whole state will collapse in a superposition of four terms with at least four different qudits states involved.
-Due to the high-dimension of the two walkers position, we can generate states in which the four qudits in the superposition are mutually orthogonal. To be more precise,
-let us consider, as example, a state $\ket{q} = \sum_{s =1}^{n_q} \ket{ss}$, where $s$ are the walkers position. The negativity of such state scales as $\log_2(n_q + 1)$. According to such intuition we expect that the maximum negativity of the state $\ket{\Psi^{f(N_i)}}$ at the iteration $N_i$ after a proper coin projection, could be $\mathcal{N}^{Max} =\log_2( 2^{N_i}+1)$. Indeed the number of states in the superposition grows as $2^{N_i}$, as can be verified looking at \eqref{eq:final_state} and \eqref{eq:final_state1}.
-
-In Fig. \ref{fig:ent_acc}a we report numerical simulation on the scaling of negativity according to increasing number of iteration. We consider cascaded Hadamard QWs, starting from the initial state in \eqref{eq:initial_state}, with $U^{Bell}$ coin operation in between. We focus on iteration in which the optimization on the negativity is performed on projectors of type $00$, after Qws of equal steps $N$, for different value of $N$. According to this simulation, the optimal curve $\mathcal{N}^{Max}$ is not saturated. For improving the performance of the protocol different strategies can be investigated. In 
-Fig. \ref{fig:ent_acc}b we try to change the unitary after the first optimal coin projection on two Hadamard QWs. To this aim 
-we have random sampled the coin operators for the next QWs evolution, considering the accumulation after one iteration of the protocol for different steps. From such simulation turns out that there is a dependence both from the choice of the unitary in the second stage and from the number of steps of each QW (see Fig. \ref{fig:ent_acc}b). The latter is not surprising since with high number of steps we cover higher dimensional Hilbert spaces and, consequently, it could be easier to produce four qudits mutually orthogonal inside the state produced by the projection of the coins in $\ket{\Psi^{f(1)}}$.
 
 \section{Entanglement retrieval}
 \label{sec:entanglement_retrieval}
@@ -688,82 +768,7 @@ We then consider the most general cases, namely two different unitaries transfor
 
 
 
-\section{Projected states, numerical results}
-\label{sec:projected_states}
-
-\parTitle{What do we do here and why}
-In~\cref{sec:projected_states} we showed that reduced states are entangled.
-We here investigate the entanglement properties when \textit{projecting} the coins. While making the scheme probabilistic, this will allow for far improved entanglement transfer results \highlight{(I think?)}.
-% Now we look for saturating the bound, projecting the coin on suitable directions.
-
-Fix a basis $\ket{\gamma_1},\ket{\gamma_2}$ for the polarization and consider the associated projectors
-$\PP_{ij}\equiv \ketbra{\gamma_i}\otimes\ketbra{\gamma_j}$.
-Applying these to an initial state of the form
-$\alpha\ket{\Psi_\uparrow\Psi_\downarrow}+\beta\ket{\Psi_\downarrow\Psi_\uparrow}$
-gives
-\begin{equation}
-    \alpha\ket*{\Psi_\uparrow^i\Psi_\downarrow^j} +
-    \beta\ket*{\Psi_\downarrow^i\Psi_\uparrow^j}.
-\end{equation}
-
-
-% \parTitle{Notation?}
-% First, let us define a generic coin projectors, starting from the orthonormal basis
-% \begin{equation}\begin{aligned}
-%     \ket{0} &= \cos{\frac{\theta}{2}} \ket{\uparrow}+ 
-%     e^{i\phi}\sin{\frac{\theta}{2}}\ket{\downarrow} \\
-%     \ket{1} &= \sin{\frac{\theta}{2}} \ket{\uparrow}-
-%     e^{i\phi}\cos{\frac{\theta}{2}}\ket{\downarrow}
-% \end{aligned}\end{equation}
-% \highlight{(are we using this definition somewhere? Also if we need to defined these, I'd use a different notation highlighting the $\theta,\phi$ dependence)}
-
-% where $\theta \in [0, \pi ]$ and $\phi \in [0, 2\pi]$. We then define the four projectors for two separable measurements on the two coin subspace as
-% \begin{equation}
-%     \hat{P}_{lm}(\theta, \phi) =
-%     \hat{P}_{l}(\theta, \phi) \otimes \hat{P}_{m}(\theta, \phi) =
-%     \ketbra{lm},
-% \end{equation}
-% with $l,m \in\{0,1\}$ the two possible coin states \highlight{(explicit phase dependence in $\ell,m$)}.
-% Applying these operators on the state in~ \cref{eq:final_state} we obtain in the $(w_1, w_2)$ subspace the states
-% \begin{subequations}
-% \label{eq:prj_state}
-% \begin{align}
-%     \hat{P}_{00} &\rightarrow \alpha_{00}\ket{\psi^{0 \uparrow}_1 \psi^{0 \downarrow}_2} + \beta_{00}\ket{\psi^{0 \downarrow}_1 \psi^{0 \uparrow}_2} \label{eq:prj_state_a}\\
-%     \hat{P}_{01} &\rightarrow \alpha_{01}\ket{\psi^{0 \uparrow}_1 \psi^{1 \downarrow}_2} + \beta_{01}\ket{\psi^{0 \downarrow}_1 \psi^{1 \uparrow}_2}\label{eq:prj_state_b}\\
-%     \hat{P}_{10} &\rightarrow \alpha_{10}\ket{\psi^{1 \uparrow}_1 \psi^{0 \downarrow}_2} + \beta_{10}\ket{\psi^{1 \downarrow}_1 \psi^{0 \uparrow}_2}\label{eq:prj_state_c}\\
-%      \hat{P}_{11} &\rightarrow \alpha_{11}\ket{\psi^{1 \uparrow}_1 \psi^{1 \downarrow}_2} + \beta_{11}\ket{\psi^{1 \downarrow}_1 \psi^{1 \uparrow}_2}\label{eq:prj_state_d}.
-% \end{align}
-% \end{subequations}
-
-% In the above expression the wavefuctions $\psi^{lk}_i$ are the result of the projection along $l$ of the output state $\ket{\Psi^{k}_i}$, namely the state after the single particle quantum walk $U_i$, with $k$ as initial coin.
-
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=\textwidth]{proj.pdf}
-    \caption{\textbf{Projection optimization for Hadamard quantum walks.} a-b) State negativities for different type of projection $00$ and $01$ (the other two cases display the same behaviour)in terms of $(\theta, \phi)$. It is worth to note that $\mathcal{N}_{lm}>0.6$ in both cases. c-d) Corresponding surface for the projection probabilities. It is possible to obtain $P_{lm}> 0.25$ (generation probability of Ref \cite{fickler2012quantum}) but with non-optimal negativity. e-f) $\mathcal{N}_{00}$ and $P_{00}$ respect with different number of steps in the case e) of $\mathcal{N}_{00}$ optimization and f) for the maximization of both $\mathcal{N}_{00}$ and $P_{00}$. We note that both bound ($1, 0.25$) can be saturated by our protocol. g-h) same calculation of panels e-f) for $01$ projection.}
-    \label{fig:10steps_results}
-\end{figure*}
-
-\parTitle{Case with same QW on both sides}
-We firstly investigate, as in~\cref{sec:purity_reduced_states}, the case $U_1 = U_2$. The states in \cref{eq:prj_state_a} and  \cref{eq:prj_state_d} can be rewritten as $\alpha \ket{\psi_a \psi_b} + \beta \ket{\psi_b \psi_a}$, since only two type of qudits can be obtained.
-In the literature such states have been demonstrated exploiting the entanglement of a Bell state in polarization qubits which is transferred to a state in the orbital angular momentum (OAM) \highlight{(reference)}.
-In such apparatus, the two QWs are replaced by Sagnac interferometers with one spatial light modulator on each side displaying two holograms $\{\psi_a, \psi_b\}$~\cite{fickler2012quantum} \highlight{(might be useful to add a couple sentences on what holograms are etc)}. The resulting state is similar to~\cref{eq:final_state} but with single particle states in which polarization and OAM are separable, i.e $\ket{\Psi^{Zeil}}=A(\ket{\uparrow \psi_a}\ket{\downarrow \psi_b} +\ket{\downarrow \psi_b} \ket{\uparrow \psi_a})$ \highlight{(explain better this definition, which doesn't seem to be used again later)}.
-Despite the similarities of the two techniques \highlight{(which two techniques?)} it is worth noting that this state cannot display the same properties under coin tracing\highlight{(?)}.
-Indeed in the case of $\braket{\psi_a}{\psi_b}=0$, which ensure the maximum negativity when the state is projected with $\hat{P}_{00}(90\degree,0)$, does not display entanglement when the polarization is traced (the state is a statistical mixture of $\{\psi_a, \psi_b\}$).
-Furthermore if we look at the states of~\cref{eq:prj_state_b} and~\cref{eq:prj_state_c}, they need in general four type of qudits to be described even with two identical unitaries. These states could be reproduced by the apparatus of Ref. \cite{fickler2012quantum} but with at least four holograms.
-\highlight{(the message of this paragraph is not clear)}
-
-\parTitle{Look for projections maximizing negativity on reduced state}
-We now test the capability of our setup \highlight{(is this referring to the \textit{experimental} setup, or to the type of dynamics being considered here?)} to generate states
-% in~\cref{eq:prj_state}
-with maximal negativity, in the case of two identical Hadamard QWs. We look for optimal $(\theta, \phi)$ parameters maximizing both the negativity and the projection probability. We find two sets \highlight{(what kind of sets? Are these single values or range of possible values?)} that maximize these quantities for the projections types $\{00, 11\}$ and $\{01, 10\}$ respectively \highlight{(clarify what "projection type" means here)}.
-In~\cref{fig:10steps_results}a,b we report the value of negativities and projection probabilities in terms of the two parameters for $N=10$ steps. It is worth noting the existence of large areas in which $\mathcal{N}_{lm}$ assumes the value 1. In the panels e-h of~\cref{fig:10steps_results} we report the values of $\mathcal{N}_{lm}$ and $\mathcal{P}_{lm}$ for any step for both set of optimal parameter, when the maximization is performed \textit{i)} on the negativity and \textit{ii)} both the negativity and projection probabilities. In particular we compare the latter with the generation probability of Ref. \cite{fickler2012quantum}.
-Same results can be obtained with randomly sampled quantum walks: it is always possible to find optimal projectors to retrieve the ebit \highlight{(ref if we want to use this terminology)} of entanglement in the two walkers state.
-
-\parTitle{Different unitaries} \highlight{We say above "\textit{We firstly investigate the case $U_1=U_2$}", but where do we investigate other cases?}
-
-
-\section{A proof-of-principle experiment}
+\section{Experimental proposal}
 Here we propose a scheme for the realization of the entanglement accumulation protocol in a photonic platform that encodes coin and walkers position in polarization and OAM degree of freedom. This proposal provides the realization of two iterations, giving access to states with 2 ebit of entanglement. 
 
 The scheme works as follows. It requires that at first iteration the two Qws are identical and to perform type 00 projection on the coins. In this way, the state after the projection that maximize the negativity will be $1/\sqrt{2}\ket{\uparrow \uparrow}\otimes(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a})$. 
@@ -1040,7 +1045,6 @@ Then we can see that there is no $\ket\gamma$ such that
 \section{Open questions}
 \begin{itemize}
     %\item Beyond the ebit: entanglement %accumulation. Iterating the protocol after %a nonlocal operation between the two %parties. Concerning the issue of generating %qudit states in the OAM with more than one %ebit of entanglement, in literature we %found for the moment only this work Ref. %\cite{Malik2016} (3 entangled qutrit). \\
-    \item Entanglement retrieval in the polarization. Is it possible to transfer back the ebit to the polarization?
     \item Entangled qudit engineering: given a maximum negativity state, how find the set of unitaries and projections for generating it. To solve this task we have to find
     \begin{itemize}
         \item analytical expression for $\alpha(\beta)_{lm}(\theta, \phi)$
