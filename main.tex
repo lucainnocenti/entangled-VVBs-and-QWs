@@ -63,6 +63,7 @@
 \newcommand{\calC}{{\mathcal{C}}}
 \newcommand{\calE}{{\mathcal{E}}}
 \newcommand{\calH}{{\mathcal{H}}}
+\newcommand{\calN}{{\mathcal{N}}}
 \newcommand{\calS}{{\mathcal{S}}}
 \newcommand{\calP}{{\mathcal{P}}}
 \newcommand{\calO}{{\mathcal{O}}}
@@ -113,11 +114,10 @@ We study the possibility of entangling two high-dimensional systems using a pair
 Here we go beyond the context set by such earlier investigations and, by taking issue from the possibilities offered by the effective dynamics on the walker, we engineer a double-QW interface that is able to transfer entanglement from a two-coin state to a bipartite OAM-encoded state. We show that...\MP{riassunto dei risultati}. Remarkably, we show that the very same dynamical process used to transfer the entanglement from the qubit resource to the two-walker state can be used to {\it retrieve} entanglement to a fresh pair of qubits prepared in a separable state. \MP{commento sull'efficienza di retrieval} Therefore, our scheme embodies a righteous \highlight{(?)} two-way interface with a good efficiency of transfer and retrieval and a valuable tool for the dynamical combination of hybrid hetero-dimensional information carriers.
 
 \parTitle{Tentative outline}
-In~\cref{sec:overview} we give an overview of necessary background on QWs and OAM.
-In~\cref{sec:entanglement_transfer_local_projections} we formalise the entanglement transferability problem and study its solutions in the general case.
-In~\cref{sec:entanglement_transfer_in_QWs} we study the entanglement transfer between coin and walker degrees of freedom of a pair of QWs.
-
-Considerations on purity (goal: evidence of residual entanglement between walkers).
+In~\cref{sec:overview} we overview the necessary background on QWs and OAM.
+In~\cref{sec:entanglement_transfer_local_projections} we formalise the entanglement transferability problem and study its solutions in the general case, to then specialise in~\cref{sec:entanglement_transfer_in_QWs} on the transferability in the context of QWs.
+We then study in~\cref{sec:entanglement_accumulation} the possibility of accumulating entanglement in one degree of freedom by repeated applications of the above entanglement transfer protocol.
+We conclude in~\cref{sec:experimental_proposal} by detailing a possible experimental implementation of the protocol.
 
 
 %\cite{chuang2010}
@@ -213,20 +213,20 @@ We can formally state our problem as the following:
 A schematic description of the scenario is given in~\cref{fig:entanglement_transfer_scheme}.
 It is worth stressing that, for arbitrary choices of $\ket\Psi$, such entanglement transfer is clearly impossible --- for example if $\ket\Psi$ is separable with respect to $\calH_1$ and $\calH_2$. It is therefore pivotal to figure out the conditions making such protocol viable.
 
-\begin{figure}
-    \centering
-    \begin{minipage}[c]{\linewidth}
-        \centering
-        \begin{quantikz}
-            \lstick[wires=4]{$\ket{\Psi_{\on{in}}}$}\qw &\qw & \gate[wires=2]{U_{12}}\slice{$\ket{\Psi_f}$} &\qw \\
-            \qw & \gate[wires=2]{U_{23}} & & \qw\rstick{$\!\!\ket{\gamma}$}\\
-            \qw & & \gate[wires=2]{U_{34}} & \qw\rstick{$\!\!\ket{\gamma}$}\\
-            \qw & \qw & \qw & \qw
-        \end{quantikz}
-    \end{minipage}
-    \caption{Entanglement transfer scheme. \highlight{(add decent description)}}
-    \label{fig:entanglement_transfer_scheme}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \begin{minipage}[c]{\linewidth}
+%         \centering
+%         \begin{quantikz}
+%             \lstick[wires=4]{$\ket{\Psi_{\on{in}}}$}\qw &\qw & \gate[wires=2]{U_{12}}\slice{$\ket{\Psi_f}$} &\qw \\
+%             \qw & \gate[wires=2]{U_{23}} & & \qw\rstick{$\!\!\ket{\gamma}$}\\
+%             \qw & & \gate[wires=2]{U_{34}} & \qw\rstick{$\!\!\ket{\gamma}$}\\
+%             \qw & \qw & \qw & \qw
+%         \end{quantikz}
+%     \end{minipage}
+%     \caption{Entanglement transfer scheme. \highlight{(add decent description)}}
+%     \label{fig:entanglement_transfer_scheme}
+% \end{figure}
 
 \parTitle{We are actually dealing with two problems at once}
 The task at hand can be broken down into two distinct entanglement transfer problems: restricting to \emph{local} projections on both sides, the transferability of entanglement between $\calH^{(1)}_{\calC}$ and $\calH^{(1)}_{\calW}$ is independent from that between $\calH^{(2)}_{\calC}$ and $\calH^{(2)}_{\calW}$.
@@ -489,7 +489,7 @@ The entanglement transfer scheme then becomes deterministic, as any outcome of t
 \subsection{Numerical Results}
 
 \parTitle{What do we do here and why}
-We investigate here the residual entanglement when projecting the coin DOF.
+We investigate here the residual entanglement when projecting the coin degree of freedom.
 Fix a basis $\ket{\gamma_1},\ket{\gamma_2}$ for the polarization and consider the associated projectors
 $\PP_{ij}\equiv \ketbra{\gamma_i}\otimes\ketbra{\gamma_j}$.
 Applying these to an initial state of the form
@@ -534,7 +534,12 @@ we get
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\textwidth]{proj.pdf}
-    \caption{\textbf{Projection optimization for Hadamard quantum walks.} a-b) State negativities for different type of projection $00$ and $01$ (the other two cases display the same behaviour)in terms of $(\theta, \phi)$. It is worth to note that $\mathcal{N}_{lm}>0.6$ in both cases. c-d) Corresponding surface for the projection probabilities. It is possible to obtain $P_{lm}> 0.25$ (generation probability of Ref \cite{fickler2012quantum}) but with non-optimal negativity. e-f) $\mathcal{N}_{00}$ and $P_{00}$ respect with different number of steps in the case e) of $\mathcal{N}_{00}$ optimization and f) for the maximization of both $\mathcal{N}_{00}$ and $P_{00}$. We note that both bound ($1, 0.25$) can be saturated by our protocol. g-h) same calculation of panels e-f) for $01$ projection.}
+    \caption{\textbf{Projection optimization for Hadamard quantum walks.}
+    a-b) State negativities for different types of projection $00$ and $01$ (the other two cases display the same behaviour) in terms of $(\theta, \phi)$. It is worth noting that $\mathcal{N}_{lm}>0.6$ in both cases.
+    \highlight{(how many steps is this? how are the projection chosen ($00$ means same projection on both sides, but which one is being used)?)}
+    c-d) Projection probabilities. It is possible to obtain $P_{lm}> 0.25$ (generation probability of~\cite{fickler2012quantum}) but with non-optimal negativity \highlight{(clarify sentence)}. e-f) $\mathcal{N}_{00}$ and $P_{00}$ respect with different number of steps in the case e) of $\mathcal{N}_{00}$ optimization and f) for the maximization of both $\mathcal{N}_{00}$ and $P_{00}$. We note that both bound ($1, 0.25$) can be saturated by our protocol. g-h) same calculation of panels e-f) for $01$ projection.
+    \highlight{(what are $P^{Zeil}$ and $\calN^{MAX}$?)}
+    }
     \label{fig:10steps_results}
 \end{figure*}
 
@@ -548,7 +553,7 @@ In such apparatus, the two QWs are replaced by Sagnac interferometers with one s
 Despite the similarities of the two techniques \highlight{(which two techniques?)} it is worth noting that this state cannot display the same properties under coin tracing\highlight{(?)}.
 Indeed in the case of $\braket{\psi_a}{\psi_b}=0$, which ensure the maximum negativity when the state is projected with $\hat{P}_{00}(90\degree,0)$, does not display entanglement when the polarization is traced (the state is a statistical mixture of $\{\psi_a, \psi_b\}$).
 Furthermore if we look at the states of~\cref{eq:prj_state_b} and~\cref{eq:prj_state_c}, they need in general four type of qudits to be described even with two identical unitaries. These states could be reproduced by the apparatus of Ref. \cite{fickler2012quantum} but with at least four holograms.
-\highlight{(the message of this paragraph is not clear)}
+\highlight{(the message of this paragraph is not clear. Also, should this go in the overview or experimental sections?)}
 
 \parTitle{Look for projections maximizing negativity on reduced state}
 We now test the capability of our setup \highlight{(is this referring to the \textit{experimental} setup, or to the type of dynamics being considered here?)} to generate states
@@ -572,7 +577,7 @@ we apply an operation entangling the coin degrees of freedom, thus getting a sta
 \begin{equation}
 	\ket{\Psi}_{\calW}\otimes\ket{\Phi}_{\calC}.
 \end{equation}
-The QW evolution is then used to correlate again walker and coin DOFs \highlight{(check acronym)}.
+The QW evolution is then used to correlate again walker and coin degrees of freedom.
 
 \parTitle{Output of single round of entanglement transfer}
 Suppose one round of entanglement transfer was executed successfully.
@@ -586,7 +591,7 @@ We thus have a state of the form
 \end{equation}
 for some walker states $\ket{\psi_i}$ with $\braket{\psi_i}{\psi_j}=\delta_{ij}$.
 Note that we are assuming here for simplicity that the coins have been projected onto $\ket\uparrow$, and that the post-selected walker states form a singlet.
-While this is not generally the case, we can always formally describe the states this way, up to some relabelling \highlight{(explain better)}.
+While this is not generally the case, we can always formally describe the states this way, up to some relabelling.
 
 \parTitle{Entanglement accumulation, problem statement}
 Suppose we can now re-entangle the coin states $\calH^{(i)}_{\calC}$. Can we perform another round of QW evolutions to transfer even more entanglement into the walkers?
@@ -657,21 +662,27 @@ The dimension of $\calU$ must therefore increase exponentially with the number o
 Consider a state $\ket{q} = \sum_{s =1}^{n_q} \ket{ss}$, where $s$ are the walkers position. The negativity of such state scales as $\log_2(n_q + 1)$. According to such intuition we expect that the maximum negativity of the state $\ket{\Psi^{f(N_i)}}$ at the iteration $N_i$ after a proper coin projection, could be $\mathcal{N}^{Max} =\log_2( 2^{N_i}+1)$. Indeed the number of states in the superposition grows as $2^{N_i}$, as can be verified looking at~\eqref{eq:final_state} and~\eqref{eq:final_state1}.
 
 \parTitle{Numerical results}
-In~\cref{fig:ent_acc}a we report numerical results on the scaling of the negativity for different numbers of iterations.
+In~\cref{fig:entanglement_accumulation_numerical_results}a we report numerical results on the scaling of the negativity for different numbers of iterations.
 We consider cascaded Hadamard QWs, starting from the initial state in~\cref{eq:ent_acc_initial_state}, with the entanglement between the coins restored at each iteration.
 We focus on iterations in which the optimization on the negativity is performed on projectors of type $00$, after QWs of equal steps $N$, for different value of $N$.
 We find that the optimal curve $\mathcal{N}^{Max}$ is not saturated.
 % Different strategies can be investigated to improve the performance of the protocol.
-In~\cref{fig:ent_acc}b we try to change the unitary after the first optimal coin projection on two Hadamard QWs \highlight{(clarify)}.
-For the purpose, we sample random coin operators for the next QW stage. We find a dependence on both the choice of unitary in the second stage, and the number of steps of each QW (see~\cref{fig:ent_acc}b). The latter is not surprising, since with many steps we cover higher-dimensional Hilbert spaces and, consequently, it is easier to produce four mutually orthogonal qudits.
+In~\cref{fig:entanglement_accumulation_numerical_results}b we try to change the unitary after the first optimal coin projection on two Hadamard QWs \highlight{(clarify)}.
+For the purpose, we sample random coin operators for the next QW stage. We find a dependence on both the choice of unitary in the second stage, and the number of steps of each QW (see~\cref{fig:entanglement_accumulation_numerical_results}b). The latter is not surprising, since with many steps we cover higher-dimensional Hilbert spaces and, consequently, it is easier to produce four mutually orthogonal qudits.
+
+\parTitle{Conclusions?}
 
 \begin{figure}[tb]
 	\centering
     \includegraphics[width = \columnwidth]{figures/scaling.pdf}
-    \caption{\textbf{Entanglement accumulation} a) Trend of the entanglement accumulation after several iterations of the protocol with identical Hadamard QW of $N=\{1,3,5,7,10\}$ steps. From such simulation seems that the optimal transfer of one ebit per iteration cannot be reached. However, relaxing the need to have same unitaries at each step, the optimal scaling can be obtained. \highlight{(where do we see this? doesn't the text say the opposite?)} b) Histograms for one iteration of entanglement transfer protocol (the stage zero with two identical Hadamard QWs), for three values of QW steps per iteration $N=\{3,5,7\}$. 
-    Each histograms represent the distribution of $500$ random extracted coin operators for individuating the QW unitary to apply to the two walkers in the state $\ket{\Psi^{0(1)}}$. We observe that it is possible to find unitary operation for the second entanglement transfer which allows to saturate the bound of 2 ebit of entanglement. In particular histograms tend to pick towards 2 with increasing number of steps. All the calculations were performed considering coin projection of type $00$.}
-    \label{fig:ent_acc}
+    \caption{\textbf{Entanglement accumulation}
+    a) State negativity for different iterations of the entanglement accumulation protocol. Both parties are here evolved with identical Hadamard QWs, for $N=\{1,3,5,7,10\}$ steps. From such simulation seems that the optimal transfer of one ebit per iteration cannot be reached. However, relaxing the need to have same unitaries at each step, the optimal scaling can be obtained. \highlight{(do we have data for this? doesn't the text say the opposite?)} b) Histograms for one iteration of entanglement transfer protocol (the stage zero with two identical Hadamard QWs), for $N=3,5, 7$ QW steps. 
+    Each histograms represent the distribution of $500$ random extracted coin operators for individuating the QW unitary to apply to the two walkers in the state $\ket{\Psi^{0(1)}}$. We observe that it is possible to find unitary operation for the second entanglement transfer which allows to saturate the bound of 2 ebit of entanglement. In particular histograms tend to pick towards 2 with increasing number of steps. All the calculations were performed considering coin projection of type $00$.
+    \highlight{(isn't this data for a single iteration? why are we talking about a second entanglement transfer?)}
+    }
+    \label{fig:entanglement_accumulation_numerical_results}
 \end{figure}
+
 
 \section{Entanglement retrieval}
 \label{sec:entanglement_retrieval}
@@ -769,6 +780,7 @@ We then consider the most general cases, namely two different unitaries transfor
 
 
 \section{Experimental proposal}
+\label{sec:experimental_proposal}
 Here we propose a scheme for the realization of the entanglement accumulation protocol in a photonic platform that encodes coin and walkers position in polarization and OAM degree of freedom. This proposal provides the realization of two iterations, giving access to states with 2 ebit of entanglement. 
 
 The scheme works as follows. It requires that at first iteration the two Qws are identical and to perform type 00 projection on the coins. In this way, the state after the projection that maximize the negativity will be $1/\sqrt{2}\ket{\uparrow \uparrow}\otimes(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a})$. 
@@ -778,7 +790,7 @@ Indeed, rewriting the state in terms of creation operators we have:
     \frac{1}{\sqrt{2}}\left(a^{\dagger}_{\uparrow, \psi_a,1}a^{\dagger}_{\uparrow, \psi_b,2}+a^{\dagger}_{\uparrow, \psi_b,1}a^{\dagger}_{\uparrow, \psi_a,2} \right)\ket{0} 
     \label{eq: snd_quant}
 \end{equation}
-The two photon are injected in the two input port of a polarizing beam-splitter, after a polarization rotation made by two half-waveplate (see \Cref{fig:exp_ent_acc}). Then creator operators in \cref{eq: snd_quant} become
+The two photon are injected in the two input port of a polarizing beam-splitter, after a polarization rotation made by two half-waveplate (see~\cref{fig:conceptual_fig_2}). Then creator operators in \cref{eq: snd_quant} become
 
 \begin{equation}\begin{aligned}
     a^{\dagger}_{\uparrow, \psi_{a/b},1} & \rightarrow \cos{\theta_1}a^{\dagger}_{\uparrow, \psi_{a/b},1} + i\sin{\theta_1}a^{\dagger}_{\downarrow, \psi_{a/b},2} \\
@@ -787,9 +799,9 @@ The two photon are injected in the two input port of a polarizing beam-splitter,
 
 \begin{figure}[t]
     \centering
-    \includegraphics[scale= 0.45]{exp_ent_acc.png}
+    \includegraphics[scale= 0.45]{figures/conceptual_fig_2.png}
     \caption{\textbf{Experimental proposal}}
-    \label{fig:exp_ent_acc}
+    \label{fig:conceptual_fig_2}
 \end{figure}
 
 
@@ -801,54 +813,53 @@ Substituting such expression in \cref{eq: snd_quant} and considering $\theta_1 =
 +\frac{1}{2}& *\frac{\left( \ket{20} +
 \ket{02}\right) }{\sqrt{2}}
 \end{align}
-The first part of the states correspond to resource needed for the protocol accumulation. We can discard the second contribution by post-selecting two fold coincidences between single-photon detectors at the end of second iteration. It is worth to note that the probabilistic generation of the second Bell state is due by the choice to encode qubits in photons. However it is worth to note that we could consider also the state  produced by the projection 11 after the first operation. Indeed it produces, with the same set of optimal $(\theta, \phi)$ parameters, states with the same symmetry properties. In this way it is possible to double the probability of generating states with more than one-ebit of entanglement.
-
-\subsection{From other section}
-\subsection{Entanglement accumulation}
-
-\parTitle{The question}
-Can this type of entanglement transfer be performed multiple times?
-In other words, after a successful round of entanglement transfer, which results in a state of the form $\ket*{\psi_{AD}}\otimes\ket{\gamma_B\gamma_C}$
-with $\ket*\psi_{AD}$ (possibly maximally) entangled,
-can we apply the same procedure to transfer more entanglement into $\calH_{AD}$ by using $\calH_{BC}$ as medium?
-
-\parTitle{Why it is hard}
-The main hurdle in doing this is that the initial state is now of the form
-$\ket*{\psi_{AD}}\ket{\psi_{BC}}$ with \emph{$\ket*{\psi_{AD}}$ and $\ket*{\psi_{BC}}$ both entangled}.
-In the $n=2$ case, this amounts to the reduced state on $\calH_{AB}$ being a mixture of four orthogonal states, and one needs to find a projection $\ket\gamma$ which maintains their orthogonality.
-The problem with this type of procedure is that a local projection in $\calH_B$ amounts to a channel in $\calH_A$ which cannot sustain the orthogonality of more than $\dim(\calH_B)$ orthogonal states. From a more physical perspective, this means that such an operation cannot transfer more entanglement than the one that can fit in $\calH_B$.
-
-\parTitle{Example 1} Suppose the state after a successful round of entanglement transfer, and after a unitary has been applied to $\calH_{BC}$ to restore the entanglement, is
-\begin{equation}
-    \frac12 (\ket{HH} + \ket{VV})_{BC} \otimes (\ket{11} + \ket{22})_{AD}.
-\end{equation}
-Then applying twice a controlled-shift operation $\calS$, like the one used for discrete-time quantum walks: $\calS\ket{H,i}=\ket{H,i}$ and $\calS\ket{V,i}=\ket{V,i+1}$, we end up with a state which, reduced to $\calH_{AB}$, is spanned by the four orthogonal vectors
-\begin{equation}
-    \ket{H,1}, \,\,\ket{H,2}, \,\,\ket{V,3}, \,\,\ket{V,4}.
-\end{equation}
-% \begin{equation}
-% \begin{aligned}
-%     &\ket*{u^1} = \ket{H, 0}, \qquad
-%     \ket*{u^2} = \ket{H, 1}, \\
-%     &\ket*{u^3} = \ket{V, 2}, \qquad
-%     \ket*{u^4} = \ket{V, 3},
-% \end{aligned}
-% \end{equation}
-Projecting over $\ket{\gamma}_B$ is then easily seen to preserve the orthogonality of these four vectors, and therefore achieve entanglement transfer.
-The state after projecting over $\ket{\gamma}_B$ is then
-\begin{equation}
-    \frac12\left[
-        \ket{H}_C\otimes(\ket{11}+\ket{22}) +
-        \ket{V}_C\otimes(\ket{33} + \ket{44})
-    \right],
-\end{equation}
-and similarly projecting in $\calH_C$ we get the final state
-\begin{equation}
-    \frac12 (\ket{11} + \ket{22} + \ket{33} + \ket{44}) \in\calH_{AD}.
-\end{equation}
+The first part of the states correspond to resource needed for the protocol accumulation. We can discard the second contribution by post-selecting two fold coincidences between single-photon detectors at the end of second iteration. It is worth noting that the probabilistic generation of the second Bell state is due by the choice to encode qubits in photons. However it is worth noting that we could consider also the state  produced by the projection 11 after the first operation. Indeed it produces, with the same set of optimal $(\theta, \phi)$ parameters, states with the same symmetry properties. In this way it is possible to double the probability of generating states with more than one-ebit of entanglement.
 
 %After a first research in literature, the maximum amount of entanglement generated with %OAM seems to be 3 ebit. In Ref. \cite{Malik2016}, the authors produce 3 entangled %qutrits in a 3-photon experiment.
 \appendix
+
+% \section{Entanglement accumulation}
+
+% \parTitle{The question}
+% Can this type of entanglement transfer be performed multiple times?
+% In other words, after a successful round of entanglement transfer, which results in a state of the form $\ket*{\psi_{AD}}\otimes\ket{\gamma_B\gamma_C}$
+% with $\ket*\psi_{AD}$ (possibly maximally) entangled,
+% can we apply the same procedure to transfer more entanglement into $\calH_{AD}$ by using $\calH_{BC}$ as medium?
+
+% \parTitle{Why it is hard}
+% The main hurdle in doing this is that the initial state is now of the form
+% $\ket*{\psi_{AD}}\ket{\psi_{BC}}$ with \emph{$\ket*{\psi_{AD}}$ and $\ket*{\psi_{BC}}$ both entangled}.
+% In the $n=2$ case, this amounts to the reduced state on $\calH_{AB}$ being a mixture of four orthogonal states, and one needs to find a projection $\ket\gamma$ which maintains their orthogonality.
+% The problem with this type of procedure is that a local projection in $\calH_B$ amounts to a channel in $\calH_A$ which cannot sustain the orthogonality of more than $\dim(\calH_B)$ orthogonal states. From a more physical perspective, this means that such an operation cannot transfer more entanglement than the one that can fit in $\calH_B$.
+
+% \parTitle{Example 1} Suppose the state after a successful round of entanglement transfer, and after a unitary has been applied to $\calH_{BC}$ to restore the entanglement, is
+% \begin{equation}
+%     \frac12 (\ket{HH} + \ket{VV})_{BC} \otimes (\ket{11} + \ket{22})_{AD}.
+% \end{equation}
+% Then applying twice a controlled-shift operation $\calS$, like the one used for discrete-time quantum walks: $\calS\ket{H,i}=\ket{H,i}$ and $\calS\ket{V,i}=\ket{V,i+1}$, we end up with a state which, reduced to $\calH_{AB}$, is spanned by the four orthogonal vectors
+% \begin{equation}
+%     \ket{H,1}, \,\,\ket{H,2}, \,\,\ket{V,3}, \,\,\ket{V,4}.
+% \end{equation}
+% % \begin{equation}
+% % \begin{aligned}
+% %     &\ket*{u^1} = \ket{H, 0}, \qquad
+% %     \ket*{u^2} = \ket{H, 1}, \\
+% %     &\ket*{u^3} = \ket{V, 2}, \qquad
+% %     \ket*{u^4} = \ket{V, 3},
+% % \end{aligned}
+% % \end{equation}
+% Projecting over $\ket{\gamma}_B$ is then easily seen to preserve the orthogonality of these four vectors, and therefore achieve entanglement transfer.
+% The state after projecting over $\ket{\gamma}_B$ is then
+% \begin{equation}
+%     \frac12\left[
+%         \ket{H}_C\otimes(\ket{11}+\ket{22}) +
+%         \ket{V}_C\otimes(\ket{33} + \ket{44})
+%     \right],
+% \end{equation}
+% and similarly projecting in $\calH_C$ we get the final state
+% \begin{equation}
+%     \frac12 (\ket{11} + \ket{22} + \ket{33} + \ket{44}) \in\calH_{AD}.
+% \end{equation}
 
 \section{Entanglement transfer toy examples}
 
