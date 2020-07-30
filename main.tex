@@ -49,6 +49,13 @@
 
 \usepackage{tikz}
 \usetikzlibrary{quantikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{shapes.arrows}
+% \usetikzlibrary{external}
+% \tikzexternalize
+
+\usepackage{standalone}
+
 \usepackage{physics}
 
 \newcommand{\bs}[1]{\boldsymbol{#1}}
@@ -70,8 +77,16 @@
 \newcommand{\calU}{{\mathcal{U}}}
 \newcommand{\calV}{{\mathcal{V}}}
 \newcommand{\calW}{{\mathcal{W}}}
+
+\newcommand{\HC}{\calH_{\calC}}
+\newcommand{\HW}{\calH_{\calW}}
+
 \newcommand{\MP}[1]{\textcolor{blue}{Mauro: #1}}
+\newcommand{\LI}[1]{\highlight{(LI: \textit{#1})}}
 \newcommand{\commale}[1]{{\textcolor{red} {\it{[Note (Ale): #1]}}}}
+
+% disable parTitles
+% \renewcommand{\parTitle}[1]{}
 
 
 \begin{document}
@@ -86,33 +101,35 @@ Entanglement is a key feature of quantum mechanics that results in a fundamental
 
 
 \section{Introduction}
-\parTitle{Interfacing systems of different dimensionality}
-The interface between quantum systems of different dimensionality offers a rich venue of investigation at both the fundamental and technological level. On one hand, the relation between correlations and the dimension of a quantum system becomes particularly relevant when considering parties living in Hilbert spaces of different dimensions \commale{I think that this needs either more explanation or a reference (I am not sure what we mean exactly here)}. 
-%An extreme instance is that of a compound consisting of a  system with infinite-dimensional state space and a discrete system with finite D-dimensional Hilbert space. 
-On the other hand, promising architectures for quantum communication, such as quantum repeaters~\cite{Lvovsky2009} \commale{do we mean quantum memories?}, rely on interfaces between hetero-dimensional systems such as light and matter-like systems \commale{at these interfaces the systems are physically different but their effective description has usually the same effective dimension (e.g., one photon - one phonon), or am I misunderstanding this sentence?}, and their efficient implementation is based on the availability of such technological tools~\cite{Kimble2008,Hammerer2010,Brask2010}.
 
-\parTitle{What is a good interface?}
-A reliable interface should connect systems of different dimensionalities in order to transfer key quantum resources, thus enabling the implementation of quantum information protocols \commale{I am sorry but if the point up to here is ``to explain why we need for a good interface between systems of different dimensionality'', I am not convinced. I would reformulate up to here along the following lines: ``high dimensional systems are interesting and useful but it's difficult to engineer high-dimensional entanglement, we show how to do it via an hetero-dimensional interface'' (which is something we talk about anyway but few lines below).}.
-% while being faithful to their inherent structure.
-In this context, being able to transfer a key quantum resource such as entanglement is paramount.
-This would allow to establish long-haul quantum channels in delocalized architectures for quantum communication~\cite{Kimble2008} and distributed quantum computing~\cite{Collins2001,Eisert2000,Huelga2001,Huelga2002,Paternostro2003}. Moreover, by arranging special forms of entangled states in systems of low dimension (and thus easily controllable), an interface designed for effective entanglement transfer could be used to siphon quantum correlation into high-dimensional information carriers, whose reliable preparation is otherwise notoriously demanding.
-Proposals for interfaces between a continuous-variable and a two-dimensional system have been put forward in a number of physical settings, ranging from cavity- and circuit-quantum electrodynamics to polar molecules close to superconducting resonators or quantum dots and color-centers in diamonds in defect-microcavities and photonic crystals \highlight{(references)}. 
+\parTitle{High-dimensional entanglement is relevant}
+Quantum entanglement underpins many of the advantages that quantum information processors are expected to bring forth \cite{horodecki2009quantum}. At present, it is the entanglement between two-dimensional systems (qubits) that can be more effortlessly generated and controlled. However, it is known that two-dimensional entanglement entails limitations in a variety of settings. When higher-dimensional entanglement is used, for example in the context quantum communication \cite{cozzolino2019high}, superdense coding protocols can attain higher channel capacity \cite{liu2002general, grudka2002symmetric, hu2018beating}, and quantum cryptography protocols achieve better performances in terms of key rates, noise resilience, and security \cite{bechmannpasquinucci2000quantum, cerf2002security, Bruss2002, Karimipour2002, acin2003security, karimipour2002quantum,  durt2004security, groblacher2006experimental, huber2013weak, nunn2013largealphabet, mower2013highdimensional, lee2014entanglementbased, zhong2015photonefficient, Mirhosseini_2015}. Crucial benefits can also be obtained in more advanced settings, such as quantum error correction \cite{Chuang1997, Campbell2012, Duclos-Cianci2013, Michael2016} and fault-tolerant quantum computation \cite{bartlett2002quantum,ralph2007efficient, Lanyon2009, Campbell2014}.
 
-\parTitle{Recent experimental advances}
-Recent experimental advances in the management of finite high-dimensional quantum systems enabled by the growing capacity to prepare, manipulate and measure the orbital angular momentum (OAM) of light \MP{[REFS]} are opening up the possibility to explore the richness of $d$-dimensional Hilbert spaces for the sake of quantum information processing~\cite{Brunner2014,Campbell2012,Howland2013,Karimipour2002,Durt2004,Fitzi2001,Bruss2002,Cerf2002,Bechmann2000}. However, preparing arbitrary entangled states of such systems remains a demanding task that has only been accomplished, so far, by the means of {\it ad hoc} designed protocols. In this regard, the implementation of an interface for entanglement transfer from a bipartite qubit system to OAM-encoded one would be a significant step forward towards the provision of {\it on demand} entangled high-dimensional states. 
+\parTitle{HD entanglement is challenging, here is what we propose to do in a nutshell} The potential benefits of high-dimensional entanglement have stimulated a significant effort towards its generation, manipulation, and certification in various platforms, including in particular optical systems (see Refs.~\cite{friis2019entanglement, erhard2020advances} for recent reviews on the subject). Notwithstanding relevant experimental progresses, the actual implementation of these tasks remains notoriously demanding. Here we propose to leverage on readily available two-dimensional entanglement to attain its higher-dimensional counterpart, via the use of quantum interfaces between systems of different dimensions. In other words, an interface designed for effective entanglement transfer could be used to siphon quantum correlations into high-dimensional information carriers. In particular, we will choose the dynamical hetero-dimensional interface offered by quantum walks~\cite{aharonov1993quantum,nayak2000quantum,ambainis2001onedimensional,Kempe2003quantum,venegas-andraca2012quantum}, whose availability in a variety of physical systems grants this choice with a wide degree of applicability.
+
+\parTitle{Interfacing systems are of general interest}
+In general, the interface between quantum systems of different dimensionality offers a rich venue of investigation at both the fundamental and technological level. On one hand, the relation between correlations and the dimension of a quantum system becomes particularly relevant when considering parties living in Hilbert spaces of different dimensions \commale{refs/explanation?}. 
+On the other hand, promising architectures for quantum communication, such as quantum repeaters~\cite{Lvovsky2009}, rely on interfaces between hetero-dimensional systems such as light and matter-like systems, and their efficient implementation is based on the availability of such technological tools~\cite{Kimble2008,Hammerer2010,Brask2010}.
+
+\parTitle{What is a good interface and why it is useful for us}
+A reliable interface should be able to transfer key quantum resources between the connected systems --- possibly of different dimensionalities --- thus enabling the implementation of genuinely quantum information protocols. In this context, being able to transfer a key resource such as entanglement is paramount.
+This would allow to establish long-haul quantum channels in delocalized architectures for quantum communication~\cite{Kimble2008} and distributed quantum computing~\cite{Collins2001,Eisert2000,Huelga2001,Huelga2002,Paternostro2003}. As said, for our purposes, by arranging special forms of entangled states in systems of low dimension, an interface designed for entanglement transfer could be used to reliably prepare high-dimensional entangled states.
+Proposals for interfaces between a continuous-variable and a two-dimensional system have been put forward in a number of physical settings, ranging from cavity- and circuit-quantum electrodynamics to polar molecules close to superconducting resonators or quantum dots and color-centers in diamonds in defect-microcavities and photonic crystals \commale{I would remove the last sentence about CV-qubit interfaces}. 
+
+\parTitle{Recent experimental advances in HD entanglement with OAM} In the context of high-dimensional systems, a particularly advanced platform is represented by the orbital angular momentum (OAM) of light. Recent experimental progresses enabled by the growing capacity to prepare, manipulate and measure OAM states are opening up the possibility to explore the richness of $d$-dimensional Hilbert spaces for the sake of quantum information processing \cite{erhard2018twisted}. However, preparing arbitrary entangled states of such systems remains a demanding task that has only been accomplished, so far, by the means of {\it ad hoc} designed protocols \commale{refs}. In this regard, the implementation of an interface for entanglement transfer from a bipartite qubit system to OAM-encoded one would be a significant step forward towards the provision of {\it on demand} entangled high-dimensional states. 
 
 \parTitle{In this paper we...}
-In this paper we tackle such a challenge by proposing an entanglement-transfer protocol between finite-dimensional systems of different dimensions.
-Our scheme is based on the use of the dynamical primitive embodied by a quantum walk (QW)~\cite{aharonov1993quantum,nayak2000quantum,ambainis2001onedimensional,Kempe2003quantum,venegas-andraca2012quantum}.
+In this paper, we tackle such a challenge by proposing an entanglement-transfer protocol between finite-dimensional systems of different dimensions.
+As said, our scheme is based on the use of the dynamical primitive embodied by a quantum walk (QW)~\cite{aharonov1993quantum,nayak2000quantum,ambainis2001onedimensional,Kempe2003quantum,venegas-andraca2012quantum}.
 QWs, by intertwining the evolution of a two-dimensional \textit{coin} and a $d$-dimensional \textit{walker} degree of freedom, allow to effectively engineer a broad range of evolutions.
 Recently, some of us demonstrated the potential of a QW-based architecture to flexibly implement quantum state engineering of a single OAM~\cite{innocenti2017quantum,giordani2018experimental}, as well as the machine learning-enhanced classification of hybrid polarization-OAM states of light~\cite{giordani2020machine}.
 
 \parTitle{More detailed description of the goal}
-We study the possibility of entangling two high-dimensional systems using a pair of lower-dimensional ones as ancillary degrees of freedom. We focus on a case of high relevance to optical implementations \highlight{(!)}: transferring the entanglement of two photons' polarization into their OAMs, leveraging QW dynamics to correlate each photon's OAM and polarization, and local projections on the polarizations to transfer the entanglement into the OAM
-\highlight{(reference cool conceptual figures)}.
+We study the possibility of entangling two high-dimensional systems leveraging a pair of lower-dimensional ones as ancillary degrees of freedom. We focus on a case of high relevance to optical implementations: transferring the entanglement of two photons' polarization into their OAMs, using a QW dynamics to correlate each photon's OAM and polarization, and local projections on the polarizations to achieve the entanglement transfer.
+\LI{(reference cool conceptual figures)}.
 
 \parTitle{Results}
-Here we go beyond the context set by such earlier investigations and, by taking issue from the possibilities offered by the effective dynamics on the walker, we engineer a double-QW interface that is able to transfer entanglement from a two-coin state to a bipartite OAM-encoded state. We show that...\MP{riassunto dei risultati}. Remarkably, we show that the very same dynamical process used to transfer the entanglement from the qubit resource to the two-walker state can be used to {\it retrieve} entanglement to a fresh pair of qubits prepared in a separable state. \MP{commento sull'efficienza di retrieval} Therefore, our scheme embodies a righteous \highlight{(?)} two-way interface with a good efficiency of transfer and retrieval and a valuable tool for the dynamical combination of hybrid hetero-dimensional information carriers.
+Here we go beyond the context set by earlier investigations and, by taking issue from the possibilities offered by the effective dynamics on the walker, we engineer a double-QW interface that is able to transfer entanglement from a two-coin state to a bipartite OAM-encoded state. We show that...\MP{riassunto dei risultati}. Remarkably, we show that the very same dynamical process used to transfer the entanglement from the qubit resource to the two-walker state can be used to {\it retrieve} entanglement to a fresh pair of qubits prepared in a separable state. \MP{commento sull'efficienza di retrieval} Therefore, our scheme embodies a righteous \highlight{(?)} two-way interface with a good efficiency of transfer and retrieval and a valuable tool for the dynamical combination of hybrid hetero-dimensional information carriers.
 
 \parTitle{Tentative outline}
 In~\cref{sec:overview} we overview the necessary background on QWs and OAM.
@@ -137,32 +154,39 @@ We conclude in~\cref{sec:experimental_proposal} by detailing a possible experime
 \label{sec:overview}
 
 \parTitle{Background on QWs}
-A widely studied type of interaction between a two-dimensional and a high-dimensional system is given by \textit{discrete-time Quantum Walks} (QWs)\highlight{(refs)}.
-QWs are quantum generalizations of classical random walks \highlight{(refs)}, modeling a simple type of interaction between a low- and a high-dimensional system, generally referred to as \textit{coin} and \textit{walker} degrees of freedom in this context.
-More specifically, a QW dynamics on a bipartite system $\calH_w\otimes\calH_c$ is defined by the repeated action of a unitary \textit{walker operation} $\calW_\calC\equiv \calS(I\otimes \calC)$, which describes the sequential action of a \textit{controlled-shift} operation $\calS$ and a \textit{coin flipping} operation $\calC$ acting locally on the coin space.
-The controlled-shift operation is a unitary operator changing the state of the walker conditionally to the state of the coin.
-More specifically, the controlled-shift operator can be written as \highlight{(assuming we are using this notation)}
+A widely studied type of interaction between a two-dimensional and a high-dimensional system is embodied by \textit{discrete-time Quantum Walks} (QWs)\LI{(refs)}.
+QWs are quantum generalizations of classical random walks \LI{(refs)}, modeling a simple type of interaction between a low- and a high-dimensional system, generally referred to as \textit{coin} and \textit{walker} degrees of freedom in this context.
+More specifically, we are interested in a two-dimensional coin, therefore a qubit, and a higher dimensional walker, referred to as a qudit from now on. A QW dynamics on a bipartite system $\HW\otimes\HC$ is defined by the repeated action of a unitary \textit{walker operation} $\calW_\calC\equiv \calS(I\otimes \calC)$, which describes the sequential action of a \textit{controlled-shift} operation $\calS$, and a \textit{coin flipping} operation $\calC$ acting locally on the coin space.
+The controlled-shift is a unitary operation changing the state of the walker conditionally to the state of the coin.
+More specifically, $\calS$ has the form
 \begin{equation}
     \calS \equiv \sum_k (
-        \ketbra{k+1}{k}\otimes \ketbra\uparrow +
-        \ketbra{k-1}{k}\otimes \ketbra\downarrow
+        \ketbra\uparrow\otimes \ketbra{k}{k} +
+        \ketbra\downarrow\otimes \ketbra{k+1}{k}
     ),
 \end{equation}
-where.... \commale{define the symbols once the notation is decided}
-State engineering protocols leveraging QWs were previously devised and demonstrated in~\cite{innocenti2017quantum,giordani2019experimental,giordani2020machine}.
+where $\{\ket\uparrow,\ket\downarrow\}$ are a basis for $\HC$ and $\{\ket k\}_k$ spans $\HW$.
+
+The general results presented in the following sections hold in principle for arbitrary physical setups embodies a QW dynamics. Nonetheless, as mentioned, we will focus to the optical implementation, involving two degrees of freedom of single photons: its polarization and its OAM, playing the roles of the coin (qubit) and the walker (qudit), respectively.
+The key element allowing such implementation of the QW dynamics is the so-called \textit{Q-plate} (see Section~\ref{sec:experimental_proposal} \commale{elaborate further if necessary}).
+State engineering protocols leveraging QWs in this setting were previously devised and demonstrated~\cite{innocenti2017quantum,giordani2019experimental,giordani2020machine}.
 
 %\parTitle{Background on OAMs}
 %\highlight{(Ne parlerei solo nella sezione delle implementazioni sperimentali) OAM is a cool internal high-dimensional degree of freedom of photons. OAM will bring peace in the world and solve world hunger (refs). Q-plates allow to entangle OAM and polarization of light, thus implementing an evolution well modeled by QWs.}
 
 \parTitle{Pairs of QWs}
-The state space we are interested in consists of two pairs of QWs, which can be modeled via a four-partite space $\calH\equiv \calH_1\otimes\calH_2$, with
-$\calH_i\equiv \calH^{(i)}_{\calW}\otimes\calH^{(i)}_{\calC}$,
-and $\calH^{(i)}_{\calC}, \calH^{(i)}_{\calW}$ accommodating coin and walker of the $i$-th system, respectively.
-Given $\ket\Psi\in\calH$, we will apply QW evolutions on the two systems separately. Each of these evolutions act locally on $\calH_1$ and $\calH_2$:
-\begin{equation}
-    \ket\Psi\to \calU\otimes\calV\ket\Psi,
-\end{equation}
-with $\calU$ and $\calV$ some QW unitaries. Their action is to entangle the coin and walker withing each system. In the next sections, we will describe how to use this QW dynamics to transfer the entanglement initially present in the two-coin subspace to the two-walker one, via local operation on their respective coins. Subsequently, the process can be iterated and further entanglement can be transferred again.  
+The state space we are interested in consists of two pairs of QWs, embodied by two photons, which are modeled with a four-partite space $\calH\equiv \calH^{(1)}\otimes\calH^{(2)}$, with
+$\calH^{(i)}\equiv \HC^{(i)}\otimes\HW^{(i)}$,
+and $\HC^{(i)}, \HW^{(i)}$ accommodate coin and walker of the $i$-th system, respectively.
+Given $\ket\Psi\in\calH$, we will apply QW evolutions on the two systems separately.
+% Each of these evolutions acts locally on $\calH^{(1)}$ and $\calH^{(2)}$:
+% \begin{equation}
+%     \ket\Psi\to \calU\otimes\calV\ket\Psi,
+% \end{equation}
+% with $\calU$ and $\calV$ some QW unitaries.
+% While each QW evolution acts locally on each $\calH^{(i)}$, they entangle the internal degrees of freedom of each space: $\HW^{(1)}$ with $\HC^{(1)}$, and $\HW^{(2)}$ with $\HC^{(2)}$.
+The action of the QWs entangles the coin and walker withing each system. In the next sections, we will describe how to use this QW dynamics to transfer the entanglement initially present in the two-coin subspace to the two-walker one, via local operation on their respective coins
+In an optical setup, this process will transfer the initial polarization entanglement to the two OAM degrees of freedom. The process can be iterated to transfer more entanglement from the polarizations to the OAMs.
 
 % \parTitle{Assuming realistic initial state}
 % \highlight{(to some somewhere else maybe)}
@@ -183,34 +207,32 @@ with $\calU$ and $\calV$ some QW unitaries. Their action is to entangle the coin
 % \end{equation}
 % with $\ket*{\Psi_\uparrow},\ket*{\Psi_\downarrow}\in\calH_i$ correlated single-photon states.
 
-\parTitle{We use negativity to estimate entanglement}
-Throughout this work, in order to discern if a multipartite state is entangled, we will use the PPT criterion (positivity of the partial transpose) \cite{HORODECKI19961}. Such method envisages the calculation of eigenvalues of the partial transpose with respect to one subsystem of the density matrix representing the entire system. If there exists at least one non-positive eigenvalue the state cannot be separable. This criterion is a sufficient condition of non-separability of the multipartite state. Furthermore we can provide an estimation of the amount of entanglement through the state \emph{negativity} $\mathcal{E}_n$, i.e the sum of the negative eigenvalues of the partial transpose density matrix. In the following we make use of the logarithmic negativity defined as $\mathcal{N}=\log_2(2\mathcal{E}_n+1)$. The maximal entanglement reachable in the two-coin subspace is $\mathcal{N}^{Bell}=1$, which is limited by the dimensionality of the coins. In the literature it is common to define such amount of entanglement as \textit{ebit}. In our protocol of entanglement transfer, we then require to accumulate in the two-walker subspace one ebit of entanglement per step of the iterative process mentioned above. This happens only when optimal transfer is achieved, since under operations involving the coins only it is possible at most to transfer the initial value of $\mathcal{N}^{Bell}$.
-
-\parTitle{Say later on, when talking about the experiment, something about the photons being non-interacting and the hardness of correlating polarizations etc}
-
 \begin{figure*}[ht]
     \centering
     \includegraphics[scale=0.45]{new_concept.pdf}
     \caption{\textbf{Scheme overview.}
-a) Entanglement transfer unit. The system is composed by two particles equipped with  a two dimensional degree of freedom, the qubit part of the protocol, and an additional degree of freedom of dimension $d$, the qudit part. The entanglement transfer protocol requires a first operation $U_{23}$ that generates entanglement between the two particles, encoded in one of the degree of freedom. In the case of two-qubit entangled states the maximum entanglement stored is equal to one ebit. Then we have the two local operations $U_{12}$ and $U_{34}$ that correlates the inner degrees of freedoms of each particle and realize the qubit-qudit dynamics. In the end, local qubit or qudit measurements allow to transfer the entanglement stored in the initial state to the output. For transfer from two qubits entangled states to the one with two qudits it is possible to transfer one ebit per iteration, by repeating the protocol many times. In this way high-dimensional entangled states are generated. Furthermore the entanglement stored in the two-qudits space can be retrieved by same operations and transferred back to the two-qubit state. A natural encoding of this dynamics can be found within the discrete-time quantum walks framework. Here the quantum walker has the necessary degree of freedom for encoding our protocol, the two dimensional coin and its position spanned on $d$ levels. b) Conceptual scheme for the transfer from a Bell state in the coin degree of freedom to the two walkers posistio space after quantum walks and local coin measurements. c) Protocol iteration and entanglement accumulation in the high-dimensional space of the two quantum walkers.}
+        a) Entanglement transfer unit. The system is composed by two particles equipped with  a two dimensional degree of freedom, the qubit part of the protocol, and an additional degree of freedom of dimension $d$, the qudit part. The entanglement transfer protocol requires a first operation $U_{23}$ that generates entanglement between the two particles, encoded in one of the degree of freedom. In the case of two-qubit entangled states the maximum entanglement stored is equal to one ebit. Then we have the two local operations $U_{12}$ and $U_{34}$ that correlates the inner degrees of freedoms of each particle and realize the qubit-qudit dynamics. In the end, local qubit or qudit measurements allow to transfer the entanglement stored in the initial state to the output. For transfer from two qubits entangled states to the one with two qudits it is possible to transfer one ebit per iteration, by repeating the protocol many times. In this way high-dimensional entangled states are generated. Furthermore the entanglement stored in the two-qudit space can be retrieved by same operations and transferred back to the two-qubit state. A natural encoding of this dynamics can be found within the discrete-time quantum walks framework. Here the quantum walker has the necessary degree of freedom for encoding our protocol, the two dimensional coin and its position spanned on $d$ levels. b) Conceptual scheme for the transfer from a Bell state in the coin degree of freedom to the two walkers position space after quantum walks and local coin measurements. c) Protocol iteration and entanglement accumulation in the high-dimensional space of the two quantum walkers.}
     \label{fig:conceptual_scheme}
 \end{figure*}
+
+\parTitle{We use negativity to estimate entanglement}
+Throughout this work, in order to discern if a multipartite state is entangled, we will use the PPT criterion (positivity of the partial transpose) \cite{HORODECKI19961}. Such method envisages the calculation of eigenvalues of the partial transpose with respect to one subsystem of the density matrix representing the entire system. If there exists at least one non-positive eigenvalue the state cannot be separable. This criterion is a sufficient condition of non-separability of the multipartite state. Furthermore we can provide an estimation of the amount of entanglement through the state \emph{negativity} $\mathcal{E}_n$ --- \emph{i.e.},  the sum of the negative eigenvalues of the partial transpose density matrix. In the following we make use of the logarithmic negativity defined as $\mathcal{N}=\log_2(2\mathcal{E}_n+1)$. The maximal entanglement reachable in the two-coin subspace is $\mathcal{N}^{Bell}=1$, which is limited by the dimensionality of the coins. In the literature it is common to define such amount of entanglement as \textit{ebit}. In our protocol of entanglement transfer, we then aim at accumulating in the two-walker subspace one ebit of entanglement at most per step of the iterative process mentioned above. This happens only when optimal transfer is achieved, since under operations involving the coins only it is possible at most to transfer the initial value of $\mathcal{N}^{Bell}$.
+
+\LI{Say later on, when talking about the experiment, something about the photons being non-interacting and the hardness of correlating polarizations etc}
 
 \section{Entanglement transfer via local projections}
 \label{sec:entanglement_transfer_local_projections}
 
-\subsection{Entanglement transfer via projective measurements}
-
 \parTitle{Problem statement}
-We can formally state our problem as the following:
+Before addressing the specific case of QWs, we consider the following more general question:
 \begin{quote}
 % \begingroup\addtolength\leftmargini{-5pt}\begin{quote}
-    \textit{Given a two-photon state $\ket\Psi\in\calH$, can we find $\ket{\gamma}\in\calH^{(1)}_{\calC}$ and $\ket\delta\in\calH^{(2)}_{\calC}$ such that the entanglement in $\ket\Psi$ is optimally transferred to the projected state
-    $\braket*{\gamma,\delta}{\Psi}\in\calH^{(1)}_{\calW}\otimes\calH^{(2)}_{\calW}$?}
+    \textit{Given a four-partite state in $\calH^{(1)}\otimes\calH^{(2)}$, can we find local coin projections such that the entanglement in the coin degrees of freedom is transferred to the projected state?}
 \end{quote}%\endgroup
-% In other words, we investigate whether it is possible to optimally transfer entanglement between two degrees of freedom by means of projective measurements.
-A schematic description of the scenario is given in~\cref{fig:entanglement_transfer_scheme}.
-It is worth stressing that, for arbitrary choices of $\ket\Psi$, such entanglement transfer is clearly impossible --- for example if $\ket\Psi$ is separable with respect to $\calH_1$ and $\calH_2$. It is therefore pivotal to figure out the conditions making such protocol viable.
+More precisely, given a state $\ket\Psi\in\calH$, we want to find projections $\ket{\gamma}\in\calH^{(1)}_{\calC}$ and $\ket\delta\in\calH^{(2)}_{\calC}$ such that the entanglement in the coin degrees of freedom of $\ket\Psi$ is transferred to the projected state
+$\braket*{\gamma,\delta}{\Psi}\in\calH^{(1)}_{\calW}\otimes\calH^{(2)}_{\calW}$.
+A schematic description of this formal scenario is given in~\cref{fig:conceptual_scheme}a \commale{make self-consistent the notation used in the figure and the text ($\ket{\Psi_{in}}$, $\ket{\Psi_{f}}$ and the three unitaries in the figure; in panel (a) it might be worth to put symbols of coin/walker and maybe a curly braket for photon 1 and 2 as well)}.
+It is worth stressing that, for generic $\ket\Psi$, such entanglement transfer is impossible --- for example if $\ket\Psi$ is separable with respect to $\calH_1$ and $\calH_2$. It is therefore pivotal to find the conditions making such protocol viable.
 
 % \begin{figure}
 %     \centering
@@ -228,53 +250,192 @@ It is worth stressing that, for arbitrary choices of $\ket\Psi$, such entangleme
 % \end{figure}
 
 \parTitle{We are actually dealing with two problems at once}
-The task at hand can be broken down into two distinct entanglement transfer problems: restricting to \emph{local} projections on both sides, the transferability of entanglement between $\calH^{(1)}_{\calC}$ and $\calH^{(1)}_{\calW}$ is independent from that between $\calH^{(2)}_{\calC}$ and $\calH^{(2)}_{\calW}$.
-Most of our discussion will thus focus, without loss of generality, on the transferability on a single side.
+The task at hand can be broken down into two independent subproblems, which we will refer to as \textit{transferibility conditions}: on the one hand, transferring the entanglement from $\calH^{(1)}_{\calC}\otimes \calH^{(2)}_{\calC}$ to $\calH^{(1)}_{\calW}\otimes \calH^{(2)}_{\calC}$,
+and then transferring the entanglement from
+$\calH^{(1)}_{\calW}\otimes \calH^{(2)}_{\calC}$
+to $\calH^{(1)}_{\calW}\otimes \calH^{(2)}_{\calW}$.
+Transferring entanglement from $\calH^{(1)}_{\calC}\otimes\calH^{(2)}_{\calC}$ to
+$\calH^{(1)}_{\calW}\otimes\calH^{(2)}_{\calW}$ is possible only if these two subproblems are solvable.
 
 \parTitle{Conditions for entanglement transfer}
-Consider a state $\ket\Psi\in\calH$.
-% , and focus on the state of the first photon: $\calH^{(1)}$.
-As we only allow local operations, we have to deal with the reduced state $\rho\equiv\Tr_2\ketbra\Psi$. Projecting onto a polarization state $\ket\gamma$ then gives $\rho_{\calW}\equiv \mel\gamma\rho\gamma\in\calH^{(1)}_{\calW}$.
-We want the projection $\ket\gamma$ to be such that, \textit{in the full state}, the degree of entanglement is not degraded.
-For this to be the case, it is necessary and sufficient that $\rho_{\calW}$ is \textit{diagonal in the same eigenbasis of $\rho$}, and has the same eigenvalues.
-More precisely, each eigenspace of $\rho$ must be invariant under the projection.
-This ensures that the projection does not reveal any information about the correlations with $\calH^{(2)}$, which would damage the entanglement.
-More explicitly, this ensures that the state
+Let $\ket\Psi\in\calH$ have Schmidt decomposition
 \begin{equation}
-	\ket\Psi= \sum_k \sqrt{p_k} \ket{u_k}\ket{v_k}
+	\ket\Psi= \sum_k \sqrt{p_k} \ket{u_k}\ket{v_k} \:.
 \end{equation}
-becomes
+% and  the corresponding reduced state $\rho\equiv\Tr_2\ketbra\Psi\in\calH^{(1)}$. Projecting onto a coin state $\ket\gamma\in\HC^{(1)}$ then gives $\rho_{\calW}\equiv \mel\gamma\rho\gamma\in\calH^{(1)}_{\calW}$.
+We want a state $\ket\gamma\in\HC^{(1)}$ such that projecting on it does not alter the amount of entanglement between $\calH^{(1)}$ and $\calH^{(2)}$.
+Denoting with $\ket{\Psi_\gamma}$ the post-projection state, we have
 \begin{equation}
-	\braket{\gamma}{\Psi} =
-	\sqrt{p_{\on{proj}}}\sum_k \sqrt{p_k} \ket*{\tilde u_k}\ket{v_k}
+    \ket{\Psi_\gamma} = p_{\rm proj}^{-1/2}
+    \sum_k \sqrt{p_k q_k} \ket{\tilde u_k}\ket{v_k},
+    \label{eq:postproj_state}
 \end{equation}
-where $\ket*{\tilde u_k}\equiv \braket{\gamma}{u_k}/\sqrt{p_{\on{proj}}}$ are the post-projected states, and
-$p_{\on{proj}}\equiv |\braket{\gamma}{u_k}|^2$ the projection probability.
-It is worth stressing that, \emph{a priori}, the projection probabilities $|\braket{\gamma}{u_k}|^2$ depend on $k$, but we need them to be the same for optimal entanglement transfer.
-The constraint on the projection probabilities can be lifted when the projection allowed in the second party is taken into consideration.
-This is because any form of ``imperfect entanglement'' can be improved by means of local projections in some cases (\emph{i.e.} local projections are sufficient to transform a state of the form $\sum_k \sqrt{p_k}\ket{u_k}\ket{v_k}$ into the corresponding maximally entangled state $\sum_k \ket{u_k}\ket{v_k}$).
+where
+$\sqrt{q_k}\ket{\tilde u_k}= \braket\gamma{u_k}$
+and
+$p_{\rm proj} = \sum_k p_k q_k$.
+Note that~\cref{eq:postproj_state} is the Schmidt decomposition of $\ket{\Psi_\gamma}$ only if $\braket{\tilde u_j}{\tilde u_k}=\delta_{jk}$.
+When this is the case, the amount of entanglement is a function of the Schmidt coefficients $p^{-1/2}_{\on{proj}}\sqrt{p_k q_k}$.
+Note that, if $q_k$ does not depend $k$, then $q_k=p_{\rm proj}$ and thus $\ket{\Psi_\gamma}$ displays the same entanglement as $\ket{\Psi}$:
+\begin{equation}
+    \ket{\Psi_\gamma} = \sum_k \sqrt{p_k} \ket{\tilde u_k}\ket{v_k}.
+\end{equation}
+If on the other hand the projection probabilities are unequal, then the Schmidt coefficients change upon projection.
+% More precisely, if $\bs p$ and $\bs p'$ are the vectors of squares of the Schmidt coefficients before and after the projection, respectively, then $\bs p'\prec\bs p$, and thus the amount of entanglement in $\ket{\Psi_\gamma}$ is less than that in $\ket\Psi$~\cite{nielsen1999conditions}.
+% It follows that a necessary condition for optimal transferability is that $q_k=p_{\on{proj}}$, \textit{i.e.} that all components of $\ket{\Psi}$ have the same squared overlap with $\ket\gamma$. This condition is however not sufficient.
+
+\parTitle{Entanglement decreases if orthogonality is not preserved}
+If the projection does not preserve the orthogonality of the vectors, \emph{i.e.} $\braket{\tilde u_j}{\tilde u_k}\neq\delta_{jk}$, then the entanglement is again reduced.
+Indeed, in this case, the post-projection state~\cref{eq:postproj_state} has the form
+$\ket{\Psi_\gamma}=\sum_k \sqrt{\tilde p_k} \ket{\tilde u_k}\ket{v_k}$ where $\braket{v_j}{v_k}=\delta_{jk}$ and $\sum_k \tilde p_k=1$.
+Denoting with $\Psi_\gamma$ the matrix whose vectorization is $\ket{\Psi_\gamma}$, this amounts to a decomposition of the form $\Psi_\gamma = U\sqrt DV^\dagger$ with $D=\on{diag}(\tilde p_1,...,\tilde p_n)$, $V$ the unitary matrix whose columns are $\ket{v_k}$, and $U$  the (non-unitary) matrix with columns $\ket{\tilde u_k}$.
+Then
+\begin{equation}
+    \Psi_\gamma\Psi_\gamma^\dagger = U D U^\dagger
+    = \sum_k \tilde p_k \PP_{\tilde u_k},
+\end{equation}
+where $\PP_{\tilde u_k}\equiv\ketbra{\tilde u_k}$ are not-necessarily-mutually-orthogonal rank-$1$ projections.
+We can then prove that if a matrix is a convex combination of rank-$1$ projections, then it always majorizes the vector of coefficients of the convex combination.
+In our case, this translates to $\sum_k \tilde p_k\PP_{\tilde u_k}\succeq \tilde{\bs{p}}$.
+This allows us to conclude that, to transfer entanglement without degrading, it is necessary to find a projection $\ket\gamma$ that preserves the orthogonality of the states $\ket{u_k}$, and on top of this, the associated projection probabilities $\lvert\braket{\gamma}{u_k}\rvert^2$ must be equal to each other.
+
+\parTitle{Proof to possibly move to appendix or something}
+Let $P_k$ be rank-$1$ projections, $p_k\ge0$ coefficients such that $\sum_{k=1}^n p_k=1$, and
+$A\equiv \sum_{k=1}^n p_k P_k$. We want to prove that $A\succeq \bs p$, where $\bs p=(p_k)_{k=1}^n$ is the vector of coefficients, and the majorization relation is defined on Hermitian matrices via the corresponding vector of eigenvalues, that is,
+$A\succeq\bs p\Longleftrightarrow \bs\lambda(A)\succeq\bs p$ where $\bs\lambda(A)$ is the vector of eigenvalues of $A$. If $A$ has dimension larger than $n$, we define $\bs\lambda(A)$ as the vector of the $n$ largest eigenvalues, in order to make the majorization relation well-defined.
+Without loss of generality, let us assume that the $p_k$ are in decreasing order: $p_1 \ge p_2 \ge ...\ge p_n$.
+Define the partial sums $A_\ell\equiv \sum_{k=1}^\ell p_k P_k$, so that $A=A_n$.
+Observe that $A_\ell \ge A_r$ whenever $\ell\ge r$.
+Because $\rank(P_k)=1$ for all $k$, we must also have $\rank(A_\ell)\le \ell$.
+Denoting with $\lambda_j^\downarrow(A)$ the $j$-th largest eigenvalue of $A$, this implies that
+\begin{equation}
+    \sum_{k=1}^\ell \lambda_k^\downarrow(A_\ell) = \tr(A_\ell)
+    = \sum_{k=1}^\ell p_k.
+\end{equation}
+Using $A=A_n\ge A_\ell$ for all $1\le \ell< n$, we thus conclude that
+\begin{equation}
+    \sum_{k=1}^\ell \lambda_k^\downarrow(A) \ge 
+    \sum_{k=1}^\ell \lambda_k^\downarrow(A_\ell)
+    = \sum_{k=1}^\ell p_k \equiv \sum_{k=1}^\ell p_k^\downarrow,
+\end{equation}
+that is, $\bs\lambda(A)\succeq \bs p$, which is the definition of $A\succeq \bs p$.
+
+\parTitle{Summary of conclusions}
+In summary we achieve transferability if $\ket\gamma$ is such that
+$\big\{\frac{1}{\sqrt{p_{\on{proj}}}}\braket{\gamma}{u_k}\big\}_k$ are orthonormal vectors.
+An equivalent, if less explicit, condition for transferability, is to require the nonzero spectrum of $\tr_2(\PP_{\Psi_\gamma})$ be the same as the nonzero spectrum of $\tr_2(\PP_\Psi)$:
+\begin{equation}
+    % \frac{1}{p_{\on{proj}}} \tilde\sigma\left(
+    %     \langle\gamma\rvert \tr_2(\PP_\Psi)\lvert \gamma\rangle
+    % \right) =
+    \tilde\sigma(\tr_2(\PP_{\Psi_\gamma})) =
+    \tilde\sigma\left(
+        \tr_2(\PP_\Psi)
+    \right),
+    \label{eq:transferability_condition}
+\end{equation}
+where $\tilde\sigma(A)\equiv\sigma(A)\setminus\{0\}$ and $\sigma(A)$ is the set of eigenvalues of $A$.
+This is a \emph{necessary and sufficient} condition for transferability, as~\eqref{eq:transferability_condition} is equivalent to the Schmidt coefficients of $\ket{\Psi_\gamma}$ being the same as those of $\ket{\Psi}$.
+We will refer to~\eqref{eq:transferability_condition} as the \emph{first transferability condition} ($\on{TC}_1$), in that it characterises the transferability of the entanglement in the bipartition $\calH^{(1)}\otimes\calH^{(2)}$ into entanglement in the bipartition $\HC^{(1)}\otimes\calH^{(2)}$.
+In other words, \eqref{eq:transferability_condition} is a necessary and sufficient condition to ensure that the correlations between $\calH^{(1)}$ and a second party can be \emph{offloaded} onto $\HW^{(1)}$ by means of a local projection.
+The analogous condition on the second party, involving finding a suitable projection $\ket\delta\in\HC^{(2)}$, will be denoted with $\on{TC}_2$.
+Entanglement transfer is therefore achievable if and only if $\on{TC}_1$ \emph{and} $\on{TC}_2$ are satisfied.
+In~\cref{fig:TC1_general_condition_scheme,fig:TC1_condition_scheme} we present a pictorial description of what $\on{TC}_1$ allows to achieve.
+It is worth noting that, while~\cref{eq:transferability_condition} is required to fully transfer entanglement, it is still possible to transfer \textit{some} degree of entanglement as long as the vectors  $\braket{\gamma}{u_k}$ are orthogonal, even though the projection probabilities are unequal.
+
+% This ensures that the projection does not reveal any information about the correlations with $\calH^{(2)}$, which would damage the entanglement.
+% More explicitly, this ensures that the state, written in Schmidt form with respect to the bipartition $\calH^{(1)} \otimes \calH^{(2)}$,
+% \begin{equation}
+% 	\ket\Psi= \sum_k \sqrt{p_k} \ket{u_k}\ket{v_k} \;, 
+% \end{equation}
+% with $\ket{u_k} \in \calH^{(1)}$ and $ \ket{v_k} \in \calH^{(2)}$, becomes
+% \begin{equation}
+% 	\braket{\gamma}{\Psi} =
+% 	\sqrt{p_{\on{proj}}}\sum_k \sqrt{p_k} \ket*{\tilde u_k}\ket{v_k}\;,
+% \end{equation}
+% where $\ket*{\tilde u_k}\equiv \braket{\gamma}{u_k}/\sqrt{p_{\on{proj}}} \in\calH^{(1)}_{\calW}$ are the post-projected states, and
+% $p_{\on{proj}}\equiv |\braket{\gamma}{u_k}|^2$ the projection probability.
+% It is worth stressing that, \emph{a priori}, the projection probabilities $|\braket{\gamma}{u_k}|^2$ depend on $k$, but we need them to be the same for optimal entanglement transfer.
+% The constraint on the projection probabilities can be lifted when the projection allowed in the second party is taken into consideration.
+% This is because any form of ``imperfect entanglement'' can be improved by means of local projections in some cases (\emph{i.e.} local projections are sufficient to transform a state of the form $\sum_k \sqrt{p_k}\ket{u_k}\ket{v_k}$ into the corresponding maximally entangled state $\sum_k \ket{u_k}\ket{v_k}$).\LI{probably lose the paragraph above}
 
 \parTitle{Relations with entanglement swapping}
-This problem can be understood as a more restrictive version of entanglement swapping~\cite{zukowski1993eventreadydetectors}.
-Entanglement swapping deals with a four-partite system $\calH_{ABCD}$, with entanglement in $\calH_{AB}$ and $\calH_{CD}$, and we wish to obtain entanglement in $\calH_{AD}$ by performing projective measurements on $\calH_{BC}$.
-This is analogous to our problem, except that we only allow \emph{local} operations on $B$ and $C$. Notably, the typical solution used in the context of entanglement swapping, projecting $BC$ on a Bell state, is not available in our setting: we only allow for projections of the form $P_B\otimes P_C$.
+This problem can be understood as a more restrictive version of entanglement swapping.
+Entanglement swapping~\cite{zukowski1993eventreadydetectors} deals with a four-partite system $\calH_{ABCD}$, with entanglement in $\calH_{AB}$ and $\calH_{CD}$, with the goal of obtaining entanglement in $\calH_{AD}$ by performing projective measurements on $\calH_{BC}$.
+This is analogous to our problem, except that we only allow \emph{local} operations on $B$ and $C$. Notably, the typical solution used in the context of entanglement swapping, projecting $BC$ on a Bell state, is thus not available in our setting.
 
-\subsection{\texorpdfstring{$2\to N$}{2->N} entanglement transfer}
+\begin{figure}
+    \centering
+    \includestandalone[width=\columnwidth]{tikz-figures/TC1_general}
+    \caption{Pictorial representation of the first transferability procedure.
+    Given a state which is entangled with respect to the bipartition $\calH^{(1)}\otimes\calH^{(2)}$, we apply a local projection $\ket\gamma$ which preserves the entanglement between the two spaces.
+    Condition~\eqref{eq:transferability_condition} determines when such a projection exists.
+    }
+    \label{fig:TC1_general_condition_scheme}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includestandalone[width=\columnwidth]{tikz-figures/TC1}
+    \caption{
+        Like~\cref{fig:TC1_general_condition_scheme}, but for states in which the entanglement is only due to pre-shared entanglement between the coins. These are the types of states at the first entanglement accumulation step.
+    }
+    \label{fig:TC1_condition_scheme}
+\end{figure}
+
+\section{Entanglement transfer in QWs}
+\label{sec:entanglement_transfer_in_QWs}
+
+In~\cref{sec:entanglement_transfer_local_projections} we discussed the general problem of transferring entanglement by means of local projections.
+Most notably, in~\cref{sec:entanglement_transfer_local_projections} no assumption is made about the inner structure of correlations in $\calH^{(i)}$, nor about the dimensionality of the entanglement between $\calH^{(1)}$ and $\calH^{(2)}$, and thus this framework applies also to subsequent iterations of entanglement accumulation.
+In this section, we specialize to the case $\dim\HC^{(i)}=2$, which is the case for QWs with two-dimensional coins.
+More precisely, in~\cref{subsec:generalsolution_firstiteration_2Dcoin} we consider states in which $\calH^{(1)}$ and $\calH^{(2)}$ are only entangled through their coin spaces (as in~\cref{fig:TC1_condition_scheme}).
+In~\cref{subsec:analytical_results_QWs} we then apply these results to the output states obtained from the QW dynamics.
+Finally, in~\cref{subsec:numerical_results_QWs} we present numerical results offering further confirmation about the soundness of the analytical results
+\LI{better justification probably}.
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.6\linewidth]{figures/ent_structure_drawing.png}
+%     \caption{Awesome entanglement structure representation}
+%     \label{fig:ent_structure_representation}
+% \end{figure}
+
+\subsection{Entanglement transfer via two-dimensional coins}
+\label{subsec:generalsolution_firstiteration_2Dcoin}
 
 \parTitle{Problem setting}
-While solving the problem in full generality is challenging, in the case of two-dimensional $\calH^{(i)}_{\calC}$ an explicit solution can be derived.
-% We consider here the special case of $B,C$ being two-dimensional degrees of freedom.
-Write the eigendecomposition of the reduced state $\rho\in\calH_{\calW}\otimes\calH_{\calC}$ as
+Consider a state $\ket\Psi\in\calH^{(1)}\otimes\calH^{(2)}$ which is entangled only via its coin spaces, as in~\cref{fig:TC1_condition_scheme}. The corresponding reduced state $\rho\in\mathrm{Lin}(\calH^{(1)})$ reads
 \begin{equation}
-	\rho= p_1 \ketbra{u} + p_2 \ketbra{v}, \,\,p_1+p_2=1.
+	\rho= p_1 \PP_u + p_2 \PP_v, \,\,p_1+p_2=1,
+	\label{eq:reduced_state_twodimcase}
 \end{equation}
-For a projection $\ket\gamma$ to preserve the invariants of $\rho$ it needs to satisfy
-$\mel{u}{\PP_\gamma}{v}=0$, which is equivalent to
+for some pair of orthonormal states $\ket u,\ket v\in\calH^{(1)}$.
+To highlight the entanglement in $\HC^{(1)}\otimes\HW^{(1)}$, we can write these states as
 \begin{equation}
-	\mel{\gamma}{\tr_{\calW}(\ketbra{u}{v})}{\gamma} = 0.
+\begin{aligned}
+    \ket u &=
+    \cos(\theta_u) \ket{\uparrow, u_\uparrow} +
+    \sin(\theta_u) \ket{\downarrow, u_\downarrow}, \\
+    \ket v &=
+    \cos(\theta_v) \,\ket{\uparrow, v_\uparrow} +
+    \sin(\theta_v) \ket{\downarrow, v_\downarrow}.
+\end{aligned}
 \end{equation}
-Defining $M\equiv \tr_{\calW}(\ketbra{u}{v})$, we notice that $\tr M=0$.
-Assuming $M$ is diagonalisable and $M\ket{\lambda_s}=\pm\lambda\ket{\lambda_s}$, we define
+As discussed in~\cref{sec:entanglement_transfer_local_projections}, to achieve maximal entanglement transfer we need a projection $\ket\gamma$ satisfying condition $\on{TC}_1$, that is, satisfying~\eqref{eq:transferability_condition}.
+This is equivalent to requiring $\braket{\tilde u}{\tilde v}=0$ where $\braket{\gamma}{u}=\sqrt{p_{\on{proj}}}\ket{\tilde u}$ and
+$\braket{\gamma}{v}=\sqrt{p_{\on{proj}}}\ket{\tilde v}$.
+Explicitly, these amount to the conditions
+\begin{equation}
+	\mel{\gamma}{\tr_{\calW}(\ketbra{u}{v})}{\gamma} = 0,
+\end{equation}
+and
+$\mel{\gamma}{\tr_{\calW}(\ketbra{u})}{\gamma} =
+\mel{\gamma}{\tr_{\calW}(\ketbra{v})}{\gamma} = p_{\on{proj}}$.
+
+\parTitle{Proof of main result}
+Define $M\equiv \tr_{\calW}(\ketbra{u}{v})$, and notice that $\tr M=0$.
+Assuming $M$ is diagonalizable and $M\ket{\lambda_\pm}=\pm\lambda\ket{\lambda_\pm}$, define
 \begin{equation}
     \ket\gamma\equiv N\left(
         \ket{\lambda_+} +
@@ -282,11 +443,11 @@ Assuming $M$ is diagonalisable and $M\ket{\lambda_s}=\pm\lambda\ket{\lambda_s}$,
     \right),
     \label{eq:definition_projgamma_2dcase}
 \end{equation}
-where $N$ is a normalisation constant. Note that in general $\braket*{\lambda_+}{\lambda_-}\neq0$, as $M$ needs not be normal.
-A sufficient condition for $M$ to be diagonalisable is that $\det M\neq0$, which implies that
-$\{\braket*{H}{u^H},\braket*{V}{u^H}\}$ and
-$\{\braket*{H}{u^V},\braket*{V}{u^V}\}$
-are both linearly independent and nonzero.
+where $N$ is a normalisation constant. Note that in general $\braket*{\lambda_+}{\lambda_-}\neq0$, as $M$ needs not be normal \LI{prob move expr after general case}.
+% A sufficient condition for $M$ to be diagonalizable is that $\det M\neq0$, which implies that
+% $\{\braket*{H}{u^H},\braket*{V}{u^H}\}$ and
+% $\{\braket*{H}{u^V},\braket*{V}{u^V}\}$
+% are both linearly independent and nonzero \commale{I am lost in the notation here, have you defined $\ket{H}$ etc?}.
 
 \parTitle{Proof for $M$ normal}
 If $M$ is normal, then
@@ -320,49 +481,64 @@ are suitable projections such that $\mel{\gamma_\phi}{M}{\gamma_\phi}=0$.
 % \end{equation}
 
 \parTitle{Proof for general $M$}
-Given a two-dimensional $M$ with $\tr(M)=0$, provided $M\neq0$, we must always have $M^2=-\det M$. Writing its singular value decomposition as
+Given a two-dimensional $M$ with $\tr(M)=0$, provided $M\neq0$, we must always have $M^2=-\det(M) I$. Writing its singular value decomposition as
 $M=UDV^\dagger$, this implies that
 $% \begin{equation}
 	UDV^\dagger UDV^\dagger = -\det(M) I,
 $ % \end{equation}
 and therefore
 \begin{equation}
-	DV^\dagger U = -\det(M) U^\dagger V D^{-1}.
+	DV^\dagger U = -\det(M) (V^\dagger U)^\dagger D^{-1}.
 \end{equation}
-In the eigenbasis of $D$, this amounts to
+If $D=d_1\PP_1+d_2\PP_2$ and
+$V^\dagger U = \ketbra{1}{w_1} + \ketbra{2}{w_2}$, we have
 \begin{equation}
-	s_1 \ketbra{1}{w_1} + s_2 \ketbra{2}{w_2} =
-	-e^{i\phi}(s_2\ketbra{w_1}{1} + s_1\ketbra{w_2}{2}),
+	d_1 \ketbra{1}{w_1} + d_2 \ketbra{2}{w_2} =
+	-e^{i\phi}(d_2\ketbra{w_1}{1} + d_1\ketbra{w_2}{2}),
 \end{equation}
-where $\det(M)=\abs{\det(M)}e^{i\phi}$ and we observed that $\abs{\det(M)}=s_1 s_2$.
-There are then two possibilities: either $s_1=s_2$, which implies $M$ is normal, and this case was covered above, or $s_1\neq s_2$, which implies by the uniqueness of the singular value decomposition that $\ket{w_1}=\ket2$ and $\ket{w_2}=\ket1$ up to phases.
-Consequently, we have
+where $\det(M)=\abs{\det(M)}e^{i\phi}$ and we observed that $\abs{\det(M)}=d_1 d_2$.
+There are then two possibilities: either $d_1=d_2$, which implies $M$ is normal, and this case was covered above, or $d_1\neq d_2$, which implies by the uniqueness of the singular value decomposition that $\ket{w_1}=\ket2$ and $\ket{w_2}=\ket1$ up to phases.
+Consequently, we would have
 \begin{equation}
-	M = s_1 \ketbra{u_1}{v_1} + s_2 \ketbra{u_2}{v_2},
+	M = d_1 \ketbra{u_1}{v_1} + d_2 \ketbra{u_2}{v_2},
 \end{equation}
 where $\braket{u_i}{u_j}=\braket{v_i}{v_j}=\delta_{ij}$ and $\braket{u_1}{v_2}=\braket{u_2}{v_1}=0$.
 We can then use $\ket\gamma=\ket{v_i}$ as suitable projections, as $\mel{v_i}{M}{v_i}=0$.
 
-\section{Entanglement transfer in QWs}
-\label{sec:entanglement_transfer_in_QWs}
+We thus proved that, when the entanglement in the bipartition $\calH^{(1)}\otimes\calH^{(2)}$ is two-dimensional, and thus the reduced state writable as~\cref{eq:reduced_state_twodimcase}, it is always possible to find a projection $\ket\gamma$ preserving orthogonality.
+To fully satisfy the $\on{TC}_1$ condition, one then only has to verify that the projection probabilities are equal.
 
 \subsection{Analytical results}
+\label{subsec:analytical_results_QWs}
+% \commale{introduce what this subsection/section is about and how it is structured: 1 step, n steps, pairs of QW analytically but for 1 step only, pairs of QW numerically for n steps?}
+
+\parTitle{Section outline}
+In this section we show how the results of~\cref{subsec:generalsolution_firstiteration_2Dcoin} are applied to the specific quantum states resulting from coined QWs.
+As in~\cref{subsec:generalsolution_firstiteration_2Dcoin}, we first focus on the reduced state in $\calH^{(1)}$ and on its satisfying $\on{TC}_1$, to then show how to study the full system, to ensure the satisfiability of both $\on{TC}_1$ and $\on{TC}_2$.
+More specifically, we assume that the overall state is entangled with respect to the bipartition $\calH^{(1)}\otimes\calH^{(2)}$ only via its coin spaces, as in~\cref{fig:TC1_condition_scheme} and~\cref{sec:entanglement_transfer_in_QWs}, and that the initial full state has the form
+\begin{equation}
+    \sqrt{p_1} \ket{\uparrow,1}\otimes\ket{\uparrow,1} +
+    \sqrt{p_2} \ket{\downarrow,1}\otimes\ket{\downarrow,1},
+\end{equation}
+for some coefficients $p_1,p_2\ge0$ with $p_1+p_2=1$.
+Focusing on $\calH^{(1)}$, we thus see that the initial states upon which the QW operates are $\ket{\uparrow,1}$ and $\ket{\downarrow,1}$.
+
 \parTitle{Single step}
-A single step of QW with coin $C\equiv (c_{ij})_{ij}$ amounts to the evolution
+As discussed in~\cref{sec:overview}, a single QW step with coin operation  $C\equiv (c_{ij})_{ij}$ amounts to the evolution
 \begin{equation}
 \begin{aligned}
-	\ket\uparrow&\rightarrow \ket*{\Psi_\uparrow} \equiv c_{11}\ket{\uparrow,1} + c_{21}\ket{\downarrow,2}, \\
-	\ket\downarrow&\rightarrow \ket*{\Psi_\downarrow} \equiv c_{12}\ket{\uparrow,1} + c_{22}\ket{\downarrow,2}.
+	\ket{\uparrow,1} &\rightarrow \ket*{\Psi_{\uparrow,1}} \equiv c_{11}\ket{\uparrow,1} + c_{21}\ket{\downarrow,2}, \\
+	\ket{\downarrow,1} &\rightarrow \ket*{\Psi_{\downarrow,1}} \equiv c_{12}\ket{\uparrow,1} + c_{22}\ket{\downarrow,2}.
 \end{aligned}
 \end{equation}
-Projecting on the coin state $\ket\gamma$ we get
+Projecting on $\ket\gamma\equiv \gamma_\uparrow\ket\uparrow+\gamma_\downarrow\ket\downarrow$ we get
 \begin{equation}
 \begin{aligned}
-	\ket*{\psi_\uparrow} \simeq \braket*{\gamma}{\Psi_\uparrow} &= \gamma_\uparrow^*c_{11}\ket1 + \gamma_\downarrow^* c_{21}\ket2, \\
-	\ket*{\psi_\downarrow} \simeq \braket*{\gamma}{\Psi_\downarrow} &= \gamma_\uparrow^* c_{12} \ket1 + \gamma_\downarrow^* c_{22} \ket2.
+	\ket*{\psi_\uparrow} \equiv  \braket*{\gamma}{\Psi_{\uparrow,1}} &= \gamma_\uparrow^*c_{11}\ket1 + \gamma_\downarrow^* c_{21}\ket2, \\
+	\ket*{\psi_\downarrow} \equiv  \braket*{\gamma}{\Psi_{\downarrow,1}} &= \gamma_\uparrow^* c_{12} \ket1 + \gamma_\downarrow^* c_{22} \ket2.
 \end{aligned}
 \end{equation}
-The orthogonality of these states reads
+The orthogonality condition then reads
 \begin{equation}
 \begin{gathered}
 	\braket*{\psi_\uparrow}{\psi_\downarrow}
@@ -370,26 +546,28 @@ The orthogonality of these states reads
 	= |\gamma_\uparrow|^2 c_{11}^* c_{12} + |\gamma_\downarrow|^2 c_{21}^* c_{22} = 0,
 \end{gathered}
 \end{equation}
-which is satisfied by $\sqrt2\ket\gamma = \ket\uparrow + e^{i\phi}\ket\downarrow$ for any $\phi\in\RR$.
+which is satisfied if $\sqrt2\ket\gamma = \ket\uparrow + e^{i\phi}\ket\downarrow$ for any $\phi\in\RR$, consistently with~\cref{eq:definition_projgamma_2dcase}.
 The corresponding projection probabilities are both equal to $1/2$, as follows from
 \begin{equation}
 \begin{aligned}
-	2\abs{\braket{\gamma}{\Psi_\uparrow}}^2 &= |c_{11}|^2 + |c_{21}|^2 = 1, \\
-	2\abs{\braket{\gamma}{\Psi_\downarrow}}^2 &= |c_{12}|^2 + |c_{22}|^2 = 1.
+	2\abs{\braket{\gamma}{\Psi_{\uparrow,1}}}^2 &= |c_{11}|^2 + |c_{21}|^2 = 1, \\
+	2\abs{\braket{\gamma}{\Psi_{\downarrow,1}}}^2 &= |c_{12}|^2 + |c_{22}|^2 = 1.
 \end{aligned}
 \end{equation}
-We conclude that entanglement transfer is always possible with probability $1/2$.
-More precisely, if the initial state of the QW $\ket*{\Psi_{\on{in}}}$ is entangled via its coin with an external degree of freedom, as in
-\begin{equation}
-	\sqrt2\ket*{\Psi_{\on{in}}} = \ket{1,\uparrow} \otimes \ket{u_1} + \ket{1,\downarrow}\otimes \ket{u_2},
-\end{equation}
-with $\ket{u_i}$ arbitrary orthogonal states of the additional degree of freedom,
-then the entanglement can always be transferred from $\calH_{\calC}$ to $\calH_{\calW}$ with probability $1/2$.
-Remarkably, the freedom in the choice of the phase $\phi$ means that both $\sqrt2\ket\pm\equiv \ket\uparrow+\ket\downarrow$ are \emph{both} suitable projections achieving entanglement transfer.
-This result in an overall transfer success probability of $1$: both outcomes of measuring in the $\ket\pm$ basis achieve entanglement transfer, albeit with different post-measurement states.
+We conclude that $\on{TC}_1$ is always achievable for this class of states.
+% More precisely, if the initial state $\ket*{\Psi_{\on{in}}}$ of the QW  is entangled via its coin with an external degree of freedom, as in
+% \begin{equation}
+% 	\sqrt2\ket*{\Psi_{\on{in}}} = \ket{\uparrow,1} \otimes \ket{u_1} + \ket{\downarrow,1}\otimes \ket{u_2},
+% \end{equation}
+% with $\ket{u_i}$ arbitrary orthogonal states \commale{orthogonality is non-general but crucial for us, stress this?} of the additional degree of freedom,
+% then the entanglement can always be transferred from $\calH_{\calC}$ to $\calH_{\calW}$ with probability $1/2$.
+Remarkably, the freedom in the choice of the phase $\phi$ means that $\sqrt2\ket\pm= \ket\uparrow+\ket\downarrow$ (as well as any other orthonormal basis of balanced states) are \emph{both} suitable projections achieving entanglement transfer.
+This results in an overall transfer success probability of $1$: measuring in the $\ket\pm$ basis, both of the possible outcomes achieve $\on{TC}_1$, albeit with different post-projection states.
 
 \parTitle{Multiple steps}
-After multiple QW steps, the output state has the form
+Consider now the state after multiple QW steps.
+Denoting with $\calU$ the unitary evolution implemented by the QW, and assuming the initial coin states to be $\ket\uparrow$ and $\ket\downarrow$, the final reduced state on $\calH^{(1)}$ is a mixture of $\ket{\Psi_\uparrow}$ and $\ket{\Psi_\downarrow}$, where
+% \commale{same as above, fix the notation (coin as first or second argument, consistently); is the index $s$ standing for $s$-th step?}
 \begin{equation}
 \begin{aligned}
 	\ket{\Psi_s} =
@@ -398,10 +576,10 @@ After multiple QW steps, the output state has the form
 	% s\in\{\uparrow,\downarrow\}.
 \end{aligned}
 \end{equation}
-where $\theta_s$ and $\ket{\Psi_{s,p}}$ depend on the number of steps and choice of coin operators.
-To achieve entanglement transfer, we consider the matrix
-$M\equiv \tr_{\calW}(\ketbra{\Psi_\uparrow}{\Psi_\downarrow})$,
-which equals
+with $\theta_s$ and $\ket{\Psi_{s,p}}$ depending on the number of steps and choice of coin operators, and $s,p\in\{\uparrow,\downarrow\}$.
+To assess the achievability of $\on{TC}_1$ we consider, as in~\cref{subsec:generalsolution_firstiteration_2Dcoin}, the matrix
+$M\equiv \tr_{\calW}(\ketbra{\Psi_\uparrow}{\Psi_\downarrow})$.
+This has the form
 \begin{equation}\scalebox{0.97}{$\displaystyle
 	M = \begin{pmatrix}
 		\cos(\theta_\uparrow)\cos(\theta_\downarrow) \calO_{\uparrow\uparrow} &
@@ -410,22 +588,22 @@ which equals
 		\sin(\theta_\uparrow)\sin(\theta_\downarrow) \calO_{\downarrow\downarrow}
 	\end{pmatrix}.
 $}\end{equation}
-where
+with
 $\calO_{sp}\equiv\braket{\Psi_{\downarrow s}}{\Psi_{\uparrow p}}$.
-This $M$ is not in general Hermitian, nor normal. Consequently, while it is possible to find a projection $\ket\gamma$ via~\cref{eq:definition_projgamma_2dcase}, the projection probabilities are not in general equal.
-This can be fixed by either choosing coin operations which make these probabilities equal, when that is possible, or by compensating unequal projection probabilities with similar projection probabilities on the other party.
+This $M$ is not in general Hermitian, nor normal. Consequently, while it is possible to find a projection $\ket\gamma$ via~\cref{eq:definition_projgamma_2dcase}, the projection probabilities are not in general equal. \LI{numerical results on when it is}
+% This can be fixed by either choosing coin operations which make these probabilities equal, when that is possible, or by compensating unequal projection probabilities with similar projection probabilities on the other party \commale{do we show this explicitly?}.
 
 
 \parTitle{Pair of QWs}
-Up to now we focused on the transferability between coin and walker degrees of freedom of a single QW.
+% Up to now we focused on the transferability \commale{in which sense? I guess in the sense of transferability condition.} between coin and walker degrees of freedom of a single QW.
 % However, the same reasoning apply symmetrically if the additional party the first QW is entangled to is another QW.
 Consider now a pair of entangled coins (\emph{e.g.} the polarisations of a pair of photons) in an entangled state
 \begin{equation}
 	\sqrt2\ket{\Psi_{\calC}}\equiv \ket{\uparrow,\downarrow} + \ket{\downarrow,\uparrow}.
 \end{equation}
-We apply the same QW evolution on both sides, obtaining
+We apply the same QW evolution on both sides, obtaining \commale{include on LHS the walker state, that could in principle be fully generic as long as completely factorised}
 \begin{equation}
-	\sqrt2(\calU_{\on{QW}}\otimes \calU_{\on{QW}}) \ket{\Psi_{\calC}} =
+	\sqrt2(\calU_{\on{QW}}\otimes \calU_{\on{QW}}) \ket{\Psi_{\calC}}\otimes(\ket{\Psi^{(1)}_{\calW}}\otimes \ket{\Psi^{(2)}_{\calW}}) =
 	\ket{\Psi_\uparrow,\Psi_\downarrow} +
 	\ket{\Psi_\downarrow,\Psi_\uparrow}.
 \end{equation}
@@ -486,13 +664,15 @@ The entanglement transfer scheme then becomes deterministic, as any outcome of t
 % for some angle $\theta_s$ and states $\ket{\Psi^s_p}$.
 
 \subsection{Numerical Results}
+\label{subsec:numerical_results_QWs}
 
+\LI{rimarcare perché vogliamo fare tanti passi se uno è sufficiente}
 \parTitle{What do we do here and why}
-We now focus to the case of the entanglement transfer from the states of two maximally entangled qubits to two qudits states via local quantum walks routine and suitable coin projections. In the previous sections, it has been shown that this two local projectors can be found regardless the choice of the QW routines $\mathcal{U}$ and $\mathcal{V}$. Here we provide some numerical results that confirm such intuition. 
+We now focus to the case of the entanglement transfer from the states of two maximally entangled qubits to two qudits states via local quantum walks routine and suitable coin projections. In the previous sections, it has been shown that this two local projectors can be found regardless the choice of the QW routines $\mathcal{U}$ and $\mathcal{V}$. Here we provide some numerical results that confirm such intuition \commale{why intuition, wasn't it a proof?}. 
 Given a basis $b = \{\ket{\gamma_0},\ket{\gamma_1}\}$ for the coin degree of freedom, consider the associated projectors
 $\PP_{ij}\equiv \ketbra{\gamma_i}\otimes\ketbra{\gamma_j}$. 
 For an input state of the two quantum walks of the form
-$\ket{\Psi^{in}}=\frac{1}{\sqrt{2}}(\ket{\uparrow,\downarrow}+\ket{\downarrow,\uparrow})\otimes \ket{0,0}$ we obtain as output
+$\ket{\Psi^{in}}=\frac{1}{\sqrt{2}}(\ket{\uparrow,\downarrow}+\ket{\downarrow,\uparrow})\otimes \ket{0,0}$ \commale{make notation consistent} we obtain as output
 $\ket{\Psi^{out}}=\alpha\ket{\Psi_\uparrow\Psi_\downarrow}+\beta\ket{\Psi_\downarrow\Psi_\uparrow}$. Applying the projectors $\PP_{ij}$ to the final state we get
 we get
 \begin{equation}
@@ -506,8 +686,8 @@ we get
 \parTitle{Case with same QW on both sides}
 In Fig. \ref{fig:10steps_results} we report the log-negativity $\mathcal{N}$ and the associated projection probabilities expressed in terms of the parameters that defines the basis $b$. The state has been expressed as $\ket{\gamma_0}\equiv\cos{\frac{\theta}{2}} \ket{\uparrow}+ 
  \mathrm{e}^{\mathrm{i}\phi}\sin{\frac{\theta}{2}}\ket{\downarrow}$ and $\gamma_1$ as the orthogonal,
-where $\theta \in [0, \pi ]$ and $\phi \in [0, 2\pi]$. In this simulations we consider for simplicity two identical Hadamard QWs, i.e biased coin operators, of 10 steps. It is worth to note that it possible to find regions with high projection probability and log-negativity. Here the maximum value reachable is fixed by the initial state, which has log-negativity 1. The projection probabilities of such two-qudit states in eq.\eqref{eq:qudit_ent} can be even bigger than the values reported in Fig.\ref{fig:10steps_results}c-d, since the projectors $\PP_{11}$ and $\PP_{10}$ generates states with the same log-negativity reported in Fig.\ref{fig:10steps_results}.
-Equivalent results can be retrieved for any QWs and number of steps, confirming the results of the analytical description. 
+where $\theta \in [0, \pi ]$ and $\phi \in [0, 2\pi]$. In this simulations we consider for simplicity two identical Hadamard QWs, i.e biased coin operators, of 10 steps \commale{why are we doing this if 1 step is sufficient for complete transfer? Don't we actually loose from this, in terms of probability}. It is worth to note that it possible to find regions with high projection probability and log-negativity. Here the maximum value reachable is fixed by the initial state, which has log-negativity 1. The projection probabilities of such two-qudit states in eq.\eqref{eq:qudit_ent} can be even bigger than the values reported in Fig.\ref{fig:10steps_results}c-d, since the projectors $\PP_{11}$ and $\PP_{10}$ generates states with the same log-negativity reported in Fig.\ref{fig:10steps_results}.
+Equivalent results can be retrieved for any QWs and number of steps, confirming the results of the analytical description \commale{``confirming'' in which sense?}. 
 
 
 %We firstly investigate, as in the previous section, the case %$U_1 = U_2$ with Hadamard QW. The states in %\eqref{eq:prj_state_a} and \eqref{eq:prj_state_d} can be %rewritten as $\alpha \ket{\psi_a \psi_b} + \beta \ket{\psi_b %\psi_a}$, since only two type of qudits can be obtained.
@@ -526,7 +706,7 @@ Equivalent results can be retrieved for any QWs and number of steps, confirming 
 \label{sec:entanglement_accumulation}
 
 \parTitle{Section overview}
-Here we investigate whether the entanglement transfer procedure can be applied iteratively, in order to concentrating more and more entanglement into the walker degree of freedom.
+Here we investigate whether the entanglement transfer procedure can be applied iteratively, accumulating more and more entanglement into the walker degree of freedom.
 For the purpose, after each successful entanglement transfer stage, which produces a state of the form
 \begin{equation}
 	\ket{\Psi}_{\calW}\otimes(\ket{\gamma_1}\otimes\ket{\gamma_2})_{\calC},
@@ -549,7 +729,7 @@ We thus have a state of the form
 \end{equation}
 for some walker states $\ket{\psi_i}$ with $\braket{\psi_i}{\psi_j}=\delta_{ij}$.
 Note that we are assuming here for simplicity that the coins have been projected onto $\ket\uparrow$, and that the post-selected walker states form a singlet.
-While this is not generally the case, we can always formally describe the states this way, up to some relabelling.
+While this is not generally the case, we can always formally describe the states this way, up to some relabelling \commale{for the coin part I agree (in fact, I guess it does not matter at all), for the walker part, this is an assumption, which however is based on the fact that analytically for 1-step/1-projection is true as proven analytically, am I right?}. 
 
 \parTitle{Entanglement accumulation, problem statement}
 Suppose we can now re-entangle the coin states $\calH^{(i)}_{\calC}$. Can we perform another round of QW evolutions to transfer even more entanglement into the walkers?
@@ -592,9 +772,9 @@ $\mel{\gamma}{\calU}{\psi_i}$ to be orthogonal with each other, that is,
 \begin{equation}
 	\mel{\psi_i}{\calU^\dagger(\PP_\gamma\otimes I_{\calW})\calU}{\psi_j} = p \delta_{ij}.
 \end{equation}
-Clearly, this can only be satisfied for suitable choices of $\calU$ and $\ket{\psi_i}$. In particular, the dimension of $\calU$ must be such that even after the projection there are dimensions to accommodate the required number of orthogonal states.
-\highlight{(Non mi è chiarissimo cosa intendi per n) This, in particular, means that if the entanglement dimension of a state is $n$, and we want to merge the entanglement of an additional Bell state into it, $\calU$ must have dimension at least $4n$ (because there must be at least $2n$ dimensions \emph{after} the projection).}
-The dimension of the local unitaries $\calU$ must therefore increases exponentially with the number of iterations as in the QW framework, if one were to hope adding a new ebit of entanglement with each one.
+Clearly, this can only be satisfied for suitable choices of $\calU$ and $\ket{\psi_i}$. In particular, the dimension of $\calU$ must be such that even after the projection the residual space is sufficiently large to accommodate the required number of orthogonal states.
+This, in particular, means that if the entanglement dimension of a state is $n$, and we want to merge the entanglement of an additional Bell state into it, $\calU$ must have dimension at least $4n$ (because there must be at least $2n$ dimensions \emph{after} the projection).
+The dimension of the local unitaries $\calU$ must therefore increases exponentially with the number of iterations as in the QW framework, if one is to hope adding a new ebit of entanglement at every step.
 
 
 % \parTitle{Explicit calculation QWs}
@@ -617,7 +797,12 @@ The dimension of the local unitaries $\calU$ must therefore increases exponentia
 % It is clear \highlight{(is it?)} that after a further coin projection, the whole state will collapse in a superposition of four terms with at least four different qudits states involved.
 % Due to the high-dimension of the two walkers position, we can generate states in which the four qudits in the superposition are mutually orthogonal.
 \parTitle{Scaling of negativity}
-Consider a state $\ket{q} = \frac{1}{\sqrt{n_q}}\sum_{s =1}^{n_q} \ket{ss}$, where $\ket{s}$ are a set of orthornormal states for the two-walker space. The negativity of such state scales with respect to the dimension $n_q$ as $\log_2(n_q + 1)$. According to such intuition we expect that the maximum negativity of the output state of QWs after $N_i$ iterations of entanglement transfer via proper coin projection, could be $\mathcal{N}^{Max} =\log_2( 2^{N_i-1}+1)$. In such condition the number of orthogonal states in the output grows as $2^{N_i-1}$. This can be verified by comparing the state in \eqref{eq:qudit_ent} after one iteration, and the state after two iterations in eq.~\eqref{eq:accum}.
+The negativity of a maximally entangled state in $N$ dimensions, $\sum_{k=1}^N \ket{k,k}$, equals $\calN = \log_2(N+1)$.
+% Consider a state $\ket{q} = \frac{1}{\sqrt{n_q}}\sum_{s =1}^{n_q} \ket{ss}$, where $\ket{s}$ are a set of orthornormal states for the two-walker space.
+% The negativity of such state scales with respect to the dimension $n_q$ as $\log_2(n_q + 1)$.
+According to such intuition we expect that the maximum negativity of the output state of QWs after $N_i$ iterations of entanglement transfer via proper coin projection, could be $\mathcal{N}^{Max} =\log_2( 2^{N_i-1}+1)$.
+In ideal entanglement transfer conditions, iterating the entanglement transfer protocol $m$ times, we should therefore expect a final negativity of $\log_2(2^{m})=m$
+In such condition the number of orthogonal states in the output grows as $2^{N_i-1}$. This can be verified by comparing the state in \eqref{eq:qudit_ent} after one iteration, and the state after two iterations in eq.~\eqref{eq:accum}.
 
 \parTitle{Numerical results \label{transfer}}
 In~\cref{fig:entanglement_accumulation_numerical_results}a we report numerical results on the scaling of the negativity for different numbers of iterations.
@@ -628,14 +813,20 @@ We find that in this condition the optimal curve $\mathcal{N}^{Max}$ is not satu
 In the histograms in~\cref{fig:entanglement_accumulation_numerical_results}b we report the distributions of the state negativity after two iterations of entanglement transfer. In the first iteration the QWs are identical with Hadamard coins. For the next iteration we sample 500 coin operators to be applied at each step of the two local QWs.
 It is possible to find QW unitaries that saturates the maximum state negativity for two iteration set to 2. Furthermore it seems easier to find this unitaries by considering higher number of steps (see~\cref{fig:entanglement_accumulation_numerical_results}b). The latter result is not surprising, since with many steps we cover higher-dimensional Hilbert spaces and, consequently, it is easier to produce four mutually orthogonal qudits.
 
+\commale{would it be possible to go beyond 2 iterations, optimizing the QW unitary, to get the maximal entanglement accumulation?}
+
 \parTitle{Conclusions?}
 
 \begin{figure}[tb]
 	\centering
     \includegraphics[width = \columnwidth]{figures/entanglement_accumulation_results.pdf}
     \caption{\textbf{Entanglement accumulation}
-    a) State negativity for different iterations of the entanglement transfer protocol. Both parties evolve according to identical Hadamard QWs, for $N=\{1,3,5,7,10\}$ steps. From such simulation seems that the optimal transfer of one ebit per iteration cannot be reached. However, relaxing the need to have same unitaries at each iteration, the optimal scaling can be obtained. b) Histograms for two iterations of entanglement transfer protocol (the first with two identical Hadamard QWs), for $N=3,5, 7$ QW steps. 
-    Each histograms represent the distribution of $500$ random extracted coin operators for individuating the QW unitary to apply to the two walkers in the state $\ket{\Psi^{0(1)}}$. We observe that it is possible to find unitary operations for the second entanglement transfer which allows to saturate the bound of 2 ebit of entanglement. In particular histograms tend to pick towards 2 with increasing number of steps. All the calculations were performed considering coin projection of type $\PP_{00}$.
+    \textbf{a)} Negativity for different iterations of the entanglement transfer protocol. Both parties evolve according to identical Hadamard QWs, for $N=1,3,5,7,10$ steps. From such simulation seems that the optimal transfer of one ebit per iteration cannot be reached. However, allowing for different unitaries at each iteration, the optimal scaling is recovered.
+    \LI{maybe redo figure using $2^n$ steps for $n$ iterations.}
+    \textbf{b)} Histograms for two iterations of entanglement transfer protocol (the first with two identical Hadamard QWs), for $N=3,5, 7$ QW steps \LI{why not both random?}. 
+    Each histograms represent the distribution of $500$ random extracted coin operators \LI{are the coin ops randomly sampled at each step, or does each tested QW use the same coin op at all steps?} for individuating the QW unitary to apply to the two walkers in the state $\ket{\Psi^{0(1)}}$. We observe that it is possible to find unitary operations for the second entanglement transfer which allows to saturate the bound of 2 ebit of entanglement. In particular histograms tend to pick towards 2 with increasing number of steps. All the calculations were performed considering coin projection of type $\PP_{00}$.
+    \LI{potrebbe essere utile avere evidenza numerica per più step}
+    \LI{the labels in the legend are out of order}
     }
     \label{fig:entanglement_accumulation_numerical_results}
 \end{figure}
